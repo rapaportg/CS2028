@@ -8,51 +8,58 @@
 
 using namespace std;
 
-<<<<<<< HEAD
-// get file name and check to see if it exists
-string getfilename() {
+
+//  string getFileName()  get file name and check if it exist. if so return filename.
+string getfilename() 
+{
 
 
 }
 
-// read file, print: (on rubric)
-void printBookInfo(fstream file) {
+// void printBooKInfo(fstream file) reads file, print: title, authors name, and line count
+void printBookInfo(fstream file) 
+{
 
 
 }
 
-// 
-void printWordCount(fstream file) {
+// void printWordCount(fstreamd file) read file, print word count, returns word count
+void printWordCount(fstream file)
+{
+    
     
 }
 
-//
-
-
-//
-
-
-//
-
-
-=======
-
-//  string getFileName()  get file name and check if it exist. if so return filename.
-
-// void printBooKInfo(fstream file) reads file, print: title, authors name, and line count
-
-// void printWordCount(fstream file) read file, print word count, returns word count
-
 // float[] findLetterFreq(fstream file) letter frequency, array[26] read pdf return array
+float[] findLetterFreq(fstream file) 
+{
+
+}
 
 // void putLetterFreq(array[] x) print letter frequency array 
+void putLetterFreq(array[] x) 
+{
+
+}
 
 // bool isUpper(char c). returns bool
+bool isUpper(char c) 
+{
 
-// bool catelogExist("CardCatalog.txt") if not make it.
+}
 
-// void printToCatelog(story x). added story entry to catelog.
->>>>>>> f76da0a56f8d3c9548d4082ea3c404e398800e6d
+// bool catalogExist("CardCatalog.txt") if not make it.
+bool catalogExist() 
+{
+    string filename = "CardCatalog.txt";
+}
+
+// void printToCatalog(story x). added story entry to catelog.
+void printToCatalog(story x)
+{
+
+}
+
 
 /*
 string enterFile()
