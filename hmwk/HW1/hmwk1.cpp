@@ -9,7 +9,7 @@
 using namespace std;
 
 
-//  string getFileName()  get file name and check if it exist. if so return filename.
+// string getFileName()  get file name and check if it exist. if so return filename.
 
 // void printBooKInfo(fstream file) reads file, print: title, authors name, and line count
 
