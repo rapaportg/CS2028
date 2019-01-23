@@ -2,12 +2,13 @@
 #include <string.h>
 #include <iomanip>
 #include <fstream>
-#include <ifstream>
+#include <ifstream">
 #include <iostream>
 #include <vector>
 
 using namespace std;
 
+/*
 string enterFile()
 {
     bool check = false;
@@ -68,3 +69,4 @@ int main(void)
     cout << wordcount << endl;
     return 0;
 }
+*/
