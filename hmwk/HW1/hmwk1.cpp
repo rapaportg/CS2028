@@ -2,7 +2,10 @@
 #include <string.h>
 #include <iomanip>
 #include <fstream>
+<<<<<<< HEAD
 #include <ifstream>
+=======
+>>>>>>> 24e5e1ab6c3cd6af66e7b89044563675c8496cd3
 #include <iostream>
 #include <vector>
 
@@ -12,7 +15,19 @@ using namespace std;
 //  string getFileName()  get file name and check if it exist. if so return filename.
 string getFileName() 
 {
+    bool check = false;
+    string filename;
+    fstream infile;
 
+    while (!check)
+    {
+        cout << "Enter the file to be read: " << endl;
+        cin >> filename;
+        //infile(filename);
+        check = infile.good();
+    }
+    infile.close();
+    return filename;
 
 }
 
@@ -38,13 +53,13 @@ void printWordCount(string filename)
 }
 
 // float[] findLetterFreq(fstream file) letter frequency, array[26] read pdf return array
-float[] findLetterFreq(fstream file) 
+story findLetterFreq(fstream file) 
 {
 
 }
 
 // void putLetterFreq(array[] x) print letter frequency array 
-void putLetterFreq(array[] x) 
+void putLetterFreq(story x) 
 {
 
 }
@@ -67,6 +82,13 @@ void printToCatalog(story x)
 
 }
 
+int main()
+{
+    string temp;
+    temp = getFileName();
+    cout << temp << endl;
+    return 0;
+}
 
 /*
 string enterFile()
