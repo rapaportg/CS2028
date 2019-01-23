@@ -2,28 +2,82 @@
 #include <string.h>
 #include <iomanip>
 #include <fstream>
-#include <ifstream">
 #include <iostream>
 #include <vector>
 
 using namespace std;
 
 
-// string getFileName()  get file name and check if it exist. if so return filename.
+//  string getFileName()  get file name and check if it exist. if so return filename.
+string getFileName() 
+{
+    bool check = false;
+    string filename;
+    fstream infile;
+
+    while (!check)
+    {
+        cout << "Enter the file to be read: " << endl;
+        cin >> filename;
+        //infile(filename);
+        check = infile.good();
+    }
+    infile.close();
+    return filename;
+
+}
 
 // void printBooKInfo(fstream file) reads file, print: title, authors name, and line count
+void printBookInfo(fstream file) 
+{
 
-// void printWordCount(fstream file) read file, print word count, returns word count
+
+}
+
+// void printWordCount(fstreamd file) read file, print word count, returns word count
+void printWordCount(fstream file)
+{
+    
+    
+}
 
 // float[] findLetterFreq(fstream file) letter frequency, array[26] read pdf return array
+story findLetterFreq(fstream file) 
+{
+
+}
 
 // void putLetterFreq(array[] x) print letter frequency array 
+void putLetterFreq(story x) 
+{
+
+}
 
 // bool isUpper(char c). returns bool
+bool isUpper(char c) 
+{
 
-// bool catelogExist("CardCatalog.txt") if not make it.
+}
 
-// void printToCatelog(story x). added story entry to catelog.
+// bool catalogExist("CardCatalog.txt") if not make it.
+bool catalogExist() 
+{
+    string filename = "CardCatalog.txt";
+}
+
+// void printToCatalog(story x). added story entry to catelog.
+void printToCatalog(story x)
+{
+
+}
+
+int main()
+{
+    string temp;
+    temp = getFileName();
+    cout << temp << endl;
+    return 0;
+}
 
 /*
 string enterFile()
