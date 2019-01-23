@@ -11,7 +11,7 @@ struct story
     string authorF;
     string authorL;
     int word_count;
-    float letter_freq[26];
+    float letterFreq[26];
     int linecount;
 };
 

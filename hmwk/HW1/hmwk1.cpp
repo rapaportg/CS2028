@@ -8,6 +8,7 @@
 
 using namespace std;
 
+<<<<<<< HEAD
 // get file name and check to see if it exists
 string getfilename() {
 
@@ -34,6 +35,24 @@ void printWordCount(fstream file) {
 //
 
 
+=======
+
+//  string getFileName()  get file name and check if it exist. if so return filename.
+
+// void printBooKInfo(fstream file) reads file, print: title, authors name, and line count
+
+// void printWordCount(fstream file) read file, print word count, returns word count
+
+// float[] findLetterFreq(fstream file) letter frequency, array[26] read pdf return array
+
+// void putLetterFreq(array[] x) print letter frequency array 
+
+// bool isUpper(char c). returns bool
+
+// bool catelogExist("CardCatalog.txt") if not make it.
+
+// void printToCatelog(story x). added story entry to catelog.
+>>>>>>> f76da0a56f8d3c9548d4082ea3c404e398800e6d
 
 /*
 string enterFile()
