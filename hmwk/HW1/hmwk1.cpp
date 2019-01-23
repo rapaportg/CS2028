@@ -9,18 +9,21 @@
 using namespace std;
 
 
-// get file name and check if it exist. if so return filename.
+//  string getFileName()  get file name and check if it exist. if so return filename.
 
+// void printBooKInfo(fstream file) reads file, print: title, authors name, and line count
 
-// reads file, print: title, authors name, and line count
+// void printWordCount(fstream file) read file, print word count, returns word count
 
-// read file, print word count, returns word count
+// float[] findLetterFreq(fstream file) letter frequency, array[26] read pdf return array
 
-// letter frequency, array[26] read pdf return array
-
-// print letter frequency array 
+// void putLetterFreq(array[] x) print letter frequency array 
 
 // bool isUpper(char c). returns bool
+
+// bool catelogExist("CardCatalog.txt") if not make it.
+
+// void printToCatelog(story x). added story entry to catelog.
 
 /*
 string enterFile()
