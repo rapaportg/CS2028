@@ -31,13 +31,12 @@ string getFileName() // DONE
 }
 
 // void printBooKInfo(fstream file) reads file, print: title, authors name, and line count
-void printBookInfo(string fileName, struct story* book) 
+void printBookInfo(string fileName, struct story* book) //DONE
 {
     string temp;
     char tmp;
     char tmp2;
     fstream file;
-    //story book;
     int linecount = 0;
     int wordcount = 0;
 
@@ -76,21 +75,33 @@ void printBookInfo(string fileName, struct story* book)
 
 }
 
-// void printWordCount(fstreamd file) read file, print word count, returns word count
-void printWordCount(string filename)
-{
-    
-    
-}
-
 // float[] findLetterFreq(fstream file) letter frequency, array[26] read pdf return array
-story findLetterFreq(string filename) 
+void findLetterFreq(string filename, struct story* book) 
 {
+    fstream file;
+    char ch;
+    int index;
 
+    file.open(filename, ios::in);
+    while (!file.eof())
+    {
+        file.get(ch);
+        if (isUpper(ch))
+        {
+            index = ch - 'A';
+        }
+        else
+        {
+            index = ch - 'a';
+        }
+        (*book).letterFreq[index]++;
+
+    }
+    file.close();
 }
 
 // void putLetterFreq(array[] x) print letter frequency array 
-void putLetterFreq(story x) 
+void putLetterFreq(struct story* book) 
 {
 
 }
