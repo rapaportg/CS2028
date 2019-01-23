@@ -2,7 +2,7 @@
 #include <string.h>
 #include <iomanip>
 #include <fstream>
-#include <ifstream">
+#include <ifstream>
 #include <iostream>
 #include <vector>
 
@@ -10,7 +10,7 @@ using namespace std;
 
 
 //  string getFileName()  get file name and check if it exist. if so return filename.
-string getfilename() 
+string getFileName() 
 {
 
 
@@ -24,9 +24,16 @@ void printBookInfo(fstream file)
 }
 
 // void printWordCount(fstreamd file) read file, print word count, returns word count
-void printWordCount(fstream file)
+void printWordCount(string filename)
 {
-    
+    fstream file;
+    file.open(filename,ios::in);
+
+    while (!file.eof())
+    {
+        getline(file, line);
+        
+    }
     
 }
 
