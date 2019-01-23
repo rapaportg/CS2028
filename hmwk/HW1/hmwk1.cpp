@@ -8,6 +8,20 @@
 
 using namespace std;
 
+
+// get file name and check if it exist. if so return filename.
+
+
+// reads file, print: title, authors name, and line count
+
+// read file, print word count, returns word count
+
+// letter frequency, array[26] read pdf return array
+
+// print letter frequency array 
+
+// bool isUpper(char c). returns bool
+
 /*
 string enterFile()
 {
