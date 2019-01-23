@@ -78,24 +78,39 @@ void printBookInfo(string fileName, struct story* book) //DONE
 // float[] findLetterFreq(fstream file) letter frequency, array[26] read pdf return array
 void findLetterFreq(string filename, struct story* book) 
 {
+    //cout << "A\n";
+
     fstream file;
     char ch;
-    int index;
+    unsigned int index = 25;
 
+    file.open(filename, ios::in);
+    while (index--)
+    {
+        (*book).letterFreq[index] = 0;
+    }
+    file.close();
+    //cout << "B\n";
     file.open(filename, ios::in);
     while (!file.eof())
     {
         file.get(ch);
-        if (isUpper(ch))
+        if (isUpper(ch) && !isPunct(ch) && ch != '\n')
         {
             index = ch - 'A';
+            //cout << index << endl;
+            (*book).letterFreq[index] = (*book).letterFreq[index] + 1;
         }
-        else
+        else if (!isPunct(ch) && ch != '\n')
         {
             index = ch - 'a';
+            //cout << index << endl;
+            (*book).letterFreq[index] = (*book).letterFreq[index] + 1;
         }
-        (*book).letterFreq[index]++;
-
+        //cout << "C\n";
+        
+        
+       // cout << ch << endl;
     }
     file.close();
 }
@@ -103,6 +118,22 @@ void findLetterFreq(string filename, struct story* book)
 // void putLetterFreq(array[] x) print letter frequency array 
 void putLetterFreq(struct story* book) 
 {
+    int i = 26;
+    int letterSum = 0;
+    char letter;
+
+    while (--i)
+    {
+        letterSum += (*book).letterFreq[i]; 
+    }
+
+    cout << endl << (*book).title << " letter frequency:\n";
+    while (i < 26)
+    {   
+        letter = 'a' + i;
+        cout << letter << ": " << ((*book).letterFreq[i]/letterSum) * 100 << "%" << endl;
+        ++i;
+    }
 
 }
 
@@ -112,6 +143,11 @@ bool isUpper(char c)
     if (c >= 'A' && c <= 'Z')
         return true;
     return false;
+}
+
+bool isPunct(char c)
+{
+    return ((c >= 32 && c <= 63) || (c >= 91 && c <= 94));
 }
 
 // bool catalogExist("CardCatalog.txt") if not make it. DONE
@@ -134,7 +170,11 @@ int main()
     string temp;
     temp = getFileName();
     printBookInfo(temp, &book);
-    cout << catalogExist() << endl;
-    cout << temp << endl;
+    findLetterFreq(temp, &book);
+    //cout << catalogExist() << endl;
+    //cout << temp << endl;
+    
+    
+    putLetterFreq(&book); // add ask function
     return 0;
 }

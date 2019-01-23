@@ -21,6 +21,7 @@ void printWordCount(string filename);
 story findLetterFreq(string filename);
 void putLetterFreq(story x);
 bool isUpper(char c);
+bool isPunct(char c);
 inline bool catalogExist();
 void printToCatalog(story x);
 
