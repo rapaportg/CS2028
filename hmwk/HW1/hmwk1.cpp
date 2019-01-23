@@ -8,6 +8,33 @@
 
 using namespace std;
 
+// get file name and check to see if it exists
+string getfilename() {
+
+
+}
+
+// read file, print: (on rubric)
+void printBookInfo(fstream file) {
+
+
+}
+
+// 
+void printWordCount(fstream file) {
+    
+}
+
+//
+
+
+//
+
+
+//
+
+
+
 /*
 string enterFile()
 {
