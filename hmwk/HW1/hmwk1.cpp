@@ -270,6 +270,7 @@ void    existInCatalog(struct story* book)
 
 int main()
 {
+    char check;
     story book;
     string filename;
     filename = getFileName();
@@ -281,7 +282,11 @@ int main()
     //catalogExist();
     existInCatalog(&book);
     //printToCatalog(&book);
-    
-    putLetterFreq(&book); // add ask function
+
+    cout << "Would you like to see the letter frequency? Y/N\n";
+    cin >> check;
+
+    if (check == 'Y')
+        putLetterFreq(&book);
     return 0;
 }

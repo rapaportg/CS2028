@@ -24,5 +24,8 @@ bool isUpper(char c);
 bool isPunct(char c);
 inline bool catalogExist();
 void printToCatalog(story x);
+void existInCatalog(struct story* book);
+string str_clean(string str);
+
 
 #endif
