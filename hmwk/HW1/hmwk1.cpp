@@ -123,7 +123,7 @@ void    putLetterFreq(struct story* book) //DONE
     while (i < 26)
     {   
         letter = 'a' + i;
-        cout << letter << ": " << ((*book).letterFreq[i]/letterSum) * 100 << "%" << endl;
+        cout << letter << ": " << ((*book).letterFreq[i]/(letterSum)) * 100 << "%" << endl;
         ++i;
     }
 }
@@ -211,6 +211,8 @@ string str_clean(string str)
     {
         tmp[j++] = str[i++];
     }
+
+
     return tmp;
 }
 
@@ -229,6 +231,7 @@ void    existInCatalog(struct story* book)
 
     infile.open("CardCatalog.txt", ios::in);
     
+    /*
     while(!infile.eof() && catalogExist())
     {
         getline(infile, temp1);
@@ -255,6 +258,7 @@ void    existInCatalog(struct story* book)
             getline(infile, temp3);
         }
     }
+    */
     infile.close();
     if (check == true)
         printToCatalog(book);
