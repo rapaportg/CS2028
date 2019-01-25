@@ -1,5 +1,5 @@
 // This is Lab 1
-// Group Members: Lando Slack, Gabe Rapaport, Kurt Schmid(?)
+// Group Members: Lando Slack, Gabe Rapaport, Kurt Schmidt
 // This code was copied from course textbook source code (Tony Gaddis, Pr 8-6)
 
 
