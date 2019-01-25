@@ -2,10 +2,6 @@
 #include <string.h>
 #include <iomanip>
 #include <fstream>
-<<<<<<< HEAD
-#include <ifstream>
-=======
->>>>>>> 24e5e1ab6c3cd6af66e7b89044563675c8496cd3
 #include <iostream>
 #include <vector>
 
