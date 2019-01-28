@@ -2,9 +2,9 @@
 
 Group Member: Gabriel Rapaport, Lando Slack, Kurt Shmidt.
 
-Gabriel Rapaport: 100%
-Lando Slack: 100%
-Kurt Shmidt: 100% 
+Gabriel Rapaport: 100%,
+Lando Slack: 100%,
+Kurt Shmidt: 100%,
 
 We all worked on the Homework together. 
 
@@ -26,6 +26,3 @@ In project file, run below to build
 	
 Then to run,
 	`./a.out` 
-
-
-**In Visual studio**
