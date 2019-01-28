@@ -161,8 +161,8 @@ void    printToCatalog(struct story* book) //DONE
 {
     fstream outfile;
 
-    outfile.open("CardCatalog.txt", ios::in | ios::out);
-    outfile.seekp(0, std::ios_base::end);
+    outfile.open("CardCatalog.txt", ios::app);
+    //outfile.seekp(0, std::ios_base::end);
     outfile << "Title: " << book->title << endl << "Full Author: " << book->author << endl;
     outfile << "Author First Name: " << book->authorF << endl << "Author Last Name: " << book->authorL << endl;
     outfile << "Word count : " << book->wordcount << endl << "Line count: " << book->linecount << endl << endl;
@@ -276,17 +276,11 @@ int main()
     filename = getFileName();
     printBookInfo(filename, &book);
     findLetterFreq(filename, &book);
-    //cout << catalogExist() << endl;
-    //cout << temp << endl;
-
-    //catalogExist();
     existInCatalog(&book);
-    //printToCatalog(&book);
-
     cout << "Would you like to see the letter frequency? Y/N\n";
     cin >> check;
 
-    if (check == 'Y')
+    if (check == 'Y' || check == 'y')
         putLetterFreq(&book);
     return 0;
 }
