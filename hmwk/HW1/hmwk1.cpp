@@ -271,6 +271,10 @@ void    existInCatalog(struct story* book)
 int main()
 {
     char check;
+    char check2;
+
+    do
+    {
     story book;
     string filename;
     filename = getFileName();
@@ -282,5 +286,10 @@ int main()
 
     if (check == 'Y' || check == 'y')
         putLetterFreq(&book);
+
+    cout << "\nWould you like to add another book? Y/N\n";
+    cin >> check2;
+    }while(check == 'Y' || check2 == 'y');
+
     return 0;
 }
