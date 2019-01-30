@@ -1,9 +1,7 @@
 #include "hw1.h"
 #include <string.h>
-#include <iomanip>
 #include <fstream>
 #include <iostream>
-#include <vector>
 
 using namespace std;
 
