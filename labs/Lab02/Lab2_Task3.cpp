@@ -42,6 +42,7 @@ string getFileName(int rw) // rw- for read = 0, For write = 1
     return (filename);
 }
 
+// makes test file
 void writeInventory(string outfilename, Inventory i)
 {
     string tmp;
@@ -71,6 +72,7 @@ string getWantedInfileStr(fstream *infile)
     return tmp_str;
 }
 
+// checks to see to there are enough lines and sections for the required input parameter
 int checkInfileFormat(string infilename)
 {
     string tmp;
@@ -101,8 +103,6 @@ int main()
     int j = 0;
     
     // I got lazy and didnt feel like making a test file by hand
-    
-
     cout << "Need a test file? Y/N: ";
     cin >> lazyF;
     if (lazyF == 'Y')
