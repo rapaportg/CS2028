@@ -163,7 +163,7 @@ void    printToCatalog(struct story* book) //DONE
     //outfile.seekp(0, std::ios_base::end);
     outfile << "Title: " << book->title << endl << "Full Author: " << book->author << endl;
     outfile << "Author First Name: " << book->authorF << endl << "Author Last Name: " << book->authorL << endl;
-    outfile << "Word count : " << book->wordcount << endl << "Line count: " << book->linecount << endl << endl;
+    outfile << "Word count: " << book->wordcount << endl << "Line count: " << book->linecount << endl << endl;
     outfile.close();
 }
 
