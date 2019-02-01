@@ -97,4 +97,8 @@ Purus suspendisse venenatis nisl.
 Torquent tristique gravida tempor.
 Natoque egestas habitant aliquet.
 Ullamcorper cum nisi placerat. Pretium.
-Habitant convallis vel habitant
+Habitant convallis vel habitantID: 1234
+Units: 2
+Price: 34.99
+Description: A box with a blue button
+TaxExempt: 1

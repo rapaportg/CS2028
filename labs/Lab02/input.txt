@@ -1,0 +1,54 @@
+ID: 1234
+Units: 2
+Price: 34.99
+Description: A box with a blue button
+TaxExempt: True
+
+ID: 1233
+Units: 1
+Price: 54.95
+Description: Rick Sanchez bobble head
+TaxExempt: False
+
+ID: 1221
+Units: 24
+Price: 1000.99
+Description: Mr. PoopyHead
+TaxExempt: True
+
+ID: 1234
+Units: 2
+Price: 34.99
+Description: A box with a blue button
+TaxExempt: True
+
+ID: 1233
+Units: 1
+Price: 54.95
+Description: Rick Sanchez bobble head
+TaxExempt: False
+
+ID: 1221
+Units: 24
+Price: 1000.99
+Description: Mr. PoopyHead
+TaxExempt: True
+
+ID: 1234
+Units: 2
+Price: 34.99
+Description: A box with a blue button
+TaxExempt: True
+
+ID: 1233
+Units: 1
+Price: 54.95
+Description: Rick Sanchez bobble head
+TaxExempt: False
+
+ID: 1221
+Units: 24
+Price: 1000.99
+Description: Suck a Cucumber
+TaxExempt: True
+

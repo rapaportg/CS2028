@@ -11,7 +11,7 @@ string getFileName(int rw) // rw- for read = 0, For write = 1
     string filename;
     bool check;
 
-    if (rw == 0) // for task 1
+    if (rw == 0) // for read
     {
         do
         {
@@ -26,7 +26,7 @@ string getFileName(int rw) // rw- for read = 0, For write = 1
             file.close();
         } while(!check);
     }
-    else if (rw == 1) // for task 2
+    else if (rw == 1) // for write
     {
         cout << "\nEnter the name of the File  (Q to quit): \n";
         cin >> filename;
