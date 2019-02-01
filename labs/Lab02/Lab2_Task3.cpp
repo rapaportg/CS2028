@@ -79,13 +79,14 @@ int checkInfileFormat(string infilename)
 
     infile.open(infilename, ios::in);
     while (!infile.eof())
-    {  
-        i++; 
-        getline(infile, tmp);
-        if (tmp == " " && i % 5 != 0)
-            return 0;
+    {
+        i++;
+        getline(infile, tmp);  
     }
-    return (i / 5);
+    if (i / 6 == 9)
+        return i;
+    else 
+        return 0;
 }
 
 int main()
@@ -93,24 +94,37 @@ int main()
     string outfilename;
     string infilename;
     string tmp;
+    char lazyF;
     fstream infile;
     Inventory i[9];
     int count;
     int j = 0;
     
     // I got lazy and didnt feel like making a test file by hand
-    /* 
-    Inventory thing[3] = {  {1234, 2, 34.99, tmp, true},
-                            {1233, 001, 54.95, "Rick Sanchez bobble head", false},
-                            {1221, 030, 1000.99, "Mr. PoopyHead", true}};
-    int i = 0;
-    outfilename = getFileName(1);
-    while (i < 3)
+    
+
+    cout << "Need a test file? Y/N: ";
+    cin >> lazyF;
+    if (lazyF == 'Y')
     {
-        writeInventory(outfilename, thing[i]);
-        i++;
+        Inventory thing[9] = {  {1234, 2, 34.99, "I am Number 1", true},
+                                {1233, 001, 54.95, "Rick Sanchez bobble head", false},
+                                {1221, 030, 1000.99, "Mr. PoopyHead", true},
+                                {1233, 001, 54.95, "Rick Sanchez bobble head", false},
+                                {1221, 030, 1000.99, "Mr. PoopyHead", true},
+                                {1233, 001, 54.95, "Rick Sanchez bobble head", false},
+                                {1221, 030, 1000.99, "Mr. PoopyHead", true},
+                                {1233, 001, 54.95, "Rick Sanchez bobble head", false},
+                                {1221, 030, 1000.99, "Mr. PoopyHead", true}};
+        int i = 0;
+        outfilename = getFileName(1);
+        while (i < 9)
+        {
+            writeInventory(outfilename, thing[i]);
+            i++;
+        }
     }
-    */
+
     infilename = getFileName(0);
     count = checkInfileFormat(infilename);
     
