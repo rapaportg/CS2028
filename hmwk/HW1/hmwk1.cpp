@@ -225,7 +225,6 @@ void    existInCatalog(struct story* book)
     string book1 = (*book).title;
     string book2 = (*book).author;
     bool check = true;
-    int i;
 
     infile.open("CardCatalog.txt", ios::in);
     
