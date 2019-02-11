@@ -15,10 +15,12 @@ class Player
     public:
         Player(int size); // default constructor
         Player(int size, int wager, int guess);
+        void resizeWheel(int i);
         void setWager(int w);
         void setGuess(int g);
         void setBalance(int b);
-        void resizeWheel(int i);
+        void setSize(int i);
+        int getSize();
         int getGuess();
         int getWager();
         int getBalance();

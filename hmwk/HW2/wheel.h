@@ -7,7 +7,7 @@ class Wheel
 {
     private:
         int move; //players guess
-        int i;
+        int size;
         char* wheel; // stores actual spin result
     public:
         Wheel(int i); //default constructor

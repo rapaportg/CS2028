@@ -27,6 +27,11 @@ void Player::resizeWheel(int i)
     wheel = new Wheel(i);
 }
 
+void Player::setSize(int i)
+{
+    size = i;
+}
+
 void Player::setWager(int w)
 {
     wager = w;
@@ -41,6 +46,12 @@ void Player::setBalance(int b)
 {
     balance = b;
 }
+
+int Player::getSize()
+{
+    return size;
+}
+
 int Player::getWager()
 {
     return wager;

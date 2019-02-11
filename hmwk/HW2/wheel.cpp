@@ -6,11 +6,13 @@
 Wheel::Wheel(int i)
 {
     move = 0;
+    size = i;
     wheel = new char[i];
 }
 
 Wheel::Wheel(int i, int m)
 {
+    size = i;
     move = m;
     wheel = new char[i];
 }
@@ -19,7 +21,7 @@ void Wheel::spin()
 {
     int i;
     srand(time(NULL));
-    i = rand()%10;
+    i = rand()%size;
     wheel[i] = 'x';
 }
 
