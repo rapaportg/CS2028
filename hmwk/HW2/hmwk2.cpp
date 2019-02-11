@@ -7,7 +7,7 @@ using namespace std;
 int main()
 {
     // test
-    Player bob = Player(20, 10, 10);
+    Player bob = Player(10, 10, 10);
     cout << bob.getSpin() << endl;
 
 

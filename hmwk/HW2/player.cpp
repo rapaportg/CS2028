@@ -37,7 +37,7 @@ void Player::setWager(int w)
     wager = w;
 }
 
-void Player::setGuess(int g)
+void Player::setGuess(int g) // must be a number from 1 to size
 {
     guess = g;
 }
@@ -51,7 +51,7 @@ int Player::getSize()
 {
     return size;
 }
-
+f
 int Player::getWager()
 {
     return wager;

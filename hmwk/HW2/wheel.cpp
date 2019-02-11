@@ -21,7 +21,8 @@ void Wheel::spin()
 {
     int i;
     srand(time(NULL));
-    i = rand()%size;
+    i = rand()%size + 1;
+    std::cout << i << std::endl;
     wheel[i] = 'x';
 }
 
