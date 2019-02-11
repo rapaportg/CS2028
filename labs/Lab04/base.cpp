@@ -39,4 +39,4 @@ void Base::Winner()
     std::cout << "Not Yet" << std::endl;
 }
 
-void Base::Play(){}
+virtual void Base::Play(){}
