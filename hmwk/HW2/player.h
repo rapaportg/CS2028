@@ -6,24 +6,21 @@
 class Player
 {
     private:
-        Wheel *wheel;
         int balance;
-        int wager;
-        int guess;
-        int size;
 
     public:
-        Player(int size); // default constructor
-        Player(int size, int wager, int guess);
+        Wheel *wheel;
+        Player();
+        Player(int b);
+        Player(int size, int b); // b = balance, constructor for creating house instance
+        //Player(int size, int wager, int guess);
         void resizeWheel(int i);
-        void setWager(int w);
-        void setGuess(int g);
+        //void setWager(int w);
+        //void setGuess(int g);
         void setBalance(int b);
-        void setSize(int i);
-        int getSize();
-        int getGuess();
-        int getWager();
+        //int getGuess();
+        //int getWager();
         int getBalance();
-        bool getSpin(); // returns the result of the spin
+        bool getResult(int guess); // returns the result of the spin
 };
 #endif

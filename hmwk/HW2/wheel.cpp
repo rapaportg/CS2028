@@ -3,17 +3,15 @@
 #include <ctime>
 #include <iostream>
 
-Wheel::Wheel(int i)
+Wheel::Wheel()
 {
-    move = 0;
-    size = i;
-    wheel = new char[i];
+    size = 10;
+    wheel = new char[size];
 }
 
-Wheel::Wheel(int i, int m)
+Wheel::Wheel(int i)
 {
     size = i;
-    move = m;
     wheel = new char[i];
 }
 
@@ -23,23 +21,22 @@ void Wheel::spin()
     srand(time(NULL));
     i = rand()%size + 1;
     std::cout << i << std::endl;
+    for (int x = 0; x <= size; x++)
+    {
+        wheel[x] = ' ';
+    }
     wheel[i] = 'x';
 }
 
-bool Wheel::result()
+bool Wheel::result(int guess)
 {
-    if (wheel[move] == 'x')
+    if (wheel[guess] == 'x')
         return true;
     else 
         return false;
 }
 
-void Wheel::setMove(int m)
+int Wheel::getSize()
 {
-    move = m;
-}
-
-int Wheel::getMove()
-{
-    return move;
+    return size;
 }
