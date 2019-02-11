@@ -3,16 +3,16 @@
 #include <ctime>
 #include <iostream>
 
-Wheel::Wheel()
+Wheel::Wheel(int i)
 {
     move = 0;
-    spin();
+    wheel = new char[i];
 }
 
-Wheel::Wheel(int m)
+Wheel::Wheel(int i, int m)
 {
     move = m;
-    spin();
+    wheel = new char[i];
 }
 
 void Wheel::spin()
