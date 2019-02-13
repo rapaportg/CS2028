@@ -1,62 +1,74 @@
 #include <iostream>
 #include <string>
 #include "player.h"
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
-/*  //work in progress
-int validIntInput(string outMsg)
+// work in progress
+int validIntInput(string outputMsg, int min, int max)
 {
-    string input;
-    int inputInt;
+    string tmp;
+    const char *str;
+    bool validSize;
+    int ret;
 
-    cout << outMsg;
-    getline(cin, input);
-
-    while(cin.fail() || cin.eof() || input.find_first_not_of("0123456789") != string::npos)
+    do
     {
-
-        cout << "Error" << endl;
-
-        if(input.find_first_not_of("0123456789") == string::npos)
+        cout << outputMsg << "(" << min << " - " << max << "): ";
+        cin >> tmp;
+        str = tmp.c_str();
+        while (!isdigit(*str))
         {
-            cin.clear();
-            cin.ignore(256,'\n');
+            str++;
         }
+        ret = atoi(str);
 
-        getline(cin, input);
-    }
+        if (ret < min || ret > max)
+        {
+            cout << "Error invalid number!\n";
+            validSize = false;
+        }
+        else
+            validSize = true;
 
-    string::size_type st;
-    inputInt = stoi(input, &st);
-    return inputInt;
+    }while (!validSize);
+
+    return ret;
 }
-*/ 
 
-void playRound(Player *player, Player *house)
+int validIntInput(string outputMsg)
 {
-    string tmp = "";
+    string tmp;
+    const char *str;
+    int ret;
+
+    do
+    {
+        cout << outputMsg;
+        cin >> tmp;
+        str = tmp.c_str();
+        while (!isdigit(*str))
+        {
+            str++;
+        }
+        ret = atoi(str);
+
+    }while (ret == 0);
+
+    return ret;
+}
+
+void playRound(Player *player)
+{
     int wager;
     int guess = 0;
     int playerBalance = player->getBalance();
 
     cout << "Current Balance: " << playerBalance <<  endl;
-    //wager = validIntInput("Enter your bet: ");
-    do
-    {
-        cout << tmp;
-        cout << "Enter your bet: ";
-        cin >> wager;
-        if (wager > playerBalance)
-            tmp = "Error!\n";
-    
-    }while(wager > playerBalance);
-
-    while(!(guess > 0 && guess <= player->wheel->getSize()))
-    {   
-        cout << "Enter your guess (1 - " << player->wheel->getSize() << "): ";
-        cin >> guess;
-    }
+    wager = validIntInput("Enter your bet: ", 1, playerBalance);
+    guess = validIntInput("Enter you Guess ", 1, player->wheel->getSize());
 
     if (player->getResult(guess))
     {
@@ -72,49 +84,102 @@ void playRound(Player *player, Player *house)
     player->setBalance(playerBalance);
 }
 
+void playRound(Player *player, Player *house)
+{
+    int wager;
+    int guess = 0;
+    int i;
+
+    cout << "Current Balance: " << player->getBalance() <<  endl;
+    wager = validIntInput("Enter your bet: ", 1, player->getBalance());
+    guess = validIntInput("Enter your Guess ", 1, player->wheel->getSize());
+
+    if (player->getResult(guess))
+    {   
+        srand(time(NULL)+10);
+        i = rand()%house->wheel->getSize() + 1;
+        cout << endl << i << endl << endl;
+        if (house->getResult(i))
+        {
+            cout << "\nLoser! House Wins!\n";
+            player->setBalance(player->getBalance() - wager);
+            house->setHeat(house->getHeat() + 1);
+            
+            if (house->getHeat() >= 2 && house->wheel->getSize() > player->wheel->getSize())
+            {
+                house->resizeWheel(house->wheel->getSize() - 1);
+                house->setHeat(0);
+            }
+        }
+        else
+        {
+            cout << "\nPlayer Wins!\n";
+            player->setBalance(player->getBalance() + wager);
+            house->resizeWheel(house->wheel->getSize() + 1);
+            house->setHeat(0);
+
+        }
+
+    }
+    else 
+    {
+        cout << "\nLoser! House Wins!\n";
+        player->setBalance(player->getBalance() - wager);
+        house->setHeat(house->getHeat() + 1);
+
+        if (house->getHeat() >= 2 && house->wheel->getSize() > player->wheel->getSize())
+        {
+            house->resizeWheel(house->wheel->getSize() - 1);
+            house->setHeat(0);
+        }
+        
+
+    }
+    cout << "House Heat: " << house->getHeat() << endl;
+    cout << "Player Wheel Size: " << player->wheel->getSize() << endl;
+    cout << "House Wheel size: " << house->wheel->getSize() << endl;
+
+}
+
 void initWheel(Player *player, Player *house)
 {
     int size;
-    bool validSize;
-    do 
-    {
-        cout << "How many values should be on the wheel: (max: 20, min: 6) " << endl;
-        cin >> size;
-
-        if (size < 6 || size > 20)
-        {
-            cout << "Error invalid size!\n";
-            validSize = false;
-        }
-        else
-            validSize = true;
-
-    }while (!validSize);
-
+    size = validIntInput("How many values should be on the wheel ", 6, 20);
+    cout << endl << size << endl << endl;
     player->resizeWheel(size);
     house->resizeWheel(size);
+
+    cout << "Player Wheel Size: " << player->wheel->getSize() << endl;
+    cout << "House Wheel size: " << house->wheel->getSize() << endl;
+
 }
-
-
 
 int main()
 {
     Player *player = new Player();
     Player *house = new Player();
+    char mode;
     bool keepPlaying = true;
 
+    cout << "Enter a game mode Hard (h) or Easy (e): ";
+    cin >> mode;
     initWheel(player, house);
-    // test
-    //Player bob = Player(10, 10, 10);
-    //cout << bob.getSpin() << endl;
-    while(player->getBalance() != 0 && keepPlaying)
+
+    if (mode == 'e')
     {
-        playRound(player, house);
+        while(player->getBalance() != 0 && keepPlaying)
+        {
+            playRound(player);
+        }
 
     }
-    //cout << player->wheel->getSize() << endl;
-    //cout << house->wheel->getSize() << endl;
+    if (mode == 'h')
+    {
+        while(player->getBalance() != 0 && keepPlaying)
+        {
+            playRound(player, house);
+        }
 
-
+    }
     return 0;
 }
