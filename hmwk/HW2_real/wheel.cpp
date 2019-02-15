@@ -36,16 +36,6 @@ bool Wheel::spin(int guess)
     return 1;
 }
 
-/*
-bool Wheel::result(int guess)
-{
-    if (wheel[guess] == 'x')
-        return true;
-    else 
-        return false;
-}
-*/
-
 void Wheel::setWheel(int i, char x)
 {
     wheel[i] = x;

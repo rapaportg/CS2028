@@ -18,6 +18,27 @@ TODO:
 ###################################################*/
 
 // work in progress
+
+bool YNInput(string msg)
+{
+    char input;
+
+    while (true)
+    { 
+        cout << msg << endl;
+        cin >> input;
+
+        if (toupper(input) == 'Y')
+            return true;
+        else if (toupper(input) == 'N')
+            return false;
+        else
+        {
+            cout << "Invalid Input!" << endl;
+        }
+    }
+
+}
 int validIntInput(string outputMsg, int min, int max)
 {
     string tmp;
@@ -30,11 +51,12 @@ int validIntInput(string outputMsg, int min, int max)
         cout << outputMsg << "(" << min << " - " << max << "): ";
         cin >> tmp;
         str = tmp.c_str();
-        while (!isdigit(*str))
+        while (!isdigit(*str) && *str != '\0')
         {
             str++;
         }
         ret = atoi(str);
+        //cout << ret << endl;
 
         if (ret < min || ret > max)
         {
@@ -44,7 +66,7 @@ int validIntInput(string outputMsg, int min, int max)
         else
             validSize = true;
 
-    }while (!validSize && ret == 0);
+    }while (!validSize);
 
     return ret;
 }
@@ -101,7 +123,6 @@ void playRound(Player *player, Player *house)
     int guess = 0;
     int i;
 
-    cout << "Current Balance: " << player->getBalance() <<  endl;
     wager = validIntInput("Enter your bet: ", 1, player->getBalance());
     guess = validIntInput("Enter your Guess ", 1, player->getSize());
 
@@ -176,21 +197,28 @@ int main()
     cin >> mode;
     initWheel(player, house);
 
-    if (mode == 'e')
-    {
-        while(player->getBalance() != 0 && keepPlaying)
+    do
+    { 
+        if (mode == 'e')
         {
+           
             playRound(player);
         }
-
-    }
-    if (mode == 'h')
-    {
-        while(player->getBalance() != 0 && keepPlaying)
+        if (mode == 'h')
         {
             playRound(player, house);
-        }
 
-    }
+        }
+        
+        cout << "Current Balance: " << player->getBalance() <<  endl;
+        keepPlaying = YNInput("Do you want to cash out? Y/N ");
+        
+    }while(player->getBalance() > 0 && !keepPlaying);
+
+    if (player->getBalance() <= 0)
+        cout << "\nGAME OVER\n";
+    else
+        cout << "Congratulations you ended with $" << player->getBalance() << endl;
+
     return 0;
 }
