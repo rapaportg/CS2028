@@ -1,24 +1,26 @@
-#ifndef SHELF_H
-#define SHELF_H
+#ifndef ENTERTAINMENTCOLLECTION_H
+#define ENTERTAINMENTCOLLECTION_H
 #include "base.h"
 #include "board.h"
 #include <string>
 #include <iostream>
 
-class Shelf
+template<class T>
+
+class EntertainmentCollection
 {
     private:
         int numOfGames;
-        Board shelfArray[10];
+        T shelfArray[10];
 
     public:
 
-        class FullShelfException
+        class OutOfIndexException
         {
             private:
                 int value;
             public:
-                FullShelfException(int v)
+                OutOfIndexException(int v)
                 {
                     value = v;
                 }
@@ -28,12 +30,12 @@ class Shelf
                 }
         };
 
-        class EmptyShelfException
+        class NoGamesExceptions
         {
             private:
                 int value;
             public:
-                EmptyShelfException(int v)
+                NoGamesExceptions(int v)
                 {
                     value = v;
                 }
@@ -43,7 +45,7 @@ class Shelf
                 }
         };
 
-        Shelf();
+        EntertainmentCollection();
         void addGame(Board *game);
         void getGameInfo();
         Board *removeGame();

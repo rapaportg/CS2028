@@ -23,24 +23,34 @@ int main()
 
         if (input == 1)
         {
-            cout << "Enter a name for the new board game" << endl;
-            cin >> name;
-            cout << "Enter a value for the new board game" << endl;
-            cin >> value;
-            //Board *game = new Board(name, value);
-            Board *game = new Board();
-            game->setName(name);
-            game->setValue(value);
-            //cout << game->getName() << "\t" << game->getValue() << endl;
-            s->addGame(game);
-            ///s->getGameInfo();
-            //cout << s->shelfArray[0].getName() << endl;
+            try
+            {           
+                cout << "Enter a name for the new board game" << endl;
+                cin >> name;
+                cout << "Enter a value for the new board game" << endl;
+                cin >> value;
+                Board *game = new Board();
+                game->setName(name);
+                game->setValue(value);
+                s->addGame(game);
+            }
+            catch (Shelf::FullShelfException err)
+            {
+                cout << "Error! There are already 10 games on the shelf\n";
+            }
         }
         if (input == 2)
         {
-            Board *removedGame;
-            removedGame = s->removeGame();
-            cout << "Game removed: " << removedGame->getName() << endl;
+            try
+            { 
+                Board *removedGame;
+                removedGame = s->removeGame();
+                cout << "Game removed: " << removedGame->getName() << endl;
+            }
+            catch (Shelf::EmptyShelfException err)
+            {
+                cout << "Error! No games on shelf to remove.\n";
+            }
         }
         if (input == 3)
         {

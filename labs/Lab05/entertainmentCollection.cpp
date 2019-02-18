@@ -1,20 +1,20 @@
-#include "shelf.h"
+#include "entertainmentCollection.h"
 #include "board.h"
 #include <iostream>
 #include <string>
 
-Shelf::Shelf()
+EntertainmentCollection::EntertainmentCollection()
 {
     numOfGames = 0;
 
 }
 
-void Shelf::getGameInfo()
+void EntertainmentCollection::getGameInfo()
 {
     std::cout << std::endl << shelfArray[numOfGames - 1].getName() << std::endl;
 }
 
-void Shelf::addGame(Board *game)
+void EntertainmentCollection::addGame(Board *game)
 {
     if (numOfGames < 10)
     {
@@ -25,21 +25,21 @@ void Shelf::addGame(Board *game)
     }
     else
     {
-        throw FullShelfException(numOfGames);
+        throw OutOfIndexException(numOfGames);
     }
 }
 
-Board* Shelf::removeGame()  // it doesnt actually remove the game but it changes the number of games on the shelf making the last entry overwriteable if needed
+Board* EntertainmentCollection::removeGame()  // it doesnt actually remove the game but it changes the number of games on the shelf making the last entry overwriteable if needed
 {
     if (numOfGames == 0)
     {
-        throw EmptyShelfException(numOfGames);
+        throw NoGamesExceptions(numOfGames);
     }
     numOfGames--;
     return &shelfArray[numOfGames];
 }
 
-int Shelf::getNumOfGames()
+int EntertainmentCollection::getNumOfGames()
 {
     return numOfGames;
 }
