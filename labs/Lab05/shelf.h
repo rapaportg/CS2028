@@ -9,11 +9,12 @@ class Shelf
 {
     private:
         int numOfGames;
-        Board shelfArray[10];
+        
 
     public:
+        Board shelfArray[10];
         Shelf();
-        void addGame(Board game);
+        void addGame(Board *game);
         Board removeGame(); 
 
 };

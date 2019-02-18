@@ -1,6 +1,7 @@
 #ifndef BOARD_H
 #define BOARD_H
 #include "base.h"
+#include <string>
 
 class Board :public Base
 {
@@ -9,6 +10,7 @@ class Board :public Base
 
 	public:
 		Board();
+        //Board(string n, int v);
 		void Play();
 		void Winner();
 		int getPosition();

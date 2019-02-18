@@ -11,6 +11,15 @@ Board::Board()
 	position = 0;
 }
 
+/*
+Board::Board(string n, int v):Base(n,v)
+{
+    setName("Board Game");
+	setValue(123456789);
+	position = 0;
+}
+*/
+
 void Board::Play()
 {
 	cout << "Roll the Dice" << endl;

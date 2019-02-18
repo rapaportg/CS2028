@@ -8,10 +8,10 @@ Shelf::Shelf()
 
 }
 
-void Shelf::addGame(Board game)
+void Shelf::addGame(Board *game)
 {
-    shelfArray[numOfGames].setName(game.getName()); 
-    shelfArray[numOfGames].setValue(game.getValue());
+    shelfArray[numOfGames].setName(game->getName()); 
+    shelfArray[numOfGames].setValue(game->getValue());
     numOfGames++;
 }
 
