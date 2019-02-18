@@ -31,16 +31,20 @@ int main()
             Board *game = new Board();
             game->setName(name);
             game->setValue(value);
-            cout << game->getName() << "\t" << game->getValue() << endl;
+            //cout << game->getName() << "\t" << game->getValue() << endl;
             s->addGame(game);
+            ///s->getGameInfo();
             //cout << s->shelfArray[0].getName() << endl;
         }
         if (input == 2)
         {
-            Board removedGame;
+            Board *removedGame;
             removedGame = s->removeGame();
-            cout << "Game removed: " << removedGame.getName() << endl;
-            //delete removedGame;
+            cout << "Game removed: " << removedGame->getName() << endl;
+        }
+        if (input == 3)
+        {
+            cout << "There are " << s->getNumOfGames() << " games on the shelf\n";
         }
     }while (input != 4);
 
