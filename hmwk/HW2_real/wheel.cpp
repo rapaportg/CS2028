@@ -4,25 +4,25 @@
 #include <iostream>
 #include <vector>
 
-Wheel::Wheel()
+Wheel::Wheel() // Default constuctor wheel that defaults to size 10
 {
     size = 10;
     wheel.resize(10);
 }
 
-Wheel::Wheel(int i)
+Wheel::Wheel(int i) 
 {
     size = i;
     wheel.resize(i);
 }
 
-void Wheel::resizeWheel(int i)
+void Wheel::resizeWheel(int i) // resizes the wheel for hard mode. Note to self: see it i can replace this with the overloaded constructor
 {
     size = i; // Im aware that this is redundent but i didnt feel like completely rewriting everything.
     wheel.resize(i);
 }
 
-bool Wheel::spin(int guess)
+bool Wheel::spin()
 {
     int i;
     srand(time(NULL));

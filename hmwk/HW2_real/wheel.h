@@ -16,7 +16,7 @@ class Wheel
         void setWheel(int i, char x);
         int getSize();
         char getWheel(int guess);
-        virtual bool spin(int guess); //sets random spin result on wheel
+        virtual bool spin(); //sets random spin result on wheel
         bool result(int guess); // returns true or false based on if its a winning spin or not
 };
 

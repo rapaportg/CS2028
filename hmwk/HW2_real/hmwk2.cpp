@@ -6,19 +6,6 @@
 
 using namespace std;
 
-
-/*#################################################
-
-TODO:
-    - convert hard mode to use derived class. Is setup for that.
-
-    - add player cash out
-
-
-###################################################*/
-
-// work in progress
-
 bool YNInput(string msg)
 {
     char input;
@@ -39,7 +26,34 @@ bool YNInput(string msg)
     }
 
 }
-int validIntInput(string outputMsg, int min, int max)
+
+// You every get that problem where you go to enter a number in c++ and you get that really annoy error
+// where it spases out in the terminal if you enter anything besides a number. Well look no farther. 
+// here a better input function than just cin. 
+// Note: it woulds just like atoi so if a number it hidden in a jumble of letter it will find it. just the first one.
+
+int validIntInput(string outputMsg) {
+    string tmp;
+    const char *str;
+    int ret;
+
+    do
+    {
+        cout << outputMsg;
+        cin >> tmp;
+        str = tmp.c_str();
+        while (!isdigit(*str))
+        {
+            str++;
+        }
+        ret = atoi(str);
+
+    }while (ret == 0);
+
+    return ret;
+}
+
+int validIntInput(string outputMsg, int min, int max) // just like the other validIntInput but this one has an option valid range toooooo
 {
     string tmp;
     const char *str;
@@ -71,29 +85,7 @@ int validIntInput(string outputMsg, int min, int max)
     return ret;
 }
 
-int validIntInput(string outputMsg)
-{
-    string tmp;
-    const char *str;
-    int ret;
-
-    do
-    {
-        cout << outputMsg;
-        cin >> tmp;
-        str = tmp.c_str();
-        while (!isdigit(*str))
-        {
-            str++;
-        }
-        ret = atoi(str);
-
-    }while (ret == 0);
-
-    return ret;
-}
-
-void playRound(Player *player)
+void playRound(Player *player) // Plays a single round of roulette easy mode
 {
     int wager;
     int guess = 0;
@@ -117,7 +109,7 @@ void playRound(Player *player)
     player->setBalance(playerBalance);
 }
 
-void playRound(Player *player, Player *house)
+void playRound(Player *player, Player *house) // plays a single round of roulette Hard Mode
 {
     int wager;
     int guess = 0;
@@ -173,7 +165,7 @@ void playRound(Player *player, Player *house)
 
 }
 
-void initWheel(Player *player, Player *house)
+void initWheel(Player *player, Player *house) // set the starting size for the wheel
 {
     int size;
     size = validIntInput("How many values should be on the wheel ", 6, 20);
@@ -181,8 +173,8 @@ void initWheel(Player *player, Player *house)
     player->resizeWheel(size);
     house->resizeWheel(size);
 
-    cout << "Player Wheel Size: " << player->getSize() << endl;
-    cout << "House Wheel size: " << house->getSize() << endl;
+    //cout << "Player Wheel Size: " << player->getSize() << endl;
+    //cout << "House Wheel size: " << house->getSize() << endl;
 
 }
 
