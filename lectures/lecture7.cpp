@@ -1,4 +1,4 @@
-// We can redefine a base class fucntion in a derived class. This is commonly called overloading. 
+We can redefine a base class fucntion in a derived class. This is commonly called overloading. 
 
     class Base
     {
@@ -40,3 +40,15 @@
     P1->First = "Mary";
     (*P1).First = "Mary";
     *P1.First = "Mary"; //Compile Error. this works if P1 is not a pointer but first is a pointer
+
+    -> : dereferences the object on the left of the arrow.
+    * : dereferences the last varible in the chain regardless of it is chained with "." or ->
+
+    // Array of pointers
+
+        string *ptrArray[5];
+        ptrArray[0] = new string;
+        *ptrArray[0] = "I'm First!";
+        cout << ptrArray[0] << endl; // outputs the address of the thing pointed at by the first position 
+        cout << ptrArray << endls; // outputs the address of the first item in the array
+        cout << *ptrArray[0] << endl; // outputs the value stored. "I'm First!"

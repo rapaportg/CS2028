@@ -3,7 +3,7 @@
 #include <iostream>
 #include "wheel.h"
 
-class Player
+class Player:
 {
     private:
         int balance;

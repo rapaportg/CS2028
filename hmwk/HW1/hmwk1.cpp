@@ -286,7 +286,7 @@ int main()
 
     cout << "\nWould you like to add another book? Y/N\n";
     cin >> check2;
-    }while(check == 'Y' || check2 == 'y');
+    }while(check == 'Y' || checks == 'y');
 
     return 0;
 }

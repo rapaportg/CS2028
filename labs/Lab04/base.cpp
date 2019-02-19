@@ -40,3 +40,6 @@ void Base::Winner()
 }
 
 void Base::Play(){}
+
+
+int main(int ac, char **str)

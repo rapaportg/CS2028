@@ -6,6 +6,17 @@
 
 using namespace std;
 
+
+/*#################################################
+
+TODO:
+    - convert hard mode to use derived class. Is setup for that.
+
+    - add player cash out
+
+
+###################################################*/
+
 // work in progress
 int validIntInput(string outputMsg, int min, int max)
 {
