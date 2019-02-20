@@ -7,6 +7,7 @@ class Player: public Wheel
 {
     private:
         int balance;
+        int wager;
         int heat;
 
     public:
@@ -17,7 +18,9 @@ class Player: public Wheel
         void setHeat(int h);
         int getBalance();
         int getHeat();
-        bool spin(int guess);
+        void setWager(int w);
+        int getWager();
+        void Spin(int playerSpin, int playerSizes);
         
 };
 #endif
