@@ -1,45 +1,129 @@
 #include "entertainmentCollection.h"
+#include "VidGame.h"
 #include "board.h"
 #include <iostream>
 #include <string>
 
-EntertainmentCollection::EntertainmentCollection()
+/*
+template <class T>
+EntertainmentCollection<T>::EntertainmentCollection(int size)
 {
-    numOfGames = 0;
-
+    head = 0;
+    maxSize = size;
+    collection = new T[maxSize];
 }
 
-void EntertainmentCollection::getGameInfo()
+/*
+template <class T>
+EntertainmentCollection<T>::~EntertainmentCollection()
 {
-    std::cout << std::endl << shelfArray[numOfGames - 1].getName() << std::endl;
+  if (maxSize > 0)
+    delete [] collection;
 }
+*/
 
-void EntertainmentCollection::addGame(Board *game)
+template <class T>
+void EntertainmentCollection<T>::push(T *item)
 {
-    if (numOfGames < 10)
+    if (head == 10)
     {
-        shelfArray[numOfGames].setName(game->getName()); 
-        shelfArray[numOfGames].setValue(game->getValue());
-        //std::cout << shelfArray[numOfGames].getName() << std::endl;
-        numOfGames++;
+        throw StackOverFlowException(head);
     }
     else
     {
-        throw OutOfIndexException(numOfGames);
+        collection[head].setName(item->getName());
+        collection[head].setValue(item->getValue());
+        //std::cout << shelfArray[numOfGames].getName() << std::endl;
+        head++;
     }
+
 }
 
-Board* EntertainmentCollection::removeGame()  // it doesnt actually remove the game but it changes the number of games on the shelf making the last entry overwriteable if needed
+template <class T>
+T EntertainmentCollection<T>::pop()  // it doesnt actually remove the game but it changes the number of games on the shelf making the last entry overwriteable if needed
 {
-    if (numOfGames == 0)
+    if (head <= 0)
     {
-        throw NoGamesExceptions(numOfGames);
+        throw StackUnderFlowException(head);
     }
-    numOfGames--;
-    return &shelfArray[numOfGames];
+    head--;
+    return collection[head];
 }
 
-int EntertainmentCollection::getNumOfGames()
+template <class T>
+T EntertainmentCollection<T>::peek()
 {
-    return numOfGames;
+    if (isEmpty())
+    {
+        throw StackUnderFlowException(head);
+    }
+    return (collection[head - 1]);
+}
+
+template <class T>
+int EntertainmentCollection<T>::getNumOfItems()
+{
+    return head;
+}
+
+template <class T>
+bool EntertainmentCollection<T>::isFull()
+{
+    return (head == maxSize);
+}
+
+template <class T>
+bool EntertainmentCollection<T>::isEmpty()
+{
+    return (head == 0);
+}
+
+template<class T>
+void EntertainmentCollection<T>::setMaxSize(int x)
+{
+    maxSize = x;
+    collection = new T[maxSize];
+}
+
+template <class T>
+void EntertainmentCollection<T>::printCollection()
+{
+    int i = 0;
+    int j = 0;
+
+    cout << "\n\n\n";
+    while (i < head)
+    {
+        j = collection[i].getName().length();
+        std::cout << "|";
+        if (i == 9)
+            std::cout << '-';
+        std::cout << "----";
+        for (int k = 0; k <= j; k++)
+            std::cout << "-";
+        std::cout << "|";
+        i++;
+    }
+    std::cout << std::endl;
+    i = 0;
+    while (i < head)
+    {
+        std::cout << "| " << i + 1 << ". " << collection[i].getName() << " |";
+        i++;
+    }
+    std::cout << std::endl;
+    i = 0;
+    while (i < head)
+    {
+        j = collection[i].getName().length();
+        std::cout << "|";
+        if (i == 9)
+            std::cout << '-';
+        std::cout << "----";
+        for (int k = 0; k <= j; k++)
+            std::cout << "-";
+        std::cout << "|";
+
+        i++;
+    }
 }

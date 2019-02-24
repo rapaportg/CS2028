@@ -94,6 +94,7 @@ void initWheel(Player *player, Player *house) // set the starting size for the w
 void printStats(Player *p, Player *h)
 {
     cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+    cout << "house Heat: " << h->getHeat() << endl;
     cout << "House Size: " << h->getSize() << endl;
     cout << "Wheel Size: " << p->getSize() << endl;
     cout << "Your Balance: $" << p->getBalance() << endl;
@@ -154,9 +155,9 @@ void playEasy(Player *player, Player *house)
         menuIn = validIntInput("Enter option: ", 1, 3);
         if (menuIn == 1)
         {
-            player->Spin(0, player->getSize());
+            player->Spin();
             printMenu2(player, house);
-            cin >> menuIn;
+            menuIn = validIntInput("Enter option: ", 0, 2);
             if (menuIn == 1)
             {
                 player->setWager(validIntInput("Enter new wager: ", player->getWager(), balanceVsWager(player) ? player->getBalance():player->getWager() * 2));
@@ -166,7 +167,7 @@ void playEasy(Player *player, Player *house)
                 cout << "Thanks for playing\n";
                 return;
             }
-            house->Spin(0, house->getSize());
+            house->Spin();
             if (player->getSpin() > house->getSpin())
             {
                 player->setBalance(player->getBalance() + player->getWager());
@@ -198,9 +199,9 @@ void playHard(Player *player, Player *house)
         menuIn = validIntInput("Enter option: ", 1, 3);
         if (menuIn == 1)
         {
-            player->Spin(0, player->getSize());
+            player->Spin();
             printMenu2(player, house);
-            cin >> menuIn;
+            menuIn = validIntInput("Enter option: ", 0, 2);
             if (menuIn == 1)
             {
                 player->setWager(validIntInput("Enter new wager: ", player->getWager(), balanceVsWager(player) ? player->getBalance():player->getWager() * 2));
@@ -210,7 +211,7 @@ void playHard(Player *player, Player *house)
                 cout << "Thanks for playing\n";
                 return;
             }
-            house->Spin(player->getSpin(), player->getSize());
+            house->Spin(player);
             if (player->getSpin() > house->getSpin())
             {
                 player->setBalance(player->getBalance() + player->getWager());

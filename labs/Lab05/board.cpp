@@ -38,4 +38,4 @@ void Board::setPosition(int p)
 int Board::getPosition()
 {
 	return position;
-} 
+}

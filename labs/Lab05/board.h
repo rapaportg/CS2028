@@ -1,7 +1,10 @@
 #ifndef BOARD_H
 #define BOARD_H
 #include "base.h"
+#include "entertainmentCollection.h"
 #include <string>
+
+#pragma once
 
 class Board :public Base
 {

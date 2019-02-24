@@ -8,17 +8,18 @@
 class Shelf
 {
     private:
-        int numOfGames;
-        Board shelfArray[10];
+        int head;
+        const int maxSize = 10;
+        Board *shelf;
 
     public:
 
-        class FullShelfException
+        class StackOverFlowException
         {
             private:
                 int value;
             public:
-                FullShelfException(int v)
+                StackOverFlowException(int v)
                 {
                     value = v;
                 }
@@ -28,12 +29,12 @@ class Shelf
                 }
         };
 
-        class EmptyShelfException
+        class StackUnderFlowException
         {
             private:
                 int value;
             public:
-                EmptyShelfException(int v)
+                StackUnderFlowException(int v)
                 {
                     value = v;
                 }
@@ -44,10 +45,14 @@ class Shelf
         };
 
         Shelf();
-        void addGame(Board *game);
-        void getGameInfo();
-        Board *removeGame();
-        int getNumOfGames(); 
+        void push(Board *game);
+        Board pop();
+        Board peek();
+        bool isEmpty();
+        bool isFull();
+        //Board *removeGame();
+        int getNumOfGames(); // is the length function but with a different name
+        void printShelf();
 
 };
 

@@ -20,7 +20,8 @@ class Player: public Wheel
         int getHeat();
         void setWager(int w);
         int getWager();
-        void Spin(int playerSpin, int playerSizes);
+        void Spin(Player *p);
+        void Spin();
         
 };
 #endif

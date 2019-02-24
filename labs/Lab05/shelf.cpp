@@ -5,41 +5,103 @@
 
 Shelf::Shelf()
 {
-    numOfGames = 0;
-
+    head = 0;
+    shelf = new Board[maxSize];
 }
 
+/*
 void Shelf::getGameInfo()
 {
-    std::cout << std::endl << shelfArray[numOfGames - 1].getName() << std::endl;
+    std::cout << std::endl << shelf[head - 1].getName() << std::endl;
 }
+*/
 
-void Shelf::addGame(Board *game)
+void Shelf::push(Board *game)
 {
-    if (numOfGames < 10)
+    if (head == 10)
     {
-        shelfArray[numOfGames].setName(game->getName()); 
-        shelfArray[numOfGames].setValue(game->getValue());
-        //std::cout << shelfArray[numOfGames].getName() << std::endl;
-        numOfGames++;
+        throw StackOverFlowException(head);
     }
     else
     {
-        throw FullShelfException(numOfGames);
+        shelf[head].setName(game->getName());
+        shelf[head].setValue(game->getValue());
+        head++;
     }
+
 }
 
-Board* Shelf::removeGame()  // it doesnt actually remove the game but it changes the number of games on the shelf making the last entry overwriteable if needed
+Board Shelf::pop()  // it doesnt actually remove the game but it changes the number of games on the shelf making the last entry overwriteable if needed
 {
-    if (numOfGames == 0)
+    if (head <= 0)
     {
-        throw EmptyShelfException(numOfGames);
+        throw StackUnderFlowException(head);
     }
-    numOfGames--;
-    return &shelfArray[numOfGames];
+    head--;
+    return shelf[head];
+}
+
+Board Shelf::peek()
+{
+    if (isEmpty())
+    {
+        throw StackUnderFlowException(head);
+    }
+    return (shelf[head - 1]);
 }
 
 int Shelf::getNumOfGames()
 {
-    return numOfGames;
+    return head;
+}
+
+bool Shelf::isFull()
+{
+    return (head == maxSize);
+}
+
+bool Shelf::isEmpty()
+{
+    return (head == 0);
+}
+
+void Shelf::printShelf()
+{
+    int i = 0;
+    int j = 0;
+
+    while (i < head)
+    {
+        j = shelf[i].getName().length();
+        std::cout << "|";
+        if (i == 9)
+            std::cout << '-';
+        std::cout << "----";
+        for (int k = 0; k <= j; k++)
+            std::cout << "-";
+        std::cout << "|";
+        i++;
+    }
+    std::cout << std::endl;
+    i = 0;
+    while (i < head)
+    {
+        std::cout << "| " << i + 1 << ". " << shelf[i].getName() << " |";
+        i++;
+    }
+    std::cout << std::endl;
+    i = 0;
+    while (i < head)
+    {
+        j = shelf[i].getName().length();
+        std::cout << "|";
+        if (i == 9)
+            std::cout << '-';
+        std::cout << "----";
+        for (int k = 0; k <= j; k++)
+            std::cout << "-";
+        std::cout << "|";
+
+        i++;
+    }
 }

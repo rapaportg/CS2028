@@ -48,25 +48,32 @@ int Player::getHeat()
     return heat;
 }
 
-
-void Player::Spin(int playerSpin, int playerSize) // overloaded Wheel::Spin() function
+void Player::Spin()
 {
     int i;
     srand(time(NULL));
     i = rand()%getSize() + 1;
     setSpin(i);
-    if (playerSpin > i)
+}
+
+void Player::Spin(Player *p) // overloaded Wheel::Spin() function
+{
+    int i;
+    srand(time(NULL));
+    i = rand()%getSize() + 1;
+    setSpin(i);
+    if (p->getSpin() > i)
     {
         setSize(getSize() + 1);
         heat = 0;
     }
+    else if (heat > 1 && getSize() > p->getSize())
+    {
+        setSize(getSize() - 1);
+        heat = 0;
+    }
     else
     {
-        if (heat >= 2 && getSize() > playerSize)
-        {
-            setSize(getSize() - 1);
-            heat = 0;
-        }
+        heat++;
     }
-        
 }
