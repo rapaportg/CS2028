@@ -28,7 +28,7 @@ void Stack::push(int *ptr)
         throw StackOverFlowException(head);
     else
     {
-        // std::cout << "PUSH: " << head << std::endl;
+        //std::cout << "PUSH: " << head << std::endl;
         stack[head] = ptr;
         head++;
     }
@@ -36,7 +36,7 @@ void Stack::push(int *ptr)
 
 int* Stack::pop()
 {
-    // std::cout << "POP: " << head << "      ";
+    //std::cout << "POP: " << head << "      ";
     if (head <= 0)
     {
         throw StackUnderFlowException(head);
@@ -47,10 +47,12 @@ int* Stack::pop()
 
 int* Stack::top()
 {
+    /*
     if (isEmpty())
     {
         throw StackUnderFlowException(head);
     }
+    */
     return stack[head - 1];
 }
 
@@ -85,5 +87,9 @@ void Stack::deleteStack()
 
 int* Stack::look(int index)
 {
-    return *stack[index - 1];
+    if (isEmpty())
+    {
+        throw StackUnderFlowException(head);
+    }
+    return stack[index - 1];
 }
