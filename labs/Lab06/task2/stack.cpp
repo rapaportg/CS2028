@@ -8,14 +8,6 @@ Stack::Stack()
     head = 0;
 }
 
-/*
-Stack::Stack(int max)
-{
-    maxSize = max;
-    stack = new int*[max];
-}
-*/
-
 void Stack::setMax(int max)
 {
     maxSize = max;
@@ -85,11 +77,16 @@ void Stack::deleteStack()
     delete stack;
 }
 
-int* Stack::look(int index)
+int Stack::look(int index)
 {
     if (isEmpty())
     {
         throw StackUnderFlowException(head);
     }
-    return stack[index - 1];
+    return *stack[index];
+}
+
+int Stack::getMax()
+{
+    return maxSize;
 }

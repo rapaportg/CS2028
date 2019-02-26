@@ -50,9 +50,7 @@ void initTOH(Stack *stacks[])
 
     for (int i = numOfDisks; i > 0; i--)
     {
-        //cout << "INIT: " << i << "     ";
         temp = new int(i);
-        //cout << "INIT 2" << endl;
         stacks[0]->push(temp);
     }
 }
@@ -77,6 +75,7 @@ bool validMove(Stack *stacks[], int to, int from)
     }
 }
 
+
 void makeMove(Stack *stacks[])
 {
     int from;
@@ -99,38 +98,119 @@ void print(Stack *stacks[])
     cout << stacks[2]->length() << endl;// << "      " << *stacks[3]->top()<< endl;
 }
 
+/*
+string stringMaker(int numOfDisks, int sizeOfDisk) // the number of diskes, size of disk
+{
+    string left = "";
+    string middle = "";
+    string right = "";
+    int numOfChars = 2* sizeOfDisk -1;
+    int numOfBlanks = ((2 * numOfDisks - 1) - numOfChars)/2;
+
+    if (sizeOfDisk == 0)
+    {
+        for (int i = 0; i < (2 * numOfDisks - 1); i++)
+        {
+            middle += " ";
+        }
+        return middle;
+    }
+    else
+    {
+        for (int i = 0; i < numOfBlanks; i++)
+        {
+            left += " ";
+            right += " ";
+        }
+        for (int i = 0; i < numOfChars; i++)
+        {
+            middle += "=";
+        }
+    }
+    return (left + middle + right);
+}
+/*
+
+void print2(int numD, int sizeD)
+{
+    string temp;
+    for (int sizeD = 0; sizeD < numD; sizeD++)
+    {
+        temp = stringMaker(numD, sizeD + 1);
+        cout << temp << "\n";
+    }
+}
+*/
+
+void printStack(Stack *stack)
+{
+    string tmp = "";
+    string out = "";
+    string filler = "";
+    int fillAmount;
+    int fillAmountR;
+    int diskSize;
+    int numOfDisk = stack->length();
+    int maxSize = stack->getMax();
+
+    for (int i = maxSize; i >= 0; i--)
+    {
+        filler = "";
+        tmp = "";
+
+        if (numOfDisk <= i)
+        {
+            diskSize = 0;
+        }
+        else
+        {
+            diskSize = stack->look(i);
+        }
+        //cout << diskSize << "\t" << maxSize << endl;
+
+        fillAmount = (maxSize - diskSize);
+        for (int k = 0; k < fillAmount; k++)
+        {
+            filler = filler + " ";
+        }
+
+        for (int j = 0; j < diskSize; j++)
+        {
+            tmp = tmp + "=";
+        }
+        out = out + filler + tmp + "|" + tmp + filler + "\n";
+    }
+    cout << out << "\n\n";
+
+}
+
 int main()
 {
+    Stack *stack[3];
     Stack *first = new Stack();
     Stack *second = new Stack();
     Stack *third = new Stack();
-    Stack *stacks[3];
+
     int *ptr;
-    stacks[0] = first;
-    stacks[1] = second;
-    stacks[2] = third;
+    stack[0] = first;
+    stack[1] = second;
+    stack[2] = third;
 
-    initTOH(stacks);
+    initTOH(stack);
     cout << "\nGoal of game: Move everything to the third stack!\n\n";
-    while (!stacks[2]->isFull()) // update condition to only terminate when game is won
+
+
+    while (!stack[2]->isFull()) // update condition to only terminate when game is won
     {
-        print(stacks);
-        makeMove(stacks);
+        cout << "\n\n\n\n\n\n\n\n\n\n\n";
+        printStack(stack[0]);
+        printStack(stack[1]);
+        printStack(stack[2]);
+        makeMove(stack);
     }
-    print(stacks);
-    // cout << endl;
-
-    /*
-    while (!first->isEmpty())
-    {
-        ptr = first->pop();
-        cout << *ptr << endl;
-    }
-    */
-
-
-
-
+    printStack(stack[0]);
+    printStack(stack[1]);
+    printStack(stack[2]);
 
 
     return 0;

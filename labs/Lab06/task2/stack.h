@@ -42,10 +42,12 @@ class Stack
         Stack();
         //Stack(int);
         void setMax(int max);
+        int getMax();
+        int getHead();
         void push(int*);
         int *pop();
         int *top();
-        int *look(int);
+        int look(int); // returns the pointer at the index given
         int length();
         bool isEmpty();
         bool isFull();
