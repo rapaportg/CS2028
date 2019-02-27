@@ -38,24 +38,22 @@ int validIntInput(string outputMsg, int min, int max) // just like the other val
     return ret;
 }
 
-void initTOH(Stack *stacks[])
+void initTOH(Stack<int> *stacks[])
 {
-    int numOfDisks;
-    numOfDisks = validIntInput("Enter the number of disks you want to use: ", 1, INT_MAX);
-    stacks[0]->setMax(numOfDisks);
-    stacks[1]->setMax(numOfDisks);
-    stacks[2]->setMax(numOfDisks);
+    cout << "init: A" << endl;
+    cout << "inti: B" << endl;
 
     int *temp;
 
-    for (int i = numOfDisks; i > 0; i--)
+    for (int i = stacks[0]->getMax(); i > 0; i--)
     {
         temp = new int(i);
+        cout << "init: C" << endl;
         stacks[0]->push(temp);
     }
 }
 
-bool validMove(Stack *stacks[], int to, int from)
+bool validMove(Stack<int> *stacks[], int to, int from)
 {
 
     if (stacks[to - 1]->length() == 0)
@@ -76,7 +74,7 @@ bool validMove(Stack *stacks[], int to, int from)
 }
 
 
-void makeMove(Stack *stacks[])
+void makeMove(Stack<int> *stacks[])
 {
     int from;
     int to;
@@ -91,14 +89,8 @@ void makeMove(Stack *stacks[])
         cout << "Invalid move! you cannot put a larger piece on a smaller piece\n";
 }
 
-void print(Stack *stacks[])
-{
-    cout << stacks[0]->length() << "      " << *stacks[0]->top() << endl;
-    cout << stacks[1]->length() << endl;// << "      " << *stacks[2]->top()<< endl;
-    cout << stacks[2]->length() << endl;// << "      " << *stacks[3]->top()<< endl;
-}
-
-void printStack(Stack *stack)
+/*
+void printStack(Stack<int> *stack)
 {
     string tmp = "";
     string out = "";
@@ -139,25 +131,29 @@ void printStack(Stack *stack)
     cout << out << "\n\n";
 
 }
+*/
 
 int main()
 {
-    Stack *stack[3];
-    Stack *first = new Stack();
-    Stack *second = new Stack();
-    Stack *third = new Stack();
+    int numOfDisks = validIntInput("Enter the number of disks you want to use: ", 1, INT_MAX);
+    Stack<int> *stack[3];
+    Stack<int> *first = new Stack<int>(numOfDisks);
+    Stack<int> *second = new Stack<int>(numOfDisks);
+    Stack<int> *third = new Stack<int>(numOfDisks);
 
     int *ptr;
     stack[0] = first;
     stack[1] = second;
     stack[2] = third;
 
+    cout << "A" <<endl;
     initTOH(stack);
     cout << "\nGoal of game: Move everything to the third stack!\n\n";
 
-
+    cout << "B" << endl;
     while (!stack[2]->isFull()) // update condition to only terminate when game is won
     {
+        cout << "C" << endl;
         cout << "\n\n\n\n\n\n\n\n\n\n\n";
         printStack(stack[0]);
         printStack(stack[1]);

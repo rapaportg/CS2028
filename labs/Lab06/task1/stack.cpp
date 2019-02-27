@@ -67,7 +67,9 @@ void Stack::deleteStack()
 }
 */
 
+
 int main()
 {
     Stack<int> *test = new Stack<int>(9);
+    printStack(test);
 }

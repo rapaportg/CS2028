@@ -1,3 +1,4 @@
+/*
 #include "stack.h"
 #include <iostream>
 #include <string>
@@ -44,7 +45,7 @@ int* Stack::top()
     {
         throw StackUnderFlowException(head);
     }
-    */
+
     return stack[head - 1];
 }
 
@@ -90,3 +91,5 @@ int Stack::getMax()
 {
     return maxSize;
 }
+
+*/

@@ -1,5 +1,7 @@
 #ifndef STACK_H
 #define STACK_H
+#include <string>
+#include <iostream>
 
 template<class T>
 class Stack
@@ -39,18 +41,29 @@ class Stack
                     return value;
                 }
         };
+        Stack();
         Stack(int);
         void push(T *ptr);
         T *pop();
         T *top();
+        T look(int);
         int length();
         bool isEmpty();
         bool isFull();
         void empty();
         void deleteStack();
-        friend void printStack();
+
+        template <class C>
+        friend void printStack(Stack<C> *stack);
 
 };
+
+template<class T>
+Stack<T>::Stack()
+{
+    maxSize = 0;
+    head = 0;
+}
 
 template<class T>
 Stack<T>::Stack(int max)
@@ -59,6 +72,12 @@ Stack<T>::Stack(int max)
     stack = new T *[max];
 }
 
+template<class T>
+void Stack<T>::setMax(int max)
+{
+    maxSize = max;
+    stack = new T*[max];
+}
 template<class T>
 void Stack<T>::push(T *ptr)
 {
@@ -115,6 +134,58 @@ void Stack<T>::deleteStack()
 {
     empty();
     delete stack;
+}
+
+template<class T>
+T Stack<T>::look(int index)
+{
+    if (isEmpty())
+    {
+        throw StackUnderFlowException(head);
+    }
+    return *stack[index];
+}
+
+template<class T>
+void printStack(Stack<T> *s)
+{
+    std::string tmp = "";
+    std::string out = "";
+    std::string filler = "";
+    int fillAmount;
+    int fillAmountR;
+    int diskSize;
+    int numOfDisk = s->head;
+    int maxSize = s->maxSize;
+
+    for (int i = maxSize; i >= 0; i--)
+    {
+        filler = "";
+        tmp = "";
+
+        if (numOfDisk <= i)
+        {
+            diskSize = 0;
+        }
+        else
+        {
+            diskSize = s->look(i);
+        }
+        //cout << diskSize << "\t" << maxSize << endl;
+
+        fillAmount = (maxSize - diskSize);
+        for (int k = 0; k < fillAmount; k++)
+        {
+            filler = filler + " ";
+        }
+
+        for (int j = 0; j < diskSize; j++)
+        {
+            tmp = tmp + "=";
+        }
+        out = out + filler + tmp + "|" + tmp + filler + "\n";
+    }
+    std::cout << out << "\n\n";
 }
 
 
