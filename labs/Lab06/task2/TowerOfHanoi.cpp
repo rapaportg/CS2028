@@ -98,50 +98,6 @@ void print(Stack *stacks[])
     cout << stacks[2]->length() << endl;// << "      " << *stacks[3]->top()<< endl;
 }
 
-/*
-string stringMaker(int numOfDisks, int sizeOfDisk) // the number of diskes, size of disk
-{
-    string left = "";
-    string middle = "";
-    string right = "";
-    int numOfChars = 2* sizeOfDisk -1;
-    int numOfBlanks = ((2 * numOfDisks - 1) - numOfChars)/2;
-
-    if (sizeOfDisk == 0)
-    {
-        for (int i = 0; i < (2 * numOfDisks - 1); i++)
-        {
-            middle += " ";
-        }
-        return middle;
-    }
-    else
-    {
-        for (int i = 0; i < numOfBlanks; i++)
-        {
-            left += " ";
-            right += " ";
-        }
-        for (int i = 0; i < numOfChars; i++)
-        {
-            middle += "=";
-        }
-    }
-    return (left + middle + right);
-}
-/*
-
-void print2(int numD, int sizeD)
-{
-    string temp;
-    for (int sizeD = 0; sizeD < numD; sizeD++)
-    {
-        temp = stringMaker(numD, sizeD + 1);
-        cout << temp << "\n";
-    }
-}
-*/
-
 void printStack(Stack *stack)
 {
     string tmp = "";

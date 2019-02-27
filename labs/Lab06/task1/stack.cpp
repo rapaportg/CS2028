@@ -1,12 +1,15 @@
 #include "stack.h"
 
+/*
+template<class T>
 Stack::Stack(int max)
 {
     maxSize = max;
-    stack = new unsigned char*[max];
+    stack = new T *[max];
 }
 
-void Stack::push(unsigned char *ptr)
+template<class T>
+void Stack::push(T *ptr)
 {
     if (isFull())
         throw StackOverFlowException(head);
@@ -14,7 +17,8 @@ void Stack::push(unsigned char *ptr)
     head++;
 }
 
-unsigned char *Stack::pop()
+template<class T>
+T *Stack::pop()
 {
     if (isEmpty())
         throw StackUnderFlowException(head);
@@ -22,26 +26,31 @@ unsigned char *Stack::pop()
     return stack[head];
 }
 
-unsigned char *Stack::top()
+template<class T>
+T *Stack::top()
 {
     return stack[head - 1];
 }
 
+template<class T>
 int Stack::length()
 {
     return head;
 }
 
+template<class T>
 bool Stack::isEmpty()
 {
     return (head == 0);
 }
 
+template<class T>
 bool Stack::isFull()
 {
     return (head == maxSize);
 }
 
+template<class T>
 void Stack::empty()
 {
     for (int i = 0; i < maxSize; i++)
@@ -50,8 +59,15 @@ void Stack::empty()
     }
 }
 
+template<class T>
 void Stack::deleteStack()
 {
     empty();
     delete stack;
+}
+*/
+
+int main()
+{
+    Stack<int> *test = new Stack<int>(9);
 }
