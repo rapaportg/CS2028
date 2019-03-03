@@ -40,15 +40,15 @@ int validIntInput(string outputMsg, int min, int max) // just like the other val
 
 void initTOH(Stack<int> *stacks[])
 {
-    cout << "init: A" << endl;
-    cout << "inti: B" << endl;
+    //cout << "init: A" << endl;
+    //cout << "inti: B" << endl;
 
     int *temp;
 
     for (int i = stacks[0]->getMax(); i > 0; i--)
     {
         temp = new int(i);
-        cout << "init: C" << endl;
+        //cout << "init: C" << endl;
         stacks[0]->push(temp);
     }
 }
@@ -89,50 +89,6 @@ void makeMove(Stack<int> *stacks[])
         cout << "Invalid move! you cannot put a larger piece on a smaller piece\n";
 }
 
-/*
-void printStack(Stack<int> *stack)
-{
-    string tmp = "";
-    string out = "";
-    string filler = "";
-    int fillAmount;
-    int fillAmountR;
-    int diskSize;
-    int numOfDisk = stack->length();
-    int maxSize = stack->getMax();
-
-    for (int i = maxSize; i >= 0; i--)
-    {
-        filler = "";
-        tmp = "";
-
-        if (numOfDisk <= i)
-        {
-            diskSize = 0;
-        }
-        else
-        {
-            diskSize = stack->look(i);
-        }
-        //cout << diskSize << "\t" << maxSize << endl;
-
-        fillAmount = (maxSize - diskSize);
-        for (int k = 0; k < fillAmount; k++)
-        {
-            filler = filler + " ";
-        }
-
-        for (int j = 0; j < diskSize; j++)
-        {
-            tmp = tmp + "=";
-        }
-        out = out + filler + tmp + "|" + tmp + filler + "\n";
-    }
-    cout << out << "\n\n";
-
-}
-*/
-
 int main()
 {
     int numOfDisks = validIntInput("Enter the number of disks you want to use: ", 1, INT_MAX);
@@ -146,14 +102,14 @@ int main()
     stack[1] = second;
     stack[2] = third;
 
-    cout << "A" <<endl;
+    //cout << "A" <<endl;
     initTOH(stack);
     cout << "\nGoal of game: Move everything to the third stack!\n\n";
 
-    cout << "B" << endl;
+    //cout << "B" << endl;
     while (!stack[2]->isFull()) // update condition to only terminate when game is won
     {
-        cout << "C" << endl;
+        //cout << "C" << endl;
         cout << "\n\n\n\n\n\n\n\n\n\n\n";
         printStack(stack[0]);
         printStack(stack[1]);
