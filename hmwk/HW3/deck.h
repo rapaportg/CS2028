@@ -28,7 +28,7 @@ class Deck
         int dequeue();
         int size();
         void shuffle(); // needs implementation
-
+        void test();
 };
 
 #endif
