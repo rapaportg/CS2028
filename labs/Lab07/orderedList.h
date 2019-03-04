@@ -25,6 +25,8 @@ class OrderedList
                 OutOfBoundException();
         };
 
+        class FullListException{}:
+
         OrderedList();
         void addItem(T *item);
         void removeItem(int index);
