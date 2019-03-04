@@ -9,7 +9,8 @@ class OrderedList
 {
     private:
         T **array = nullptr; // with be intialized as an array if pointers at runtime
-        int count;
+        int countAdd = 0;
+        int countRemove = 0;
 
     public:
         class NoListException
@@ -24,7 +25,8 @@ class OrderedList
                 OutOfBoundException();
         };
 
-        void addItem(T item);
+        OrderedList();
+        void addItem(T *item);
         void removeItem(int index);
         void makeEmpty();
         void printResults();
@@ -36,7 +38,6 @@ template<class T>
 OrderedList<T>::OrderedList()
 {
     array = new T[MAX_ITEMS];
-    count = 0;
 }
 
 template<class T>
@@ -58,17 +59,17 @@ void OrderedList<T>::addItem(T *item)
         while(array[pos] != nullptr && pos < MAX_ITEMS)
         {
             pos++;
-            count++;
+            countAdd++;
         }
         if (pos == MAX_ITEMS)
         {
-            count++;
+            countAdd++;
             throw OutOfBoundException();
         }
         else
         {
             array[pos] = item;
-            count++;
+            countAdd++;
         }
     }
 }
@@ -83,11 +84,11 @@ void OrderedList<T>::removeItem(int index)
     else
     {
         array[index] = nullptr;
-        count++;
+        countRemove++;
         while (array[index + 1] != nullptr && index < MAX_ITEMS - 1)
         {
             array[index] = array[index + 1];
-            count++;
+            countRemove++;
         }
     }
 }
@@ -105,7 +106,7 @@ void OrderedList<T>::makeEmpty()
 template<class T>
 void OrderedList<T>::printResults()
 {
-    std::cout << "Operation Count: " << count << endl;
+    std::cout << "Operation Count: " << count << std::endl;
 }
 
 template<class T>
