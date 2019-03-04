@@ -7,17 +7,14 @@
 template<class T>
 class OrderedList
 {
-    private:
+    protected:
         T **array = nullptr; // with be intialized as an array if pointers at runtime
         int countAdd = 0;
         int countRemove = 0;
 
     public:
-        class NoListException
-        {
-            public:
-                NoListException();
-        };
+
+        class NoListException{};
 
         class OutOfBoundException
         {
@@ -25,7 +22,7 @@ class OrderedList
                 OutOfBoundException();
         };
 
-        class FullListException{}:
+        class FullListException{};
 
         OrderedList();
         void addItem(T *item);
@@ -39,7 +36,7 @@ class OrderedList
 template<class T>
 OrderedList<T>::OrderedList()
 {
-    array = new T[MAX_ITEMS];
+    array = new T*[MAX_ITEMS];
 }
 
 template<class T>
@@ -102,13 +99,14 @@ void OrderedList<T>::makeEmpty()
     while (pos < MAX_ITEMS)
     {
         delete array[pos];
-        count++;
+        countRemove++;
     }
 }
 template<class T>
 void OrderedList<T>::printResults()
 {
-    std::cout << "Operation Count: " << count << std::endl;
+    std::cout << "Operation Add Count: " << countAdd << std::endl;
+    std::cout << "Operation Remove Count: " << countRemove << std::endl;
 }
 
 template<class T>

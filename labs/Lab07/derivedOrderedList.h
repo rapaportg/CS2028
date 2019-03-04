@@ -4,34 +4,36 @@
 #include "orderedList.h"
 
 template<class T>
-class DerivedOrderedList:OrderedList
+class DerivedOrderedList:OrderedList<T>
 {
     public:
+       // DerivedOrderedList();
         void addItem(T *item);
         void removeItem(int index);
 };
 
 #endif
 
+
 template<class T>
 void DerivedOrderedList<T>::addItem(T *item)
 {
     int pos = 1;
-    if (array[MAX_ITEMS] == nullptr)
+    if (this->array[MAX_ITEMS-1] == nullptr)
     {
-        array[MAX_ITEMS] = item;
+        this->array[MAX_ITEMS-1] = item;
     }
-    while (array[MAX_ITEMS - pos] != nullptr && pos <= MAX_ITEMS)
+    while (this->array[MAX_ITEMS - pos] != nullptr && pos <= MAX_ITEMS)
     {
         pos++;
-        countAdd++;
+        this->countAdd++;
     }
-    if (array[0] != nullptr)
+    if (this->array[0] != nullptr)
     {
-        throw FullListException();
+        throw this->FullListException();
     }
-    array[MAX_ITEMS - pos] = item;
-    countAdd++;
+    this->array[MAX_ITEMS - pos] = item;
+    this->countAdd++;
 }
 
 template<class T>
@@ -39,21 +41,21 @@ void DerivedOrderedList<T>::removeItem(int index)
 {
     if (index >= MAX_ITEMS || index < 0)
     {
-        throw OutOfBoundsException();
+        throw this->OutOfBoundsException();
     }
-    if (array == nullptr)
+    if (this->array == nullptr)
     {
-        throw NoListException();
+        throw this->NoListException();
     }
-    if (array[index] != nullptr)
+    if (this->array[index] != nullptr)
     {
-        delete array[index];
+        delete this->array[index];
     }
-    countRemove++;
-    while (index > 0 && array[index - 1] != nullptr)
+    this->countRemove++;
+    while (index > 0 && this->array[index - 1] != nullptr)
     {
-        array[index] = array[index - 1];
+        this->array[index] = this->array[index - 1];
         index--;
-        countRemove++;
+        this->countRemove++;
     }
 }
