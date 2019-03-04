@@ -8,8 +8,6 @@ class Deck
         int length = 0;
         Node *head = nullptr;
 
-
-
     public:
         class EmptyListException
         {
@@ -29,6 +27,7 @@ class Deck
         void enqueue(int card);
         int dequeue();
         int size();
+        void shuffle(); // needs implementation
 
 };
 
