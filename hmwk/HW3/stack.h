@@ -44,6 +44,7 @@ class Stack
         Stack();
         Stack(int);
         void push(T *ptr);
+        void setMax(int max);
         T *pop();
         T *top();
         T look(int);

@@ -1,29 +1,26 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include <string>
+#include <vector>
 #include "sidePile.h"
 #include "deck.h"
-#include "stack.h"
 
 class Player
 {
     private:
-        string name;
-        Stack<int> *hand = new Stack<int>(3);
+        std::string name;
+        std::vector<int> *hand = new std::vector<int>(3);
+        SidePile *side = new SidePile();
         Deck *deck;
 
-
     public:
-        sidePile *side = new sidePile();
-
-        Player(string);
-        void setDeck(Deck tmp);
-        int deckSum(); // TODO
-        int draw(); // TODO: player draws from top of deck
-        void bury(); // TODO: buries card at bottom of deck
-        void peekHand(); //TODO: Prints current hand for player
-
-
-
-
-}
+        Player(std::string);
+        void initDeck();        // initializes first deck
+        int deckSum();          // TODO
+        int draw();             // TODO: player draws from top of deck
+        void bury();            // TODO: buries card at bottom of deck
+        void peekHand();        // TODO: Prints current hand for playervoid Deck::enqueue(int card) // insert front of link list
+        void saveCard();        // TODO: Places card from hand on top of side pile
+        void getFromPile();     // TODO: Moves card from top of side pile back to hand
+};
+#endif

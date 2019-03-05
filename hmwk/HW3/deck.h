@@ -27,7 +27,5 @@ class Deck
         void enqueue(int card);
         int dequeue();
         int size();
-        void shuffle(); // needs implementation
 };
-
 #endif
