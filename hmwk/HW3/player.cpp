@@ -4,9 +4,8 @@
 #include <algorithm>    // random_shuffle
 #include <cstdlib>      // rand, srand
 
-Player::Player(std::string n)
+Player::Player()
 {
-    name = n;
     initDeck();
 }
 
@@ -25,9 +24,23 @@ void Player::initDeck()    // creates a new shuffeled deck for the player per ga
 
     std::random_shuffle(tmp.begin(), tmp.end());
 
-    while (!tmp.empty())
+    for (int i = 0; i < 52; i++)
     {
-        deck->enqueue(tmp.back());
-        tmp.pop_back();
+        deck->enqueue(tmp.at(i));
     }
+}
+
+int Player::draw()
+{
+    return deck->dequeue();
+}
+
+void Player::bury()
+{
+    deck->enqueue(hand[0]);
+}
+
+void Player::saveCard()
+{
+    side->push(hand[1]);
 }

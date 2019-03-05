@@ -4,16 +4,16 @@
 class Node
 {
     public:
-        int card;
+        int value;
         Node *next = nullptr;
 
         Node(int c)
         {
-            card = c;
+            value = c;
         }
-        int getCard()
+        int getValue()
         {
-            return card;
+            return value;
         }
 };
 

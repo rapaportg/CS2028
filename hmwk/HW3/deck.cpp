@@ -18,6 +18,8 @@ void Deck::enqueue(int card) // insert front of link list
 
 int Deck::dequeue()  // remove from back of link list
 {
+        int ret;
+
         if (length == 0)
         {
                 throw EmptyListException(length);
@@ -30,13 +32,14 @@ int Deck::dequeue()  // remove from back of link list
                 {
                         tmp = tmp->next;
                 }
-
+                ret = tmp->getValue();
                 delete tmp;
                 length--;
         }
+        return ret;
 }
 
 int Deck::size()
 {
-        return length;
+        return length + 1;
 }
