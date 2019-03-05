@@ -44,3 +44,30 @@ void Player::saveCard()
 {
     side->push(hand[1]);
 }
+
+int Player::deckSum()
+{
+    
+}
+
+void Player::peekHand()             // Displays hand unless there is no card there
+{                                       // May have to edit above code to set pushed hand members to nullptr
+    std::cout << "Your hand: " << endl;
+    for (int i = 0; i < 3; i++)
+    {
+        if (hand[i] == nullptr)
+        {
+         continue;   
+        }
+        else
+        {
+         std::cout << &hand[i] << " ";   
+        }
+    }
+    std::cout << endl;
+}
+
+bool Player::hasCards()         //      - Lando
+{
+    return side->isEmpty() || deck->size() == 1;
+}
