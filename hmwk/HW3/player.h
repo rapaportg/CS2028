@@ -16,7 +16,7 @@ class Player
     public:
         Player(std::string);
         void    initDeck();        // initializes first deck
-        int     deckSum();         // TODO
+        int     deckSum();         // TODO: sums the value of the cards in deck for winner
         int     draw();            // TODO: player draws from top of deck
         void    bury();            // TODO: buries card at bottom of deck
         void    peekHand();        // Lando::TODO: Prints current hand for playervoid Deck::enqueue(int card) // insert front of link list
