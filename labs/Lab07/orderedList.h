@@ -9,7 +9,7 @@ template<class T>
 class OrderedList
 {
     protected:
-        T **array = nullptr; // with be intialized as an array if pointers at runtime
+        T   **array = nullptr; // with be intialized as an array if pointers at runtime
         int countAdd = 0;
         int countRemove = 0;
 
@@ -17,19 +17,18 @@ class OrderedList
 
         class NoListException{};
         class OutOfBoundException{};
-        class FullListException
-        {
-            public:
-                FullListException();
-        };
+        class FullListException{};
 
         OrderedList();
-        void addItem(T *item);
-        void removeItem(int index);
-        void makeEmpty();
-        void printResults();
-        bool isEmpty();
-        bool isFull();
+
+        void    addItem(T *item);
+        void    removeItem(int index);
+        void    makeEmpty();
+        void    printResults();
+        bool    isEmpty();
+        bool    isFull();
+        int     retAddCount();
+        int     retRemoveCount();
 };
 
 template<class T>
@@ -118,6 +117,18 @@ template<class T>
 bool OrderedList<T>::isFull()
 {
     return array[MAX_ITEMS - 1] != nullptr;
+}
+
+template<class T>
+int OrderedList<T>::retAddCount()
+{
+    return countAdd;
+}
+
+template<class T>
+int OrderedList<T>::retRemoveCount()
+{
+    return countRemove;
 }
 
 #endif

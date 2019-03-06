@@ -7,6 +7,10 @@ template<class T>
 class DerivedOrderedList:OrderedList<T>
 {
     public:
+        class NoListException{};
+        class OutOfBoundsException{};
+        class FullListException{};
+
        // DerivedOrderedList();
         void addItem(T *item);
         void removeItem(int index);
@@ -21,7 +25,7 @@ void DerivedOrderedList<T>::addItem(T *item)
     int pos = 1;
     if (this->array == nullptr)
     {
-        throw this->OrderedList<T>::NoListException();
+        throw NoListException();
     }
     if (this->array[MAX_ITEMS-1] == nullptr)
     {
@@ -34,7 +38,7 @@ void DerivedOrderedList<T>::addItem(T *item)
     }
     if (this->array[0] != nullptr)
     {
-        throw this->OrderedList<T>::FullListException();
+        throw FullListException();
     }
     this->array[MAX_ITEMS - pos] = item;
     this->countAdd++;
@@ -45,11 +49,11 @@ void DerivedOrderedList<T>::removeItem(int index)
 {
     if (index >= MAX_ITEMS || index < 0)
     {
-        throw this->OutOfBoundsException();
+        throw OutOfBoundsException();
     }
     if (this->array == nullptr)
     {
-        throw this->NoListException();
+        throw NoListException();
     }
     if (this->array[index] != nullptr)
     {

@@ -7,6 +7,10 @@ template<class T>
 class MiddleDerived: OrderedList<T>
 {
     public:
+        class NoListException{};
+        class OutOfBoundException{};
+        class FullListException{};
+
         void addItem(T *item);
         void removeItem(int index);
 };
@@ -38,7 +42,7 @@ void MiddleDerived<T>::addItem(T *item)
     {
         this->array[MAX_ITEMS / 2] = item;
     }
-    throw this->OrderedList<T>::FullListException();
+    throw FullListException();
 }
 
 template<class T>

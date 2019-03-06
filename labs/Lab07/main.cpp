@@ -36,11 +36,12 @@ int main()
         {
             back->addItem(tmp);
         }
-        catch(OrderedList<int>::FullListException err)
+        catch(DerivedOrderedList<int>::FullListException err)
         {
 
         };
         cout << "\nB";
+        /*
         try
         {
             middle->addItem(tmp);
@@ -49,6 +50,8 @@ int main()
         {
 
         };
+        */
         cout << "\nC\n\n";
     }
+    cout << front->retAddCount() << endl;
 }
