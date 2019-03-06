@@ -34,7 +34,11 @@ void MiddleDerived<T>::addItem(T *item)
         this->array[middle] = this->array[middle + 1];
         middle++;
     }
-    this->array[MAX_ITEMS / 2] = item;
+    if (this->array[MAX_ITEMS / 2] == nullptr)
+    {
+        this->array[MAX_ITEMS / 2] = item;
+    }
+    throw this->OrderedList<T>::FullListException();
 }
 
 template<class T>

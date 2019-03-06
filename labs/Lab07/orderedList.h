@@ -3,6 +3,7 @@
 #define MAX_ITEMS 20
 #include <iostream>
 
+using namespace std;
 
 template<class T>
 class OrderedList
@@ -15,14 +16,12 @@ class OrderedList
     public:
 
         class NoListException{};
-
-        class OutOfBoundException
+        class OutOfBoundException{};
+        class FullListException
         {
             public:
-                OutOfBoundException();
+                FullListException();
         };
-
-        class FullListException{};
 
         OrderedList();
         void addItem(T *item);
@@ -63,7 +62,7 @@ void OrderedList<T>::addItem(T *item)
         if (pos == MAX_ITEMS)
         {
             countAdd++;
-            throw OutOfBoundException();
+            throw FullListException();
         }
         else
         {

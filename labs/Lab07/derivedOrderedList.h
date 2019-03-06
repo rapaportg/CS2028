@@ -19,6 +19,10 @@ template<class T>
 void DerivedOrderedList<T>::addItem(T *item)
 {
     int pos = 1;
+    if (this->array == nullptr)
+    {
+        throw this->OrderedList<T>::NoListException();
+    }
     if (this->array[MAX_ITEMS-1] == nullptr)
     {
         this->array[MAX_ITEMS-1] = item;
@@ -30,7 +34,7 @@ void DerivedOrderedList<T>::addItem(T *item)
     }
     if (this->array[0] != nullptr)
     {
-        throw this->FullListException();
+        throw this->OrderedList<T>::FullListException();
     }
     this->array[MAX_ITEMS - pos] = item;
     this->countAdd++;
