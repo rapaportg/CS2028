@@ -41,7 +41,6 @@ int main()
 
         };
         cout << "\nB";
-        /*
         try
         {
             middle->addItem(tmp);
@@ -50,7 +49,6 @@ int main()
         {
 
         };
-        */
         cout << "\nC\n\n";
     }
     cout << front->retAddCount() << endl;
