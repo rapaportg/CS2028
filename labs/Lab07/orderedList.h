@@ -9,15 +9,15 @@ template<class T>
 class OrderedList
 {
     protected:
-        T   **array = nullptr; // with be intialized as an array if pointers at runtime
-        int countAdd = 0;
-        int countRemove = 0;
+        T       **array = nullptr; // with be intialized as an array if pointers at runtime
+        int     countAdd = 0;
+        int     countRemove = 0;
 
     public:
 
-        class NoListException{};
-        class OutOfBoundException{};
-        class FullListException{};
+        class   NoListException{};
+        class   OutOfBoundException{};
+        class   FullListException{};
 
         OrderedList();
 

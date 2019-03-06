@@ -7,12 +7,12 @@ template<class T>
 class MiddleDerived: OrderedList<T>
 {
     public:
-        class NoListException{};
-        class OutOfBoundException{};
-        class FullListException{};
+        class   NoListException{};
+        class   OutOfBoundException{};
+        class   FullListException{};
 
-        void addItem(T *item);
-        void removeItem(int index);
+        void    addItem(T *item);
+        void    removeItem(int index);
 };
 
 #endif

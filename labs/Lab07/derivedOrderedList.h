@@ -7,13 +7,13 @@ template<class T>
 class DerivedOrderedList:OrderedList<T>
 {
     public:
-        class NoListException{};
-        class OutOfBoundsException{};
-        class FullListException{};
+        class   NoListException{};
+        class   OutOfBoundsException{};
+        class   FullListException{};
 
        // DerivedOrderedList();
-        void addItem(T *item);
-        void removeItem(int index);
+        void    addItem(T *item);
+        void    removeItem(int index);
 };
 
 #endif
