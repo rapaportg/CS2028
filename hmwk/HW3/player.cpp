@@ -65,5 +65,5 @@ void Player::peekHand()             // Displays hand unless there is no card the
 
 bool Player::hasCards()         //      - Lando
 {
-    return side->isEmpty() || deck->size() == 1;
+    return side->size() == 0 || deck->size() == 1;
 }
