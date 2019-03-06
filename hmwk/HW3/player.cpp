@@ -55,13 +55,9 @@ void Player::peekHand()             // Displays hand unless there is no card the
     std::cout << "Your hand: " << endl;
     for (int i = 0; i < 3; i++)
     {
-        if (hand[i] == nullptr)
+        if (hand[i] != nullptr)
         {
-         continue;   
-        }
-        else
-        {
-         std::cout << &hand[i] << " ";   
+            std::cout << &hand[i] << " ";   
         }
     }
     std::cout << endl;
