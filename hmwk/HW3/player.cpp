@@ -45,9 +45,14 @@ void Player::saveCard()
     side->push(hand[1]);
 }
 
-int Player::deckSum()
-{
-    
+int Player::deckSum(Deck deckToSum)         // Sums all the ints returned from dequeue
+{                                           // Iterates for as many cards that are in the deck
+    int dSum = 0;
+    for (int i = 0; i < deckToSum.size(); i++)
+    {
+        dSum += deckToSum.dequeue();    
+    }
+    return dSum;
 }
 
 void Player::peekHand()             // Displays hand unless there is no card there
@@ -63,7 +68,7 @@ void Player::peekHand()             // Displays hand unless there is no card the
     std::cout << endl;
 }
 
-bool Player::hasCards()         //      - Lando
+bool Player::hasCards()  
 {
     return side->size() == 0 || deck->size() == 1;
 }
