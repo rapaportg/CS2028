@@ -15,7 +15,7 @@ class Player
         Deck *deck;
         Player();
         void    initDeck();        // initializes first deck
-        int     deckSum(Deck deckToSum);         // DONE: sums the value of the cards in deck for winner
+        int     deckSum();         // DONE: sums the value of the cards in deck for winner
         int     draw();            // DONE: player draws from top of deck
         void    bury();            // DONE: buries card at bottom of deck (note: will always bury entire hand)
         void    peekHand();        // DONE: Prints current hand for player
