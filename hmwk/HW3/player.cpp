@@ -45,12 +45,12 @@ void Player::saveCard()
     side->push(hand[1]);
 }
 
-int Player::deckSum(Deck deckToSum)         // Sums all the ints returned from dequeue
+int Player::deckSum()         // Sums all the ints returned from dequeue
 {                                           // Iterates for as many cards that are in the deck
     int dSum = 0;
-    for (int i = 0; i < deckToSum.size(); i++)
+    for (int i = 0; i < deck->size(); i++)
     {
-        dSum += deckToSum.dequeue();    
+        dSum += deck->dequeue();    
     }
     return dSum;
 }
