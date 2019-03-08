@@ -20,7 +20,7 @@ class Player
         void    bury();            // DONE: buries card at bottom of deck (note: will always bury entire hand)
         void    peekHand();        // DONE: Prints current hand for player
         void    saveCard();        // DONE: Places card from hand on top of side pile (note: will only save the card at hand[1])
-        void    getFromPile();     // Lando::TODO: Moves card from top of side pile back to hand
+        void    getFromPile();     // DONE: Moves card from top of side pile back to hand
         bool    hasCards();        // DONE: Checks to see if the player has any cards left in their deck and or pile
 };
 #endif
