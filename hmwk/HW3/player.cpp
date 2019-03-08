@@ -72,3 +72,8 @@ bool Player::hasCards()
 {
     return side->size() == 0 || deck->size() == 1;
 }
+
+void Player::getFromPile()
+{
+    hand[2] = side->pop();               // third slot in hand is for card that comes from the pile 
+}
