@@ -34,7 +34,7 @@ int main()
         }
         catch (OrderedList<int>::FullListException err)
         {
-
+            cout << "Overflow: " << i; // edited by kurt
         };
         try
         {
