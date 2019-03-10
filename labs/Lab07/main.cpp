@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cstdlib>
-#include <ctime>
+#include <random>
 #include "orderedList.h"
 #include "derivedOrderedList.h"
 #include "middleDerived.h"
@@ -14,13 +14,15 @@ int main()
     MiddleDerived<int>      *middle = new MiddleDerived<int>();
     int                     *tmp;
     int                     input;
+    random_device           rd;
 
-    std::srand (unsigned(std::time(0)));
+    mt19937 eng(rd());
 
     for (int i = 0; i < 30; i++)
     {
-        input = rand()%100 + 1;
-        tmp = new int(input);
+
+        uniform_int_distribution<> distr(1,99);
+        tmp = new int(distr(eng));
         cout << *tmp << endl;
 
         try
@@ -31,64 +33,55 @@ int main()
         {
 
         };
-        //cout << "\nA";
         try
         {
-           // back->addItem(tmp);
+           back->addItem(tmp);
         }
         catch(DerivedOrderedList<int>::FullListException err)
         {
 
         };
-        //cout << "\nB";
         try
         {
-            //middle->addItem(tmp);
+            middle->addItem(tmp);
         }
         catch(MiddleDerived<int>::FullListException err)
         {
 
         };
 
-        //delete tmp;
-        //cout << "\nC\n\n";
     }
-    front->removeItem(0);
-
-    int i = 19;
+    uniform_int_distribution<> distr(0,25);
+    cout << "\n\nRemoves:\n";
+    /*
     while (!front->isEmpty())
     {
+
         try
         {
-            front->removeItem(i);
+            front->removeItem(distr(eng));
         }
-        catch(OrderedList<int>::FullListException err)
+        catch(OrderedList<int>::NoListException err)
         {
-
+            cout << "Remove Front: Out of Bounds" << endl;
         };
-        i--;
     }
+    */
 
-    i = 0;
-
-
-    cout << "What the fuck is wrong" << endl;
     while (!back->isEmpty())
     {
+
         try
         {
-            cout << "Bitch" << endl;
-            back->removeItem(i);
+            back->removeItem(distr(eng));
         }
         catch(DerivedOrderedList<int>::FullListException err)
         {
-
+            cout << "Remove Back: Out of Bounds" << endl;
         };
-        i++;
     }
 
-
-
-    //front->printResults();
+    front->printResults();
     back->printResults();
+    middle->printResults();
 }

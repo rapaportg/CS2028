@@ -24,7 +24,8 @@ class OrderedList
         virtual void    addItem(T *item);
         virtual void    removeItem(int index);
         virtual void    makeEmpty();
-        virtual void    printResults();
+        void            printResults();
+        void            printList();
         virtual bool    isEmpty();
         virtual bool    isFull();
         int             getItem(int i);
@@ -43,11 +44,6 @@ void OrderedList<T>::addItem(T *item)
 
     if (array == nullptr)
     {
-        /*
-        OrderedList();       We have options here
-        array[pos] = item;
-        count++;
-        */
         throw NoListException();
     }
     else
@@ -73,22 +69,28 @@ void OrderedList<T>::addItem(T *item)
 template<class T>
 void OrderedList<T>::removeItem(int index)
 {
-    if (index >= MAX_ITEMS)
+    std::cout <<  "\nindex: " << index << std::endl;
+    if (index < MAX_ITEMS - 1)
     {
-        throw OutOfBoundException();
-    }
-    else
-    {
-        //std::cout << index <<std::endl;
+        printList();
         delete array[index];
-        array[index] = nullptr;
         countRemove++;
 
         while (array[index + 1] != nullptr && index < MAX_ITEMS - 1)
         {
-            array[index++] = array[index + 1];
+            array[index] = array[index + 1];
             countRemove++;
+            index++;
         }
+        array[index] = nullptr;
+        countRemove++;
+        printList();
+
+        std::cout <<"\n";
+    }
+    else
+    {
+        std::cout << "Out of Bounds\n";
     }
 }
 
@@ -102,7 +104,6 @@ void OrderedList<T>::makeEmpty()
         countRemove++;
     }
 }
-
 template<class T>
 void OrderedList<T>::printResults()
 {
@@ -126,5 +127,22 @@ template<class T>
 int OrderedList<T>::getItem(int i)
 {
     return *array[i];
+}
+
+template<class T>
+void OrderedList<T>::printList()
+{
+    int i = 0;
+    if (array[i] == nullptr)
+    {
+        std::cout << "EMPTY LIST\n";
+        return;
+    }
+    while (array[i] != nullptr)
+    {
+        std::cout << i << ": "<<*array[i] << " | ";
+        i++;
+    }
+    std::cout << std::endl;
 }
 #endif

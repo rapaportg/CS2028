@@ -13,8 +13,7 @@ class MiddleDerived: OrderedList<T>
 
         void    addItem(T *item);
         void    removeItem(int index);
-        int     retAddCount();
-        int     retRemoveCount();
+        void    printResults();
 };
 
 #endif
@@ -55,13 +54,9 @@ void MiddleDerived<T>::removeItem(int index)
 }
 
 template<class T>
-int MiddleDerived<T>::retAddCount()
+void MiddleDerived<T>::printResults()
 {
-    return this->countAdd;
-}
-
-template<class T>
-int MiddleDerived<T>::retRemoveCount()
-{
-    return this->countRemove;
+    std::cout << "\nAdd to Middle\n";
+    std::cout << "Operation Add Count: " << this->countAdd << std::endl;
+    std::cout << "Operation Remove Count: " << this->countRemove << std::endl;
 }

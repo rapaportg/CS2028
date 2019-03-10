@@ -11,26 +11,29 @@ class DerivedOrderedList:OrderedList<T>
         class   OutOfBoundsException{};
         class   FullListException{};
 
+       // DerivedOrderedList();
         void    addItem(T *item);
         void    removeItem(int index);
         void    printResults();
+        void    printList();
         bool    isEmpty();
 };
-
 #endif
 
 template<class T>
 void DerivedOrderedList<T>::addItem(T *item)
 {
-    int pos = 1;
+    int pos = 0;
     if (this->array == nullptr)
     {
         throw NoListException();
     }
+
     if (this->array[MAX_ITEMS-1] == nullptr)
     {
         this->array[MAX_ITEMS-1] = item;
     }
+
     while (this->array[MAX_ITEMS - pos] != nullptr && pos <= MAX_ITEMS)
     {
         pos++;
@@ -47,25 +50,23 @@ void DerivedOrderedList<T>::addItem(T *item)
 template<class T>
 void DerivedOrderedList<T>::removeItem(int index)
 {
-    std::cout << "FUCKER: " << index  << '\t' << this->getItem(index) << std::endl;
+    std::cout << index  << '\t' << std::endl;
     if (index >= MAX_ITEMS || index < 0)
     {
-        throw OutOfBoundsException();
+        //throw OutOfBoundsException();
     }
     if (this->array == nullptr)
     {
         throw NoListException();
     }
-    if (this->array[index] != nullptr)
+    if (this->array[index] != nullptr && index < MAX_ITEMS)
     {
-        //std::cout << "FUCK" << std::endl;
         delete this->array[index];
-        this->array[index] = nullptr;
+        //this->array[index] = nullptr;
         this->countRemove++;
     }
     while (index > 0 && this->array[index - 1] != nullptr)
     {
-        //std::cout << "TTTTTTTTT" << std::endl;
         this->array[index] = this->array[index - 1];
         index--;
         this->countRemove++;
@@ -81,6 +82,24 @@ bool DerivedOrderedList<T>::isEmpty()
 template<class T>
 void DerivedOrderedList<T>::printResults()
 {
-    std::cout << "OK\n";
-    this->printResults();
+    std::cout << "\nAdd to Back: \n";
+    std::cout << "Operation Add Count: " << this->countAdd << std::endl;
+    std::cout << "Operation Remove Count: " << this->countRemove << std::endl;
+}
+
+template<class T>
+void DerivedOrderedList<T>::printList()
+{
+    int i = 19;
+    if (this->array[i] == nullptr)
+    {
+        std::cout << "EMPTY LIST\n";
+        return;
+    }
+    while (this->array[i] != nullptr)
+    {
+        std::cout << i << ": "<< this->getItem(i) << " | ";
+        i--;
+    }
+    std::cout << std::endl;
 }
