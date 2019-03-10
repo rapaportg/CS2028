@@ -34,7 +34,7 @@ int main()
         //cout << "\nA";
         try
         {
-            back->addItem(tmp);
+           // back->addItem(tmp);
         }
         catch(DerivedOrderedList<int>::FullListException err)
         {
@@ -43,18 +43,19 @@ int main()
         //cout << "\nB";
         try
         {
-            middle->addItem(tmp);
+            //middle->addItem(tmp);
         }
         catch(MiddleDerived<int>::FullListException err)
         {
 
         };
+
+        //delete tmp;
         //cout << "\nC\n\n";
     }
     front->removeItem(0);
 
     int i = 19;
-    /*
     while (!front->isEmpty())
     {
         try
@@ -67,8 +68,9 @@ int main()
         };
         i--;
     }
-    */
+
     i = 0;
+
 
     cout << "What the fuck is wrong" << endl;
     while (!back->isEmpty())
@@ -84,6 +86,7 @@ int main()
         };
         i++;
     }
+
 
 
     //front->printResults();

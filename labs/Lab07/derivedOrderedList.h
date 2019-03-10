@@ -11,7 +11,6 @@ class DerivedOrderedList:OrderedList<T>
         class   OutOfBoundsException{};
         class   FullListException{};
 
-       // DerivedOrderedList();
         void    addItem(T *item);
         void    removeItem(int index);
         void    printResults();
@@ -48,7 +47,7 @@ void DerivedOrderedList<T>::addItem(T *item)
 template<class T>
 void DerivedOrderedList<T>::removeItem(int index)
 {
-    std::cout << "FUCKER" << std::endl;
+    std::cout << "FUCKER: " << index  << '\t' << this->getItem(index) << std::endl;
     if (index >= MAX_ITEMS || index < 0)
     {
         throw OutOfBoundsException();
@@ -59,13 +58,14 @@ void DerivedOrderedList<T>::removeItem(int index)
     }
     if (this->array[index] != nullptr)
     {
-        std::cout << "FUCK" << std::endl;
+        //std::cout << "FUCK" << std::endl;
         delete this->array[index];
+        this->array[index] = nullptr;
         this->countRemove++;
     }
     while (index > 0 && this->array[index - 1] != nullptr)
     {
-        std::cout << "TTTTTTTTT" << std::endl;
+        //std::cout << "TTTTTTTTT" << std::endl;
         this->array[index] = this->array[index - 1];
         index--;
         this->countRemove++;
@@ -75,11 +75,12 @@ void DerivedOrderedList<T>::removeItem(int index)
 template<class T>
 bool DerivedOrderedList<T>::isEmpty()
 {
-    return this->array[19] == nullptr;
+    return this->array[MAX_ITEMS - 1] == nullptr;
 }
 
 template<class T>
 void DerivedOrderedList<T>::printResults()
 {
+    std::cout << "OK\n";
     this->printResults();
 }

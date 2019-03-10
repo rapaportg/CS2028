@@ -27,6 +27,7 @@ class OrderedList
         virtual void    printResults();
         virtual bool    isEmpty();
         virtual bool    isFull();
+        int             getItem(int i);
 };
 
 template<class T>
@@ -78,9 +79,11 @@ void OrderedList<T>::removeItem(int index)
     }
     else
     {
-        std::cout << index <<std::endl;
+        //std::cout << index <<std::endl;
+        delete array[index];
         array[index] = nullptr;
         countRemove++;
+
         while (array[index + 1] != nullptr && index < MAX_ITEMS - 1)
         {
             array[index++] = array[index + 1];
@@ -99,6 +102,7 @@ void OrderedList<T>::makeEmpty()
         countRemove++;
     }
 }
+
 template<class T>
 void OrderedList<T>::printResults()
 {
@@ -118,4 +122,9 @@ bool OrderedList<T>::isFull()
     return array[MAX_ITEMS - 1] != nullptr;
 }
 
+template<class T>
+int OrderedList<T>::getItem(int i)
+{
+    return *array[i];
+}
 #endif
