@@ -50,16 +50,20 @@ void DerivedOrderedList<T>::addItem(T *item)
 template<class T>
 void DerivedOrderedList<T>::removeItem(int index)
 {
-    std::cout << index  << '\t' << std::endl;
+
+    std::cout << "Index: " << index  << '\t' << std::endl;
+    printList();
     if (index >= MAX_ITEMS || index < 0)
     {
         //throw OutOfBoundsException();
+        std::cout << "Out of Bounds\n\n";
+        return;
     }
-    if (this->array == nullptr)
+    else if (this->array == nullptr)
     {
         throw NoListException();
     }
-    if (this->array[index] != nullptr && index < MAX_ITEMS)
+    else if (this->array[index] != nullptr)
     {
         delete this->array[index];
         //this->array[index] = nullptr;
@@ -71,6 +75,11 @@ void DerivedOrderedList<T>::removeItem(int index)
         index--;
         this->countRemove++;
     }
+
+    this->array[index] = nullptr;
+    this->countRemove++;
+    printList();
+    std::cout << std::endl;
 }
 
 template<class T>
@@ -96,10 +105,11 @@ void DerivedOrderedList<T>::printList()
         std::cout << "EMPTY LIST\n";
         return;
     }
-    while (this->array[i] != nullptr)
+    while (this->array[i] != nullptr && i >= 0)
     {
         std::cout << i << ": "<< this->getItem(i) << " | ";
         i--;
     }
+
     std::cout << std::endl;
 }
