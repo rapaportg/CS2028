@@ -94,21 +94,89 @@ class Tree
 
         }
 
-        Node *insert(int inVal, Node *current)
+        void print(Node *ptr)
+        {
+            if (ptr == nullptr)
+            {
+                return;
+            }
+            cout << ptr->data << endl;
+            print(ptr->left);
+            print(ptr->right);
+        }
+
+        Node *insert(Node *inVal, Node *current)
         {
             if (current == NULL)
             {
-                Node *newnode=new node(inVal);
-                current = newnode;
+                current = inVal;
             }
             else
             {
-                if (inVal > current->data)
-                    current->right = insert(key,current->left);
+                if (inVal->data > current->data)
+                    current->right = insert(inVal,current->left);
                 else
-                    current->left = insert(key,current->right);
+                    current->left = insert(inVal,current->right);
             }
             return head;
         }
 
+        Node *findParentNode(int val, Node *ptr)
+        {
+            Node *tmp;
+            if (ptr == nullptr)
+            {
+                return nullptr;
+            }
+            if (ptr->data == val)
+            {
+                return nullptr;
+            }
+            tmp = findParentNode(val, ptr->left);
+            if (tmp->left->data == val)
+                return tmp;
+
+            tmp = findParentNode(val, ptr->right);
+            if (tmp->right->data == val || tmp->left == val)
+                return tmp;s
+
+            return ptr;
+        }
+
+        int remove(int val)
+        {
+            int     ret;
+            Node    *head;
+            Node    *toDel;
+
+            head = findParentNode(val, root);
+
+            if (head->right->data == val)
+            {
+                toDel = head->right;
+                head->right = nullptr;
+            }
+
+            if (head->left->data == val)
+            {
+                toDel = head->left;
+                head->left = nullptr;
+            }
+
+            if (toDel->right != nullptr)
+            {
+                insert(toDel->right, head);
+            }
+
+            if (toDel->left != nullptr)
+            {
+                insert(head->right->left, head);
+            }
+
+            ret = toDel->data;
+
+            delete toDel;
+
+            return ret;
+        }
 }
