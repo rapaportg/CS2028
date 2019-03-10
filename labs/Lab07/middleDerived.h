@@ -13,6 +13,8 @@ class MiddleDerived: OrderedList<T>
 
         void    addItem(T *item);
         void    removeItem(int index);
+        int     retAddCount();
+        int     retRemoveCount();
 };
 
 #endif
@@ -50,4 +52,16 @@ void MiddleDerived<T>::removeItem(int index)
 {
     this->countRemove++;
     delete this->array[index];
+}
+
+template<class T>
+int MiddleDerived<T>::retAddCount()
+{
+    return this->countAdd;
+}
+
+template<class T>
+int MiddleDerived<T>::retRemoveCount()
+{
+    return this->countRemove;
 }

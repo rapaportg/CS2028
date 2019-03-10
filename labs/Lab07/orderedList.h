@@ -21,14 +21,12 @@ class OrderedList
 
         OrderedList();
 
-        void    addItem(T *item);
-        void    removeItem(int index);
-        void    makeEmpty();
-        void    printResults();
-        bool    isEmpty();
-        bool    isFull();
-        int     retAddCount();
-        int     retRemoveCount();
+        virtual void    addItem(T *item);
+        virtual void    removeItem(int index);
+        virtual void    makeEmpty();
+        virtual void    printResults();
+        virtual bool    isEmpty();
+        virtual bool    isFull();
 };
 
 template<class T>
@@ -80,11 +78,12 @@ void OrderedList<T>::removeItem(int index)
     }
     else
     {
+        std::cout << index <<std::endl;
         array[index] = nullptr;
         countRemove++;
         while (array[index + 1] != nullptr && index < MAX_ITEMS - 1)
         {
-            array[index] = array[index + 1];
+            array[index++] = array[index + 1];
             countRemove++;
         }
     }
@@ -117,18 +116,6 @@ template<class T>
 bool OrderedList<T>::isFull()
 {
     return array[MAX_ITEMS - 1] != nullptr;
-}
-
-template<class T>
-int OrderedList<T>::retAddCount()
-{
-    return countAdd;
-}
-
-template<class T>
-int OrderedList<T>::retRemoveCount()
-{
-    return countRemove;
 }
 
 #endif

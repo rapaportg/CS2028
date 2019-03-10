@@ -17,7 +17,7 @@ int main()
 
     std::srand (unsigned(std::time(0)));
 
-    for (int i = 0; i < 21; i++)
+    for (int i = 0; i < 30; i++)
     {
         input = rand()%100 + 1;
         tmp = new int(input);
@@ -31,7 +31,7 @@ int main()
         {
 
         };
-        cout << "\nA";
+        //cout << "\nA";
         try
         {
             back->addItem(tmp);
@@ -40,16 +40,52 @@ int main()
         {
 
         };
-        cout << "\nB";
+        //cout << "\nB";
         try
         {
             middle->addItem(tmp);
+        }
+        catch(MiddleDerived<int>::FullListException err)
+        {
+
+        };
+        //cout << "\nC\n\n";
+    }
+    front->removeItem(0);
+
+    int i = 19;
+    /*
+    while (!front->isEmpty())
+    {
+        try
+        {
+            front->removeItem(i);
         }
         catch(OrderedList<int>::FullListException err)
         {
 
         };
-        cout << "\nC\n\n";
+        i--;
     }
-    cout << front->retAddCount() << endl;
+    */
+    i = 0;
+
+    cout << "What the fuck is wrong" << endl;
+    while (!back->isEmpty())
+    {
+        try
+        {
+            cout << "Bitch" << endl;
+            back->removeItem(i);
+        }
+        catch(DerivedOrderedList<int>::FullListException err)
+        {
+
+        };
+        i++;
+    }
+
+
+    //front->printResults();
+    back->printResults();
 }
