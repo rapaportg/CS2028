@@ -53,7 +53,8 @@ int main()
     }
     uniform_int_distribution<> distr(0,25);
     cout << "\n\nRemoves:\n";
-    /*
+
+    cout << "\n\nOrderedList\n";
     while (!front->isEmpty())
     {
 
@@ -66,8 +67,8 @@ int main()
             cout << "Remove Front: Out of Bounds" << endl;
         };
     }
-    */
 
+    cout << "\n\nDerivedOrderedList\n";
     while (!back->isEmpty())
     {
 
