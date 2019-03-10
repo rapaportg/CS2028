@@ -34,7 +34,7 @@ int main()
         }
         catch (OrderedList<int>::FullListException err)
         {
-            cout << "Overflow: " << i; // edited by kurt
+            cout << "Front - Overflow: " << i; // edited by kurt
         };
         try
         {
@@ -42,7 +42,7 @@ int main()
         }
         catch (DerivedOrderedList<int>::FullListException err)
         {
-
+            cout << "Back - Overflow: " << i; // edited by kurt
         };
         try
         {
@@ -83,7 +83,7 @@ int main()
         }
         catch (DerivedOrderedList<int>::NoListException err)
         {
-            cout << "Remove Back: No List" << endl;
+            cout << "\nRemove Back: No List" << endl;
         };
     }
 

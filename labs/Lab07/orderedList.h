@@ -53,7 +53,7 @@ void OrderedList<T>::addItem(T *item)
             pos++;
             countAdd++;
         }
-        if (pos == MAX_ITEMS)
+        if (pos >= MAX_ITEMS)
         {
             countAdd++;
             throw FullListException();

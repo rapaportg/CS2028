@@ -23,7 +23,7 @@ class MiddleDerived: OrderedList<T>
 template<class T>
 void MiddleDerived<T>::addItem(T *item)
 {
-    int middle = MAX_ITEMS / 2;
+    int index = MAX_ITEMS / 2;
     /*
     while (this->array[middle] != nullptr)
     {
@@ -48,6 +48,15 @@ void MiddleDerived<T>::addItem(T *item)
     }
     throw FullListException();
     */
+    while (this->array[index] != nullptr)
+    {
+        this->countAdd++;
+        index++:
+        if (index >= MAX_ITEMS)
+        {
+            // index = index % (MAX_ITEMS / 2);
+        }
+    }
 }
 
 template<class T>
