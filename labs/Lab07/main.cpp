@@ -42,7 +42,7 @@ int main()
         }
         catch (DerivedOrderedList<int>::FullListException err)
         {
-            cout << "Back - Overflow: " << i; // edited by kurt
+            cout << "\tBack - Overflow: " << i; // edited by kurt
         };
         try
         {
@@ -83,7 +83,7 @@ int main()
         }
         catch (DerivedOrderedList<int>::NoListException err)
         {
-            cout << "\nRemove Back: No List" << endl;
+            cout << "Remove Back: No List" << endl;
         };
     }
 

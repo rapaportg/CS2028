@@ -51,7 +51,7 @@ void MiddleDerived<T>::addItem(T *item)
     while (this->array[index] != nullptr)
     {
         this->countAdd++;
-        index++:
+        index++;
         if (index >= MAX_ITEMS)
         {
             // index = index % (MAX_ITEMS / 2);
