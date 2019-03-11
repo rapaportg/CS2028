@@ -34,7 +34,7 @@ class OrderedList
 template<class T>
 OrderedList<T>::OrderedList()
 {
-    array = new T*[MAX_ITEMS];
+    array = new T*[MAX_ITEMS]();
 }
 
 template<class T>

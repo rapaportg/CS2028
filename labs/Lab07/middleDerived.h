@@ -34,7 +34,7 @@ void MiddleDerived<T>::addItem(T *item)
         this->countAdd++;
         this->array[middle] = item;
     }
-    else if (this->array[middle] != nullptr)
+    else if (this->array[middle + pos] != nullptr)
     {
         while (this->array[middle + pos] != nullptr && pos != 0)
         {
