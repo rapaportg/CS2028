@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "stdafx.h" // This a precompiled header Lando uses to run code on VS2017
 #include "Part.h"
 
 using namespace std;
