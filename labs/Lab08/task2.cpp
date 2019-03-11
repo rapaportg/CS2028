@@ -9,13 +9,16 @@
 
 using namespace std;
 
+
+
 int main()
 {
 	int temp;
 	int *ptr;
 	Node<int> *myObject;
 	LinkList<int> myList;
-	for (int i = 0; i < 6; i++) {
+
+	for (int i = 0; i < 15; i++) {
 		cout << "set value:";
 		cin >> temp;
 		ptr = new int(temp);
