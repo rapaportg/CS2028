@@ -1,6 +1,6 @@
 #ifndef ORDEREDLIST_H
 #define ORDEREDLIST_H
-#define MAX_ITEMS 10
+#define MAX_ITEMS 20
 #include <iostream>
 
 using namespace std;
