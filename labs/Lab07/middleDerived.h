@@ -23,39 +23,41 @@ class MiddleDerived: OrderedList<T>
 template<class T>
 void MiddleDerived<T>::addItem(T *item)
 {
-    int index = MAX_ITEMS / 2;
-    /*
-    while (this->array[middle] != nullptr)
+    int middle = MAX_ITEMS / 2;
+    int pos = 1;
+    int count = 0;
+    int index[MAX_ITEMS];
+
+    printList();
+    if (this->array[middle] == nullptr)
     {
         this->countAdd++;
-        middle--;
-        if (middle == -1)
-            middle = MAX_ITEMS - 1;
+        this->array[middle] = item;
     }
-    while (middle != MAX_ITEMS / 2)
+    else if (this->array[middle] != nullptr)
     {
-        this->countAdd++;
-        if (middle == MAX_ITEMS - 1)
+        while (this->array[middle + pos] != nullptr && pos != 0)
         {
-            middle = 0;
+            if (middle + pos == MAX_ITEMS)
+            {
+                pos = -middle;
+            }
+            if (pos == 0)
+            {
+                throw FullListException();
+            }
+            index[count] = middle + pos;
+            count++;
+            pos++;
         }
-        this->array[middle] = this->array[middle + 1];
-        middle++;
-    }
-    if (this->array[MAX_ITEMS / 2] == nullptr)
-    {
-        this->array[MAX_ITEMS / 2] = item;
-    }
-    throw FullListException();
-    */
-    while (this->array[index] != nullptr)
-    {
-        this->countAdd++;
-        index++;
-        if (index >= MAX_ITEMS)
+        while (count > 0)
         {
-            // index = index % (MAX_ITEMS / 2);
+            this->array[index[count]] = this->array[index[count - 1]];
+            count--;
+            this->countAdd++;
         }
+        this->array[middle] = item;
+        this->countAdd++;
     }
 }
 
@@ -93,14 +95,16 @@ bool MiddleDerived<T>::isEmpty()
 template<class T>
 void MiddleDerived<T>::printList()
 {
-    int i = 0;
+    int i = MAX_ITEMS / 2;
     if (this->array[i] == nullptr)
     {
         std::cout << "EMPTY LIST\n";
         return;
     }
-    while (this->array[i] != nullptr)
+    while (this->array[i] != nullptr && i != MAX_ITEMS / 2)
     {
+        if (i == MAX_ITEMS)
+            i = 0;
         std::cout << i << ": "<< this->getItem(i) << " | ";
         i++;
     }

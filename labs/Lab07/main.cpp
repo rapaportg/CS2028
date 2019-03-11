@@ -26,7 +26,7 @@ int main()
         tmp = new int(distr(eng));
         tmp2 = new int(distr(eng));
         tmp3 = new int(distr(eng));
-        cout << *tmp << endl;
+        cout << i << ": " << *tmp << "\t" << *tmp2 << "\t" << *tmp3 << endl;
 
         try
         {
@@ -50,13 +50,14 @@ int main()
         }
         catch (MiddleDerived<int>::FullListException err)
         {
-
+            cout << "\tMiddle - Overflow: " << i;
         };
 
     }
 
     cout << "\n\nRemoves:\n";
     uniform_int_distribution<> distr(0,25);
+    /*
     cout << "\n\nOrderedList\n";
     while (!front->isEmpty())
     {
@@ -100,7 +101,7 @@ int main()
             cout << "Remove Middle: No List" << endl;
         };
     }
-
+    */
     front->printResults();
     back->printResults();
     middle->printResults();
