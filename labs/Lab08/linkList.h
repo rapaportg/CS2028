@@ -10,7 +10,7 @@ template<class T>
 class LinkList {
 private:
 	Node<T> *head = nullptr;
-	int length;
+	int length=0;
 	Node<T> *findParent(Node<T> *itemToAdd);
 public:
 	class NoListException {};
@@ -30,33 +30,39 @@ void LinkList<T>::addItem(Node<T> *itemToAdd) {
 		return;
 	}
 
-	if (head->item > itemToAdd->item)
+	if (*(head->getItem()) > *(itemToAdd->getItem()))
 	{
-		itemToAdd->next = head;
+		itemToAdd->setNext(head);
 		head = itemToAdd;
 		length++;
 		return;
 	}
 	Node<T> *parent = findParent(itemToAdd);
 	
-	if (parent->next == nullptr) {
-		parent->next = itemToAdd;
+	if (parent->getNext() == nullptr) {
+		//cout << "The added item has next value of:" << itemToAdd->getNext()<<"\n";
+		parent->setNext(itemToAdd);
 	}
 	else
 	{
-		itemToAdd->next = parent->next;
-		parent->next = itemToAdd;
+		itemToAdd->setNext(parent->getNext());
+		parent->setNext(itemToAdd);
 	}
-	length;
+	length++;
 }
 
 template<class T>
-Node<T> *LinkList<T>::findParent(Node<T> *data) {
+Node<T> *LinkList<T>::findParent(Node<T> *itemToAdd) {
 	Node<T> *ptr = head;
-	while (ptr->next != nullptr && ptr->next->item > data->item)
-	{
-		ptr = ptr->next;
+	T temp = *(itemToAdd->getItem());
+	while(ptr->getNext() != nullptr) {
+		if (*(ptr->getNext()->getItem())>temp) {
+			//cout << "Returning the ptr item val " << *(ptr->getItem()) << " with next adress " << ptr->getNext() << "\n";
+			return ptr;
+		}
+		ptr = ptr-> getNext();
 	}
+	//cout << "Returning the ptr item val "<< *(ptr->getItem()) <<" with next adress "<< ptr->getNext() <<"\n";
 	return ptr;
 }
 
@@ -68,8 +74,8 @@ void LinkList<T>::printList() {
 	}
 	Node<T> * temp = head;
 	while (temp != nullptr) {
-		cout << *temp->item << " ";
-		temp = temp->next;
+		cout << *(temp->getItem()) << " ";
+		temp = temp->getNext();
 	}
 	cout << "\n";
 }
