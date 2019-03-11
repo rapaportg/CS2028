@@ -27,5 +27,18 @@ int main()
 		myList.printList();
 	}
 
+	
+	for (int j = 0; j < 15; j++)
+	{
+		cout << "what value do you want to remove? ";
+		cin >> temp;
+
+		ptr2 = new int(temp);
+		myObject2 = new Node<int>(ptr2);
+
+		cout << "Removing " << *(myList.getListItem(myObject2))->getItem() << " from the list " << endl;
+		myList.printList();
+	}
+
 }
 
