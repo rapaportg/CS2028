@@ -9,18 +9,117 @@
 
 using namespace std;
 
+void Task4_part1(OrderedList<int> *front, DerivedOrderedList<int> *back, MiddleDerived<int> *middle)
+{
+    int             add = 1;
+    int             removed = 1;
+    int             holder;
+    int             *tmp;
+    random_device   rd;
+
+	mt19937 eng(rd());
+    uniform_int_distribution<> distr(0, MAX_ITEMS);
+
+    front->makeEmpty();
+    back->makeEmpty();
+    middle->makeEmpty();
+    while (add + removed <= 55)
+    {
+        holder = distr(eng);
+        if (holder % 2 == 0 && add <= 30)
+        {
+            cout << add <<": ADD" << endl;
+            add++;
+            tmp = new int(distr(eng));
+            try
+            {
+                front->addItem(tmp);
+            }
+            catch (OrderedList<int>::FullListException)
+            {
+                cout << "Full Stack\n";
+            }
+        }
+        else if (holder % 2 != 0 && removed <= 25)
+        {
+            cout << removed <<": REMOVE" << endl;
+            removed++;
+            front->removeItem(distr(eng));
+        }
+    }
+
+    add = 0;
+    removed = 0;
+    while (add + removed <= 55)
+    {
+        holder = distr(eng);
+        if (holder % 2 == 0 && add <= 30)
+        {
+            cout << add <<": ADD" << endl;
+            add++;
+            tmp = new int(distr(eng));
+            try
+            {
+                back->addItem(tmp);
+            }
+            catch (DerivedOrderedList<int>::FullListException)
+            {
+                cout << "Full Stack\n";
+            }
+        }
+        else if (holder % 2 != 0 && removed <= 25)
+        {
+            cout << removed <<": REMOVE" << endl;
+            removed++;
+            back->removeItem(distr(eng));
+        }
+    }
+
+    add = 0;
+    removed = 0;
+    while (add + removed <= 55)
+    {
+        holder = distr(eng);
+        if (holder % 2 == 0 && add <= 30)
+        {
+            cout << add <<": ADD" << endl;
+            add++;
+            tmp = new int(distr(eng));
+            try
+            {
+                middle->addItem(tmp);
+            }
+            catch (MiddleDerived<int>::FullListException)
+            {
+                cout << "Full Stack\n";
+            }
+        }
+        else if (holder % 2 != 0 && removed <= 25)
+        {
+            cout << removed <<": REMOVE" << endl;
+            removed++;
+            middle->removeItem(distr(eng));
+        }
+    }
+}
+
 int main()
 {
+    // part A
 	OrderedList<int>        *front = new OrderedList<int>();
 	DerivedOrderedList<int> *back = new DerivedOrderedList<int>();
 	MiddleDerived<int>      *middle = new MiddleDerived<int>();
 	int                     *tmp;
 	int                     *tmp2;
 	int                     *tmp3;
+    int                     i;
 	random_device           rd;
 
 	mt19937 eng(rd());
 
+//  #########################################
+//   part B
+//  #########################################
 	for (int i = 0; i < 30; i++)
 	{
 
@@ -43,7 +142,7 @@ int main()
 		}
 		catch (DerivedOrderedList<int>::FullListException err)
 		{
-			cout << "\tBack - Overflow: " << i << "\n"; // edited by kurt
+			cout << "\tBack - Overflow: " << i; // edited by kurt
 		};
 		try
 		{
@@ -56,11 +155,15 @@ int main()
 
 	}
 
+//  ########################################
+//  Part C
+//  ########################################
 
 	cout << "\n\nRemoves:\n";
-	uniform_int_distribution<> distr(0, 25);
+	uniform_int_distribution<> distr(0, MAX_ITEMS);
 	cout << "\n\nOrderedList\n";
-	while (!front->isEmpty())
+    i = 0;
+	while (!front->isEmpty() && i < 25)
 	{
 
 		try
@@ -71,12 +174,12 @@ int main()
 		{
 			cout << "Remove Front: Out of Bounds" << endl;
 		};
+        i++;
 	}
 
-
-
 	cout << "\n\nDerivedOrderedList\n";
-	while (!back->isEmpty())
+    i = 0;
+	while (!back->isEmpty() && i < 25)
 	{
 
 		try
@@ -87,11 +190,13 @@ int main()
 		{
 			cout << "Remove Back: No List" << endl;
 		};
+        i++;
 	}
 
 
 	cout << "\n\nMiddleDerived\n";
-	while (!middle->isEmpty())
+    i = 0;
+	while (!middle->isEmpty() && i < 25)
 	{
 		try
 		{
@@ -101,9 +206,36 @@ int main()
 		{
 			cout << "Remove Middle: No List" << endl;
 		};
+        i++;
 	}
 
-	front->printResults();
+    front->printResults();
+	back->printResults();
+	middle->printResults();
+//  ##############################################
+//  Part D
+//  ##############################################
+
+    Task4_part1(front, back, middle);
+    front->printResults();
+	back->printResults();
+	middle->printResults();
+
+//  ################################################
+//  Part 2
+//  ################################################
+
+    front->resetCount();
+    back->resetCount();
+    middle->resetCount();
+
+    for (int i = 0; i < 100; i++)
+    {
+        Task4_part1(front, back, middle);
+    }
+
+    cout << "\nCounts after 100 Runs: (Array size 20)\n";
+    front->printResults();
 	back->printResults();
 	middle->printResults();
 }

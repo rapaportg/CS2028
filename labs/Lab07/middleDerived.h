@@ -1,7 +1,6 @@
 #ifndef MIDDLEDERIVED_H
 #define MIDDLEDERIVED_H
 #include "orderedList.h"
-#define MAX_ITEMS 20
 
 template<class T>
 class MiddleDerived : OrderedList<T>
@@ -15,6 +14,8 @@ public:
 	void    removeItem(int index);
 	void    printResults();
 	void    printList();
+    void    makeEmpty();
+    void    resetCount();
 	bool    isEmpty();
 };
 
@@ -25,7 +26,6 @@ void MiddleDerived<T>::addItem(T *item)
 {
 	int middle = MAX_ITEMS / 2;
 	int pos = middle-1; // by 1st check we know array[middle] is full
-	int temp;
 	//printList();
 	if (this->array[middle] == nullptr) // fills first spot
 	{
@@ -84,19 +84,23 @@ void MiddleDerived<T>::removeItem(int index)
 		std::cout << "Out of Bounds\n";
 		return;
 	}
-	T *tmp;
-	printList();
-	tmp = this->array[index];
+	//T *tmp;
+
+	//tmp = this->array[index];
 	this->countRemove++;
 	delete this->array[index];
+    this->countRemove++;
+    this->array[index] = nullptr;
+    printList();
 }
 
 template<class T>
 void MiddleDerived<T>::printResults()
 {
-	std::cout << "\nAdd to Middle\n";
+	std::cout << "\nDerived Class 2" << std::endl;
 	std::cout << "Operation Add Count: " << this->countAdd << std::endl;
 	std::cout << "Operation Remove Count: " << this->countRemove << std::endl;
+    std::cout << "Total Operation Preformed: " << this->countAdd + this->countRemove << std::endl;
 }
 
 template<class T>
@@ -109,23 +113,31 @@ template<class T>
 void MiddleDerived<T>::printList()
 {
 	for (int j = 0; j < MAX_ITEMS; j++) {
-		if (this->array[j] == nullptr) cout  << j << ": _ | ";
+		if (this->array[j] == nullptr)
+            cout  << j << ": _ | ";
 		else {
 			cout << j << ": " << *this->array[j] << " | ";
 		}
 	}
-	/*int i = MAX_ITEMS / 2;
-	if (this->array[i] == nullptr)
-	{
-		std::cout << "EMPTY LIST\n";
-		return;
-	}
-	while (this->array[i] != nullptr && i != MAX_ITEMS / 2)
-	{
-		if (i == MAX_ITEMS)
-			i = 0;
-		std::cout << i << ": " << this->getItem(i) << " | ";
-		i++;
-	}*/
 	std::cout << std::endl;
+}
+
+template<class T>
+void MiddleDerived<T>::makeEmpty()
+{
+    int pos = 0;
+    while (pos < MAX_ITEMS)
+    {
+        delete this->array[pos];
+        this->array[pos++] = nullptr;
+        //this->countAdd = 0;
+        //this->countRemove = 0;
+    }
+}
+
+template<class T>
+void MiddleDerived<T>::resetCount()
+{
+    this->countAdd = 0;
+    this->countRemove = 0;
 }

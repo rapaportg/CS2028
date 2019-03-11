@@ -1,6 +1,5 @@
 #ifndef DERIVEDORDEREDLIST_H
 #define DERIVEDORDEREDLIST_H
-#define MAX_ITEMS 20
 #include "orderedList.h"
 
 template<class T>
@@ -16,6 +15,8 @@ public:
 	void    removeItem(int index);
 	void    printResults();
 	void    printList();
+    void    makeEmpty();
+    void    resetCount();
 	bool    isEmpty();
 };
 #endif
@@ -93,15 +94,16 @@ bool DerivedOrderedList<T>::isEmpty()
 template<class T>
 void DerivedOrderedList<T>::printResults()
 {
-	std::cout << "\nAdd to Back: \n";
+	std::cout << "\nDerived Class 1: " << std::endl;
 	std::cout << "Operation Add Count: " << this->countAdd << std::endl;
 	std::cout << "Operation Remove Count: " << this->countRemove << std::endl;
+    std::cout << "Total Operation Preformed: " << this->countAdd + this->countRemove << std::endl;
 }
 
 template<class T>
 void DerivedOrderedList<T>::printList()
 {
-	int i = 19;
+	int i = MAX_ITEMS - 1;
 	if (this->array[i] == nullptr)
 	{
 		std::cout << "EMPTY LIST\n";
@@ -114,4 +116,25 @@ void DerivedOrderedList<T>::printList()
 	}
 
 	std::cout << std::endl;
+}
+
+template<class T>
+void DerivedOrderedList<T>::makeEmpty()
+{
+    int pos = 0;
+
+    while (pos < MAX_ITEMS)
+    {
+        delete this->array[pos];
+        this->array[pos++] = nullptr;
+        //this->countAdd = 0;
+        //this->countRemove = 0;
+    }
+}
+
+template<class T>
+void DerivedOrderedList<T>::resetCount()
+{
+    this->countAdd = 0;
+    this->countRemove = 0;
 }

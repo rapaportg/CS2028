@@ -1,6 +1,6 @@
 #ifndef ORDEREDLIST_H
 #define ORDEREDLIST_H
-#define MAX_ITEMS 20
+#define MAX_ITEMS 10
 #include <iostream>
 
 using namespace std;
@@ -26,6 +26,7 @@ public:
 	virtual void    makeEmpty();
 	void            printResults();
 	void            printList();
+    void            resetCount();
 	virtual bool    isEmpty();
 	virtual bool    isFull();
 	int             getItem(int i);
@@ -83,6 +84,7 @@ void OrderedList<T>::removeItem(int index)
 			index++;
 		}
 		array[index] = nullptr;
+        printList();
 		countRemove++;
 		std::cout << "\n";
 	}
@@ -99,14 +101,24 @@ void OrderedList<T>::makeEmpty()
 	while (pos < MAX_ITEMS)
 	{
 		delete array[pos];
-		countRemove++;
+        array[pos++] = nullptr;
 	}
 }
+
+template<class T>
+void OrderedList<T>::resetCount()
+{
+    countAdd = 0;
+    countRemove = 0;
+}
+
 template<class T>
 void OrderedList<T>::printResults()
 {
+    std::cout << "\nBase Class:" << std::endl;
 	std::cout << "Operation Add Count: " << countAdd << std::endl;
 	std::cout << "Operation Remove Count: " << countRemove << std::endl;
+    std::cout << "Total Operations Preformed: " <<countAdd + countRemove << std::endl;
 }
 
 template<class T>
