@@ -39,10 +39,9 @@ void Player::draw()
 
 void Player::bury()
 {
-    for (int i = 0; i < hand->size(); i++)
+    for (unsigned int i = 0; i < hand->size(); i++)
     {
-        deck->enqueue(hand->back());
-        hand->pop_back();
+        deck->enqueue(hand->at(i));
     }
 }
 
@@ -50,16 +49,16 @@ void Player::pushToSide()
 {
     side->push(hand->back());
     hand->pop_back();
-    draw();
+    //draw();
 }
 
 int Player::handSum()         // Sums all the ints returned from dequeue
 {                                           // Iterates for as many cards that are in the deck
     int hSum = 0;
-    for (int i = 0; i < hand->size(); i++)
+    //std::cout << "\n" << hand->size() << " | "<<  hand->at(0) <<  std::endl;
+    for (unsigned int i = 0; i < hand->size(); i++)
     {
-        hSum += hand->back();
-        hand->pop_back();
+        hSum += hand->at(i);
     }
     return hSum;
 }
@@ -67,7 +66,7 @@ int Player::handSum()         // Sums all the ints returned from dequeue
 void Player::peekHand()             // Displays hand unless there is no card there
 {                                       // May have to edit above code to set pushed hand members to nullptr
     std::cout << "\nYour hand: " << std::endl;
-    for (int i = 0; i < hand->size(); i++)
+    for (unsigned int i = 0; i < hand->size(); i++)
     {
         std::cout << hand->at(i) << " | ";
     }
@@ -77,7 +76,7 @@ void Player::peekHand()             // Displays hand unless there is no card the
 void Player::peekSidePile()
 {
     std::cout << "\nSide Pile:" << std::endl;
-    for (int i = 0; i < side->size(); i++)
+    for (unsigned int i = 0; i < side->size(); i++)
     {
         std::cout << side->look(i) << " | ";
     }
@@ -95,17 +94,15 @@ void Player::getFromPile()              // grabs card from pile and puts it in p
 
 void Player::addToHand(std::vector<int> *tmp)
 {
-    for (int i = 0; i < tmp->size(); i++)
+    for (unsigned int i = 0; i < tmp->size(); i++)
     {
-        hand->emplace_back(tmp->back());
-        tmp->pop_back();
+        hand->emplace_back(tmp->at(i));
     }
 }
 
 std::vector<int> *Player::getHand()
 {
     std::vector<int> *tmp = hand;
-    hand->clear();
     return tmp;
 }
 
@@ -126,4 +123,11 @@ bool Player::isSidePileFull()
 void Player::clearHand()
 {
     hand->clear();
+}
+
+int Player::cardsLeftInDeck()
+{
+    //std::cout << std::endl;
+    //deck->printDeck();
+    return deck->size();
 }

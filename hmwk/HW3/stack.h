@@ -147,47 +147,4 @@ T Stack<T>::look(int index)
     return *stack[index];
 }
 
-template<class T>
-void printStack(Stack<T> *s)
-{
-    std::string tmp = "";
-    std::string out = "";
-    std::string filler = "";
-    int fillAmount;
-    int fillAmountR;
-    int diskSize;
-    int numOfDisk = s->head;
-    int maxSize = s->maxSize;
-
-    for (int i = maxSize; i >= 0; i--)
-    {
-        filler = "";
-        tmp = "";
-
-        if (numOfDisk <= i)
-        {
-            diskSize = 0;
-        }
-        else
-        {
-            diskSize = s->look(i);
-        }
-        //cout << diskSize << "\t" << maxSize << endl;
-
-        fillAmount = (maxSize - diskSize);
-        for (int k = 0; k < fillAmount; k++)
-        {
-            filler = filler + " ";
-        }
-
-        for (int j = 0; j < diskSize; j++)
-        {
-            tmp = tmp + "=";
-        }
-        out = out + filler + tmp + "|" + tmp + filler + "\n";
-    }
-    std::cout << out << "\n\n";
-}
-
-
 #endif

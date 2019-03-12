@@ -33,7 +33,7 @@ int SidePile::look(int index)
     return pile[index];
 }
 
-int SidePile::size()
+unsigned int SidePile::size()
 {
     return head;
 }

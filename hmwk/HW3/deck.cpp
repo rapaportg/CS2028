@@ -57,6 +57,6 @@ void Deck::printDeck()
 
 int Deck::size()
 {
-        return length + 1;
+        return length;
 
 }

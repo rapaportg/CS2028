@@ -4,8 +4,8 @@
 class SidePile
 {
     private:
-        int head = 0;
-        int pile[5];
+        int     head = 0;
+        int     pile[5];
 
     public:
         class StackOverFlowException
@@ -28,10 +28,10 @@ class SidePile
                 int getValue() {return value;}
         };
 
-        void    push(int card);
-        int     pop();
-        int     size(); // size of pile
-        int     look(int index);
+        void            push(int card);     // add element to the top of the stack
+        int             pop();              // removes element from the bottom of the stack
+        unsigned int    size();             // size of pile
+        int             look(int index);    // returns element at index in stack
 
 };
 

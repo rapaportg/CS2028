@@ -3,18 +3,13 @@
 
 class Node
 {
-    public:
-        int value;
-        Node *next = nullptr;
+    private:
+        int     value;
 
-        Node(int c)
-        {
-            value = c;
-        }
-        int getValue()
-        {
-            return value;
-        }
+    public:
+        Node    *next;
+        Node(int c);
+        int getValue();
 
 };
 
