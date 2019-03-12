@@ -49,10 +49,11 @@ void playRound(Player *me, Player *cpu)
 
 
     me->clearHand();
+    cpu->clearHand();
 
     me->draw();
     cpu->draw();
-    cpu->clearHand();
+    //cpu->clearHand();  // Uncomment to test win condition in a reasonable amount of time
 
     cout << "\nCards left in your deck: " << me->cardsLeftInDeck() << endl;
     cout << "Cards left in CPU deck: " << cpu->cardsLeftInDeck();
