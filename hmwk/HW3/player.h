@@ -24,6 +24,7 @@ class Player
         bool                hasCards();        // DONE: Checks to see if the player has any cards left in their deck and or pile
         int                 handPos();         // DONE: Finds open spot players hand
         std::vector<int>    getHand();
+
         void                addToHand(std::vector<int> *tmp);       // TODO: Takes cards from other player and puts in hand
 };
 #endif

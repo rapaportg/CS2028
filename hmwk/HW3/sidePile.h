@@ -32,6 +32,7 @@ class SidePile
         int pop();
         int size(); // size of pile
         int getHead();
+
 };
 
 #endif

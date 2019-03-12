@@ -15,6 +15,7 @@ class Node
         {
             return value;
         }
+
 };
 
 #endif

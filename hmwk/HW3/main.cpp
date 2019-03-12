@@ -36,6 +36,7 @@ int validIntInput(string outputMsg, int min, int max)
     return ret;
 }
 
+
 void playRound(Player *me, Player *cpu)
 {
     int input;

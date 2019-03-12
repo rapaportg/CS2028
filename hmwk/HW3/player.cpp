@@ -107,4 +107,5 @@ void Player::addToHand(std::vector<int> *tmp)
 std::vector<int> *Player::getHand()
 {
     return hand;
+
 }

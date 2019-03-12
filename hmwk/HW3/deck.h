@@ -28,5 +28,6 @@ class Deck
         int dequeue();
         int size();
         void printDeck();
+
 };
 #endif
