@@ -30,3 +30,8 @@ int SidePile::size()
 {
     return head;
 }
+
+int SidePile::getHead()
+{
+    return head;
+}

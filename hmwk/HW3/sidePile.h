@@ -31,7 +31,7 @@ class SidePile
         void push(int card);
         int pop();
         int size(); // size of pile
-
+        int getHead();
 };
 
 #endif

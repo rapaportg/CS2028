@@ -1,4 +1,5 @@
 #include "player.h"
+#include <iostream>
 #include <vector>       // vector
 #include <ctime>        // time
 #include <algorithm>    // random_shuffle
@@ -7,6 +8,7 @@
 Player::Player()
 {
     initDeck();
+    //deck->printDeck();
 }
 
 void Player::initDeck()    // creates a new shuffeled deck for the player per game
@@ -30,19 +32,20 @@ void Player::initDeck()    // creates a new shuffeled deck for the player per ga
     }
 }
 
-int Player::draw()
+void Player::draw()
 {
-    return deck->dequeue();
+    hand->push_back(deck->dequeue());
 }
 
 void Player::bury()
 {
-    deck->enqueue(hand[0]);
+    deck->enqueue(hand->at(0));
 }
 
-void Player::saveCard()
+void Player::pushToSide()
 {
-    side->push(hand[1]);
+    side->push(hand->at(0));
+    draw();
 }
 
 int Player::deckSum()         // Sums all the ints returned from dequeue
@@ -50,30 +53,58 @@ int Player::deckSum()         // Sums all the ints returned from dequeue
     int dSum = 0;
     for (int i = 0; i < deck->size(); i++)
     {
-        dSum += deck->dequeue();    
+        dSum += deck->dequeue();
     }
     return dSum;
 }
 
 void Player::peekHand()             // Displays hand unless there is no card there
 {                                       // May have to edit above code to set pushed hand members to nullptr
-    std::cout << "Your hand: " << endl;
-    for (int i = 0; i < 3; i++)
+    std::cout << "Your hand: " << std::endl;
+    for (int i = 0; i < hand->size(); i++)
     {
-        if (hand[i] != nullptr)
-        {
-            std::cout << &hand[i] << " ";   
-        }
+        std::cout << hand->at(i) << " - ";
     }
-    std::cout << endl;
+    std::cout << std::endl;
 }
 
-bool Player::hasCards()  
+bool Player::hasCards()
 {
     return side->size() == 0 || deck->size() == 1;
 }
 
-void Player::getFromPile()
+int Player::handPos()
 {
-    hand[2] = side->pop();               // third slot in hand is for card that comes from the pile 
+    for (int i = 0; i < 6; i++)
+    {
+        if (hand->at(i) == 0)
+            return i;
+    }
+    return 7;
+}
+
+void Player::getFromPile()              // grabs card from pile and puts it in players hand
+{
+    int pos;
+    pos = handPos();
+    if (pos == 7)
+    {
+        std::cout << "your hand is full\n";
+        return;
+    }
+    hand->at(pos) = side->pop();
+}
+
+void Player::addToHand(std::vector<int> *tmp)
+{
+    while (tmp->size() > 0)
+    {
+        hand->push_back(tmp->back());
+        tmp->pop_back();
+    }
+}
+
+std::vector<int> *Player::getHand()
+{
+    return hand;
 }

@@ -27,5 +27,6 @@ class Deck
         void enqueue(int card);
         int dequeue();
         int size();
+        void printDeck();
 };
 #endif

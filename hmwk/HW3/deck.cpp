@@ -1,5 +1,6 @@
 #include "deck.h"
 #include "node.h"
+#include <iostream>
 
 void Deck::enqueue(int card) // insert front of link list
 {
@@ -27,16 +28,31 @@ int Deck::dequeue()  // remove from back of link list
         else
         {
                 Node *tmp = head;
+                Node *toDelete = tmp->next;
 
-                while (tmp->next != nullptr)
+                while (toDelete->next != nullptr)
                 {
-                        tmp = tmp->next;
+                        tmp = toDelete;
+                        toDelete = toDelete->next;
                 }
-                ret = tmp->getValue();
-                delete tmp;
+
+                tmp->next = nullptr;
+                ret = toDelete->getValue();
+                delete toDelete;
                 length--;
         }
         return ret;
+}
+
+void Deck::printDeck()
+{
+        Node *tmp = head;
+        for (int i = 0; i < length; i++)
+        {
+                std::cout << tmp->getValue() << " | ";
+                tmp = tmp->next;
+        }
+        std::cout << std::endl;
 }
 
 int Deck::size()
