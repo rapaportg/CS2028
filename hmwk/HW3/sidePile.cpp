@@ -2,7 +2,7 @@
 
 void SidePile::push(int card)
 {
-    if (head == 5)
+    if (head > 4)
     {
         throw StackOverFlowException(head);
     }
@@ -26,13 +26,14 @@ int SidePile::pop()
     }
 }
 
+int SidePile::look(int index)
+{
+    if (index > 4)
+        throw StackOverFlowException(index);
+    return pile[index];
+}
+
 int SidePile::size()
 {
     return head;
-}
-
-int SidePile::getHead()
-{
-    return head;
-
 }

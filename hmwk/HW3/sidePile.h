@@ -28,10 +28,10 @@ class SidePile
                 int getValue() {return value;}
         };
 
-        void push(int card);
-        int pop();
-        int size(); // size of pile
-        int getHead();
+        void    push(int card);
+        int     pop();
+        int     size(); // size of pile
+        int     look(int index);
 
 };
 

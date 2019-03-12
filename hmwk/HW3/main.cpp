@@ -25,7 +25,7 @@ int validIntInput(string outputMsg, int min, int max)
 
         if (ret < min || ret > max)
         {
-            cout << "Error invalid number!\n";
+            cout << "Error invalid input!\n";
             validSize = false;
         }
         else
@@ -36,17 +36,77 @@ int validIntInput(string outputMsg, int min, int max)
     return ret;
 }
 
+void computerMove(Player *cpu)
+{
+
+}
 
 void playRound(Player *me, Player *cpu)
 {
     int input;
+    me->clearHand();
+    cpu->clearHand();
     me->draw();
     cpu->draw();
 
     me->peekHand();
-    cout << "\n1. Save Card in side pile" << endl;
-    cout << "2. Draw from side pile" << endl;
-    input = validIntInput("What would you like to do?", 1, 2);
+    me->peekSidePile();
+    cout << endl;
+    if (!me->isSidePileEmpty() && !me->isSidePileFull())
+    {
+        cout << "\n1. Save Card in side pile" << endl;
+        cout << "2. Draw from side pile" << endl;
+        cout << "3. Do Nothing" << endl;
+        input = validIntInput("What would you like to do?", 1, 3);
+    }
+    else if (!me->isSidePileEmpty())
+    {
+        cout << "\n2. Draw from side pile" << endl;
+        cout << "3. Do Nothing" << endl;
+        input = validIntInput("What would you like to do?", 2, 3);
+    }
+    else
+    {
+        input = 2;
+
+        cout << "\n1. Save Card in side pile" << endl;
+        cout << "3. Do Nothing" << endl;
+        input = validIntInput("What would you like to do?", 1, 3);
+
+        while(input == 2)
+        {
+            cout << "Error invaild input!" << endl;
+            input = validIntInput("What would you like to do?", 1, 3);
+        }
+    }
+
+    // computer moves go here
+
+    if (input == 1)
+    {
+        me->pushToSide();
+    }
+    else if (input == 2)
+    {
+        me->getFromPile();
+    }
+    cout << endl;
+    me->peekHand();
+    me->peekSidePile();
+
+    if (me->handSum() > cpu->handSum())
+    {
+        cout << "Winner! you: " << me->handSum() << "\t cpu: " << cpu->handSum() << endl;
+        me->addToHand(cpu->getHand());
+        me->bury();
+    }
+    else
+    {
+        cout << "Winner! you: " << me->handSum() << "\t cpu: " << cpu->handSum() << endl;
+        cpu->addToHand(me->getHand());
+        cpu->bury();
+    }
+
 }
 
 int main()
@@ -57,6 +117,10 @@ int main()
     me = new Player();
     computer = new Player(); //initalize computer deck after a user input to allow enough time for a new random seed
 
-    playRound(me, computer);
+    while (true)
+    {
+        cout << "\n\n\n";
+        playRound(me, computer);
+    }
     return 0;
 }

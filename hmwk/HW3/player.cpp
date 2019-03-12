@@ -39,33 +39,48 @@ void Player::draw()
 
 void Player::bury()
 {
-    deck->enqueue(hand->at(0));
+    for (int i = 0; i < hand->size(); i++)
+    {
+        deck->enqueue(hand->back());
+        hand->pop_back();
+    }
 }
 
 void Player::pushToSide()
 {
-    side->push(hand->at(0));
+    side->push(hand->back());
+    hand->pop_back();
     draw();
 }
 
-int Player::deckSum()         // Sums all the ints returned from dequeue
+int Player::handSum()         // Sums all the ints returned from dequeue
 {                                           // Iterates for as many cards that are in the deck
-    int dSum = 0;
-    for (int i = 0; i < deck->size(); i++)
+    int hSum = 0;
+    for (int i = 0; i < hand->size(); i++)
     {
-        dSum += deck->dequeue();
+        hSum += hand->back();
+        hand->pop_back();
     }
-    return dSum;
+    return hSum;
 }
 
 void Player::peekHand()             // Displays hand unless there is no card there
 {                                       // May have to edit above code to set pushed hand members to nullptr
-    std::cout << "Your hand: " << std::endl;
+    std::cout << "\nYour hand: " << std::endl;
     for (int i = 0; i < hand->size(); i++)
     {
-        std::cout << hand->at(i) << " - ";
+        std::cout << hand->at(i) << " | ";
     }
-    std::cout << std::endl;
+    //std::cout << std::endl;
+}
+
+void Player::peekSidePile()
+{
+    std::cout << "\nSide Pile:" << std::endl;
+    for (int i = 0; i < side->size(); i++)
+    {
+        std::cout << side->look(i) << " | ";
+    }
 }
 
 bool Player::hasCards()
@@ -73,39 +88,42 @@ bool Player::hasCards()
     return side->size() == 0 || deck->size() == 1;
 }
 
-int Player::handPos()
-{
-    for (int i = 0; i < 6; i++)
-    {
-        if (hand->at(i) == 0)
-            return i;
-    }
-    return 7;
-}
-
 void Player::getFromPile()              // grabs card from pile and puts it in players hand
 {
-    int pos;
-    pos = handPos();
-    if (pos == 7)
-    {
-        std::cout << "your hand is full\n";
-        return;
-    }
-    hand->at(pos) = side->pop();
+    hand->push_back(side->pop());
 }
 
 void Player::addToHand(std::vector<int> *tmp)
 {
-    while (tmp->size() > 0)
+    for (int i = 0; i < tmp->size(); i++)
     {
-        hand->push_back(tmp->back());
+        hand->emplace_back(tmp->back());
         tmp->pop_back();
     }
 }
 
 std::vector<int> *Player::getHand()
 {
-    return hand;
+    std::vector<int> *tmp = hand;
+    hand->clear();
+    return tmp;
+}
 
+bool Player::isSidePileEmpty()
+{
+    if (side->size() == 0)
+        return true;
+    return false;
+}
+
+bool Player::isSidePileFull()
+{
+    if(side->size() == 5)
+        return true;
+    return false;
+}
+
+void Player::clearHand()
+{
+    hand->clear();
 }
