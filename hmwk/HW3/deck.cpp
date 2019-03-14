@@ -30,14 +30,23 @@ int Deck::dequeue()  // remove from back of link list
                 Node *tmp = head;
                 Node *toDelete = tmp->next;
 
-                while (toDelete->next != nullptr)
+                if (toDelete != nullptr)
                 {
-                        tmp = toDelete;
-                        toDelete = toDelete->next;
+                        while (toDelete->next != nullptr)
+                        {
+                                tmp = toDelete;
+                                toDelete = toDelete->next;
+                        }
                 }
-
                 tmp->next = nullptr;
-                ret = toDelete->getValue();
+                if (toDelete != nullptr)
+                {
+                        ret = toDelete->getValue();
+                }
+                else
+                {
+                        ret = head->getValue();        
+                }
                 delete toDelete;
                 length--;
         }
