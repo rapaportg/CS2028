@@ -8,10 +8,9 @@
 Player::Player()
 {
     initDeck();
-    //deck->printDeck();
 }
 
-void Player::initDeck()    // creates a new shuffeled deck for the player per game
+void Player::initDeck()    // creates a new shuffled deck for the player per game
 {
     if (deck != nullptr)
         delete deck;
@@ -49,13 +48,11 @@ void Player::pushToSide()
 {
     side->push(hand->back());
     hand->pop_back();
-    //draw();
 }
 
-int Player::handSum()         // Sums all the ints returned from dequeue
-{                                           // Iterates for as many cards that are in the deck
+int Player::handSum()         // Sums all the ints held in hand
+{                                           
     int hSum = 0;
-    //std::cout << "\n" << hand->size() << " | "<<  hand->at(0) <<  std::endl;
     for (unsigned int i = 0; i < hand->size(); i++)
     {
         hSum += hand->at(i);
@@ -63,14 +60,13 @@ int Player::handSum()         // Sums all the ints returned from dequeue
     return hSum;
 }
 
-void Player::peekHand()             // Displays hand unless there is no card there
-{                                       // May have to edit above code to set pushed hand members to nullptr
+void Player::peekHand()             // Displays hand 
+{                                       
     std::cout << "\nYour hand: " << std::endl;
     for (unsigned int i = 0; i < hand->size(); i++)
     {
         std::cout << hand->at(i) << " | ";
     }
-    //std::cout << std::endl;
 }
 
 void Player::peekSidePile()
@@ -78,7 +74,7 @@ void Player::peekSidePile()
     std::cout << "\nSide Pile:" << std::endl;
     for (unsigned int i = 0; i < side->size(); i++)
     {
-        std::cout << side->look(i) << " | ";
+		std::cout << side->look(i) << " | " << std::endl;
     }
 }
 
@@ -100,7 +96,7 @@ void Player::addToHand(std::vector<int> *tmp)
     }
 }
 
-std::vector<int> *Player::getHand()
+std::vector<int> *Player::getHand()		// returns pointer to player hand
 {
     std::vector<int> *tmp = hand;
     return tmp;
@@ -127,7 +123,5 @@ void Player::clearHand()
 
 int Player::cardsLeftInDeck()
 {
-    //std::cout << std::endl;
-    //deck->printDeck();
     return deck->size();
 }
