@@ -2,17 +2,24 @@
 #define LINKLIST_H
 
 #include "node.h"
+#include "Part.h"
 #include <iostream>
 
 using namespace std;
 
+
 template<class T>
-class LinkList {
+class LinkList
+{
 private:
 	Node<T> *head = nullptr;
-	int length = 0;
+	Node<T> *next = nullptr;
+	int next_count = 0;
 	Node<T> *findParent(Node<T> *itemToAdd);
+protected:
+	int length = 0;
 public:
+	LinkList();
 	class NoListException {};
 	void addItem(Node<T> *itemToAdd);
 	Node<T>* getListItem(Node<T> *itemToGet);
@@ -20,10 +27,25 @@ public:
 	bool isEmpty();
 	int Size();
 	void printList();
+	Node<T>* seeNext();					
+	Node<T>* seeAt(int location);				
+	void Reset();
+	void displayList();
+	~LinkList() {};
 };
 
 template<class T>
-void LinkList<T>::addItem(Node<T> *itemToAdd) {
+LinkList<T>::LinkList()
+{
+	head = nullptr;
+	next = nullptr;
+	next_count = 0;
+	length = 0;
+}
+
+template<class T>
+void LinkList<T>::addItem(Node<T> *itemToAdd) 
+{
 	if (head == nullptr) {
 		head = itemToAdd;		// IF head is empty adds to first element to list
 		length++;
@@ -40,7 +62,6 @@ void LinkList<T>::addItem(Node<T> *itemToAdd) {
 	Node<T> *parent = findParent(itemToAdd);
 	
 	if (parent->getNext() == nullptr) {
-		//cout << "The added item has next value of:" << itemToAdd->getNext()<<"\n";
 		parent->setNext(itemToAdd);
 	}
 	else
@@ -52,17 +73,19 @@ void LinkList<T>::addItem(Node<T> *itemToAdd) {
 }
 
 template<class T>
-Node<T> *LinkList<T>::findParent(Node<T> *itemToAdd) {
+Node<T> *LinkList<T>::findParent(Node<T> *itemToAdd)
+{
 	Node<T> *ptr = head;
 	T temp = *(itemToAdd->getItem());
-	while(ptr->getNext() != nullptr) {
-		if (*(ptr->getNext()->getItem())>temp) {
-			//cout << "Returning the ptr item val " << *(ptr->getItem()) << " with next adress " << ptr->getNext() << "\n";
+
+	while (ptr->getNext() != nullptr)
+	{
+		if (*(ptr->getNext()->getItem()) > temp)
+		{
 			return ptr;
 		}
-		ptr = ptr-> getNext();
+		ptr = ptr->getNext();
 	}
-	//cout << "Returning the ptr item val "<< *(ptr->getItem()) <<" with next adress "<< ptr->getNext() <<"\n";
 	return ptr;
 }
 
@@ -102,9 +125,10 @@ Node<T> *LinkList<T>::getListItem(Node<T> *itemToGet)
 }
 
 template<class T>
-bool LinkList<T>::isInList(Node<T> *itemToCheck)	// Checks for item in current spot, then advances the current spot through the list as long as 
-{							// current next is not null (end of the list)
+bool LinkList<T>::isInList(Node<T> *itemToCheck)		// Checks for item in current spot, then advances the current spot through the list as long as 
+{														// current next is not null (end of the list)
 	Node<T>* tmp = head;
+	cout << "tmp " << tmp << endl;
 	do
 	{
 		if (*(tmp->getItem()) == *(itemToCheck->getItem()))
@@ -140,17 +164,99 @@ int LinkList<T>::Size()
 }
 
 template<class T>
-void LinkList<T>::printList() {
-	if (length == 0) {
+void LinkList<T>::printList() 
+{
+	if (length == 0) 
+	{
 		cout << "Empty List \n";
 		return;
 	}
+
 	Node<T> * temp = head;
-	while (temp != nullptr) {
+	while (temp != nullptr) 
+	{
 		cout << *(temp->getItem()) << " ";
 		temp = temp->getNext();
 	}
 	cout << "\n";
 }
 
-#endif // 
+template<class T>
+Node<T>* LinkList<T>::seeNext()
+{
+	int sz;
+	sz = Size();
+	Node<T> *tmp1 = head;
+
+	if (isEmpty() == 1)
+	{
+		throw "There is no next because there is no list!";
+	}
+
+	if (next_count == 0)
+	{
+		next_count++;
+		next = head;
+		next = next->getNext();
+		return tmp1;
+	}
+	else
+	{
+		if (next == nullptr)
+		{
+			return nullptr;
+		}
+		tmp1 = next;
+		next = next->getNext();
+		return tmp1;
+	}
+}
+
+template<class T>									// Iterates for (location - 1) times, tmp2 is the succeeding item where tmp1 lands on the 
+Node<T>* LinkList<T>::seeAt(int location)						// item that we are looking for
+{	
+	Node<T> *tmp1 = head;
+	Node<T> *tmp2 = head->getNext();
+	int sz = Size();
+
+	if (isEmpty() == 1)
+	{
+		throw "There is no next because there is no list!";
+	}
+
+	if (location > sz || location <= 0)
+	{
+		throw "Your location is out of the list's bounds!";
+	}
+	
+	for (int i = 1; i < location; i++)
+	{
+		tmp1 = tmp2;
+		tmp2 = tmp2->getNext();
+	}
+	next = tmp2;
+	return tmp1;
+}
+
+template<class T>						  
+void LinkList<T>::Reset()				
+{
+	Node<T> *tmp1 = head;
+	next = tmp1;
+	next_count = 0;
+}
+
+template<class T>
+void LinkList<T>::displayList() {
+	Node<T> *temp = head;
+	if (length == 0) {
+		"The list is empty. \n";
+	}
+	for (int i = 0; i < length; i++) {
+		temp->getItem()->displayProd();
+		cout << "\n";
+		temp = temp->getNext();
+	}
+}
+
+#endif 
