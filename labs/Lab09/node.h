@@ -5,10 +5,11 @@ template<class T>
 class Node
 {
     private:
-        T value;
+        T       value;
 
     public:
-        Node *next;
+        Node    *left;
+        Node    *right;
         Node(T v);
         T getValue();
 
@@ -20,7 +21,8 @@ template<class T>
 Node<T>::Node(T v)
 {
     value = v;
-    next = nullptr;
+    left = nullptr;
+    right = nullptr;
 }
 
 template<class T>
