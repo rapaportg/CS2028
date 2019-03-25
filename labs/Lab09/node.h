@@ -2,23 +2,23 @@
 #define NODE_H
 
 template<class T>
-class Node
+class BTNode
 {
     private:
         T       value;
 
     public:
-        Node    *left;
-        Node    *right;
-        Node(T v);
-        T getValue();
+        BTNode    *left; // smaller
+        BTNode    *right; // larger
+        BTNode(T v);
+        T getVal();
 
 };
 
 #endif
 
 template<class T>
-Node<T>::Node(T v)
+BTNode<T>::BTNode(T v)
 {
     value = v;
     left = nullptr;
@@ -26,7 +26,7 @@ Node<T>::Node(T v)
 }
 
 template<class T>
-T Node<T>::getValue()
+T BTNode<T>::getVal()
 {
     return value;
 }

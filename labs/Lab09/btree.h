@@ -6,18 +6,57 @@ template<class T>
 class BTree
 {
     private:
-        Node    *root;
-        int     size;
+        BTNode      *root = nullptr;
+        int         size;
 
     public:
-        void    Insert(T val);
-        *Node   Find(T val);
-        int     size();
-        *Node   GetAllAscending();
-        *Node   GetAllDescending();
-        void    EmptyTree();
-        *Node   Remove(T val);
+        void        Insert(T val);
+        *BTNode     Find(T val);
+        int         size();
+        *BTNode     GetAllAscending();
+        *BTNode     GetAllDescending();
+        void        EmptyTree();
+        *BTNode     Remove(T val);
+        *BTNode     findParent(T val, BTNode *ptr);
 
 };
+
+template<class T>
+BTNode *BTree<T>::findParent(T val, BTNode *ptr) // ptr is a copy of root
+{
+    BTNode *tmp;
+    if (ptr == nullptr)
+    {
+        return nullptr;
+    }
+    if (ptr->data == val)
+    {
+        return nullptr;
+    }
+    tmp = findParentNode(val, ptr->left);
+    if (tmp->left->data == val)
+        return tmp;
+
+    tmp = findParentNode(val, ptr->right);
+    if (tmp->right->data == val || tmp->left == val)
+        return tmp;
+
+    return ptr;
+}
+
+template<class T>
+void    BTree<T>::Insert(T val)
+{
+    BTNode  *tmp;
+    if (root == nullptr)
+    {
+        root = BTNode(val);
+        size++;
+    }
+    else
+    {
+
+    }
+}
 
 #endif
