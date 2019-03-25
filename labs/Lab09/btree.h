@@ -75,9 +75,16 @@ void        BTree<T>::Insert(T val)
     }
 }
 
-BTNode<T>   BTree<T>::Find(T val)
+template<class T>
+BTNode<T>   *BTree<T>::Find(T val)
 {
-
+    BTNode<T>  *ptr = root;
+    ptr = findParent(val, ptr);
+    if (ptr->left->getVal()->compare(val) == 0)
+        return ptr->left;
+    if (ptr->right->getVal()->compare(val) == 0)
+        return ptr->right;
+    return nullptr;
 }
 
 #endif
