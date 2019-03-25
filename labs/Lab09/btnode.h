@@ -1,5 +1,5 @@
-#ifndef NODE_H
-#define NODE_H
+#ifndef BTNODE_H
+#define BTNODE_H
 
 template<class T>
 class BTNode

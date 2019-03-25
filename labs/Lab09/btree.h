@@ -1,30 +1,30 @@
 #ifndef BTREE_H
 #define BTREE_H
-#include "node.h"
+#include "btnode.h"
 
 template<class T>
 class BTree
 {
     private:
-        BTNode      *root = nullptr;
-        int         size;
+        BTNode<T>   *root = nullptr;
+        int         numElements;
 
     public:
         void        Insert(T val);
-        *BTNode     Find(T val);
+        BTNode<T>   *Find(T val);
         int         size();
-        *BTNode     GetAllAscending();
-        *BTNode     GetAllDescending();
+        BTNode<T>   *GetAllAscending();
+        BTNode<T>   *GetAllDescending();
         void        EmptyTree();
-        *BTNode     Remove(T val);
-        *BTNode     findParent(T val, BTNode *ptr);
+        BTNode<T>   *Remove(T val);
+        BTNode<T>   *findParent(T val, BTNode<T> *ptr);
 
 };
 
 template<class T>
-BTNode *BTree<T>::findParent(T val, BTNode *ptr) // ptr is a copy of root
+BTNode<T> *BTree<T>::findParent(T val, BTNode<T> *ptr) // ptr is a copy of root
 {
-    BTNode *tmp;
+    BTNode<T> *tmp;
     if (ptr == nullptr)
     {
         return nullptr;
@@ -47,16 +47,16 @@ BTNode *BTree<T>::findParent(T val, BTNode *ptr) // ptr is a copy of root
 template<class T>
 void    BTree<T>::Insert(T val)
 {
-    BTNode  *tmp;
+    BTNode<T>  *tmp;
     if (root == nullptr)
     {
-        root = BTNode(val);
+        root = BTNode<T>(val);
         size++;
     }
     else
     {
         tmp = root;
-        tmp = findParent
+        tmp = findParent;
     }
 }
 
