@@ -22,7 +22,7 @@ class BTree
 };
 
 template<class T>
-BTNode<T> *BTree<T>::findParent(T val, BTNode<T> *ptr) // ptr is a copy of root
+BTNode<T>   *BTree<T>::findParent(T val, BTNode<T> *ptr) // ptr is a copy of root
 {
     BTNode<T> *tmp;
     if (ptr == nullptr)
@@ -45,9 +45,10 @@ BTNode<T> *BTree<T>::findParent(T val, BTNode<T> *ptr) // ptr is a copy of root
 }
 
 template<class T>
-void    BTree<T>::Insert(T val)
+void        BTree<T>::Insert(T val)
 {
     BTNode<T>  *tmp;
+    BTNode<T>  *newNode;
     if (root == nullptr)
     {
         root = BTNode<T>(val);
@@ -58,10 +59,25 @@ void    BTree<T>::Insert(T val)
         tmp = root;
         tmp = findParent(val, tmp);
         if (tmp->getVal()->compare(val) == 0)
-            tmp->left = BTNode<T>(val);
+        {
+            newNode = new BTNode<T>(val);
+            newNode->right = tmp->left->right;
+            newNode->left = tmp->left->left;
+            tmp->left = newNode;
+        }
         else
-            tmp->rigth = BTNode<T>(val);
+        {
+            newNode = new BTNode<T>(val);
+            newNode->right = tmp->right->right;
+            newNode->left = tmp->right->left;
+            tmp->rigth = newNode;
+        }
     }
+}
+
+BTNode<T>   BTree<T>::Find(T val)
+{
+
 }
 
 #endif
