@@ -5,11 +5,11 @@ template<class T>
 class BTNode
 {
     private:
-        T       value;
+        T           val;
 
     public:
-        BTNode    *left; // smaller
-        BTNode    *right; // larger
+        BTNode      *left; // smaller
+        BTNode      *right; // larger
         BTNode(T v);
         T getVal();
 
@@ -20,7 +20,7 @@ class BTNode
 template<class T>
 BTNode<T>::BTNode(T v)
 {
-    value = v;
+    val = v;
     left = nullptr;
     right = nullptr;
 }
@@ -28,5 +28,5 @@ BTNode<T>::BTNode(T v)
 template<class T>
 T BTNode<T>::getVal()
 {
-    return value;
+    return val;
 }
