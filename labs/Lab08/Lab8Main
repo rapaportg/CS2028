@@ -1,0 +1,393 @@
+// Lab 8.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"			// Lando's precompiled header
+// #include "pch.h"			// Kurt's precompiled header
+#include "Part.h"
+#include <iostream>
+#include "linkList.h"
+#include "node.h"
+#include <iostream>
+
+
+using namespace std;
+
+int menu()
+{
+	int userChoice = 0;
+	cout << "Please choose what you would like to do: " << endl << endl;
+	cout << "Add a Part							Enter 1" << endl;
+	cout << "Grab a Part							Enter 2" << endl;
+	cout << "Is the Part in the list?					Enter 3" << endl;
+	cout << "Is the list empty?						Enter 4" << endl;
+	cout << "How many Parts are in the list?					Enter 5" << endl;
+	cout << "Display all Parts in the list					Enter 6" << endl;			
+	cout << "See next Part							Enter 7" << endl;
+	cout << "See a Part at a location					Enter 8" << endl;
+	cout << "Reset the next-Part location					Enter 9" << endl;
+	cout << "Exit								Enter 10" << endl;
+	while (1)
+	{
+		if (cin >> userChoice && !(userChoice > 10) && !(userChoice <= 0)) {
+			break;
+		}
+		else {
+			cout << "Please enter a valid integer" << endl;
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		}
+	}
+	return userChoice;
+}
+
+void addPartChoice(LinkList<Part> *myTestList)		// Menu choice 1
+{
+	int partNum = 0;
+	string partDes = " ";
+	double partPrice = 0;
+	string partUOM = " ";
+	int partQuan = 0;
+	bool conChoice = true;
+
+	cout << "Please enter the following information: " << endl;
+
+	cout << "  Part Number - ";
+	cin >> partNum;
+	while (cin.fail())
+	{
+		cout << "Please enter a valid integer" << endl;
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cin >> partNum;
+	}
+
+	cout << "  Part Description - ";
+	cin >> partDes;
+
+	cout << "  Part Price - ";
+	cin >> partPrice;
+	while (cin.fail())
+	{
+		cout << "Please enter a valid price" << endl;
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cin >> partPrice;
+	}
+
+	cout << "  Part Unit of Measure - ";
+	cin >> partUOM;
+
+	cout << "  Part Quantity " << endl;
+	cout << "(this is optional; press 0 or any negative integer to pass) - ";
+	cin >> partQuan;
+	while (cin.fail())
+	{
+		cout << "Please enter a valid integer" << endl;
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cin >> partQuan;
+	}
+	if (partQuan <= 0)
+	{
+		conChoice = false;
+	}
+
+
+	if (conChoice == true)
+	{
+		Part newPart(partNum, partDes, partPrice, partUOM, partQuan);
+		Part* aNewPart = new Part(newPart);
+		Node<Part>* aNewPartNode = new Node<Part>(aNewPart);
+		myTestList->addItem(aNewPartNode);
+	}
+	else
+	{
+		Part newPart(partNum, partDes, partPrice, partUOM);
+		Part* aNewPart = new Part(newPart);
+		Node<Part>* aNewPartNode = new Node<Part>(aNewPart);
+		myTestList->addItem(aNewPartNode);
+	}
+
+	myTestList->displayList();
+
+	cout << endl << "Your part has been added!" << endl;
+}				
+
+void grabPartChoice(LinkList<Part>* myTestList)		// Menu choice 2
+{
+	int partNum = 0;
+	// Print list here
+
+	cout << "What part would you like to grab?" << endl;
+	cout << "  Enter the part's number - ";
+	cin >> partNum;
+	while (cin.fail())
+	{
+		cout << "Please enter a valid integer" << endl;
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cin >> partNum;
+	}
+
+	Part fauxPart(partNum, "yay", 0.0, "yoy", 1);
+	Part* afauxPart = new Part(fauxPart);
+	Node<Part> fauxNodePart(afauxPart);
+	Node<Part>* afauxNodePart = new Node<Part>(fauxNodePart);
+	afauxNodePart->setItem(afauxPart);
+
+	if (myTestList->isInList(afauxNodePart) == true)
+	{
+		afauxNodePart = myTestList->getListItem(afauxNodePart);
+		myTestList->displayList();
+	}
+	else
+	{
+		cout << "That part is not in the list! " << endl;
+		myTestList->displayList();
+	}	
+	delete afauxPart;
+	delete afauxNodePart;
+}
+
+void checkPartExist(LinkList<Part>* myTestList)		// Menu choice 3
+{
+	int partNum = 0;
+
+	cout << "What is the part number you're looking for? - ";
+	cin >> partNum;
+	while (cin.fail())
+	{
+		cout << "Please enter a valid integer" << endl;
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cin >> partNum;
+	}
+	Part fauxPart(partNum, "yay", 0.0, "yoy", 1);
+	Part* afauxPart = new Part(fauxPart);
+	Node<Part> fauxNodePart(afauxPart);
+	Node<Part>* afauxNodePart = new Node<Part>(fauxNodePart);
+	afauxNodePart->setItem(afauxPart);
+
+	if (myTestList->isInList(afauxNodePart) == true)
+	{
+		cout << endl << "The part is in the list!" << endl << endl;
+		myTestList->displayList();
+	}
+	else
+	{
+		cout << endl << "That part is not in the list! " << endl << endl;
+		myTestList->displayList();
+	}
+	delete afauxPart;
+	delete afauxNodePart;
+}
+
+void checkListExist(LinkList<Part>* myTestList)		// Menu choice 4
+{
+	if (myTestList->isEmpty() == 1)
+	{
+		cout << endl << " The list is empty! congrats, you were right. " << endl << endl;
+	}
+	else
+	{
+		cout << endl << " The list has things! " << endl << endl;
+	}
+}
+
+void checkListLength(LinkList<Part>* myTestList)			// Menu choice 5
+{
+	cout << endl << "The list is " << myTestList->Size() << " item(s) long." << endl << endl;
+}
+
+void dispFullList(LinkList<Part>* myTestList)			// menu choice 6
+{
+	cout << endl << "The List: " << endl << endl;
+	myTestList->displayList();
+}
+
+void dispNextPart(LinkList<Part>* myTestList)			// menu choice 7
+{
+	Node<Part>* specNode;
+	Part* specPart;
+	cout << endl << "The part at the next location is:  " << endl << endl;
+	specNode = myTestList->seeNext();
+	if (specNode == nullptr)
+	{
+		cout << "There is no next part! " << endl;
+		return;
+	}
+	specPart = specNode->getItem();
+	specPart->displayProd();
+}
+
+void dispAtLoc(LinkList<Part>* myTestList)				// menu choice 8
+{
+	int partLoc = 0;
+	Node<Part>* specNode;
+	Part* specPart;
+
+	cout << endl << "At what location in the list would you like to view? " << endl;
+	cout << "  Please enter a list location - ";
+	cin >> partLoc;
+	while (cin.fail())
+	{
+		cout << "Please enter a valid integer" << endl;
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cin >> partLoc;
+	}
+
+	specNode = myTestList->seeAt(partLoc);
+	if (specNode == nullptr)
+	{
+		cout << "There's no part there!" << endl;
+		return;
+	}
+	specPart = specNode->getItem();
+	specPart->displayProd();
+}
+
+void resetNextOpt(LinkList<Part>* myTestList)			// menu choice 9
+{
+	myTestList->Reset();
+	cout << endl << "The SeeNext and SeeAt location marker has been reset to the head of the list. " << endl << endl;
+}
+
+int main()
+{
+	/*
+	int temp;
+	int *ptr;
+	int *ptr2;
+	int yeet = 0;
+	int yum = 0;
+	Node<int> *myObject;
+	Node<int> *myObject2;
+	Node<int> *nextTest;
+	LinkList<int> myList;
+
+	for (int i = 0; i < 15; i++)
+	{
+		cout << "set value:";
+		cin >> temp;
+
+		ptr = new int(temp);
+		myObject = new Node<int>(ptr);
+
+		myList.addItem(myObject);
+		myList.printList();
+	}
+
+	while (yeet == 0 || yeet == 1)
+	{
+		if (yeet == 0)
+		{
+			nextTest = myList.seeNext();
+			cout << "seeNext test: " << *(nextTest->getItem()) << endl;
+			cout << "would you like to see the next item, or see at a location?" << endl;
+			cin >> yeet;
+
+		}
+		else if (yeet == 1)
+		{
+			cout << "what location would you like to view?" << endl;
+			cin >> yum;
+			nextTest = myList.seeAt(yum);
+			cout << "seeAt test: " << *(nextTest->getItem()) << endl;
+			cout << "would you like to see the next item, or see at a location?" << endl;
+			cin >> yeet;
+		}
+	}
+
+	myList.Reset();
+	nextTest = myList.seeNext();
+	cout << "seeNext after reset() test: " << *(nextTest->getItem()) << endl;
+
+
+	for (int j = 0; j < 15; j++)
+	{
+		cout << "what value do you want to remove? ";
+		cin >> temp;
+
+		ptr2 = new int(temp);
+		myObject2 = new Node<int>(ptr2);
+
+		if (myList.isInList(myObject2))
+		{
+			cout << "Removing " << *(myList.getListItem(myObject2))->getItem() << " from the list " << endl;
+			myList.printList();
+		}
+		else
+		{
+			cout << "That item is not in the list! " << endl;
+		}
+	}
+
+	if (myList.isEmpty())
+	{
+		cout << "isEmpty() works! the list was empty " << endl;
+	}
+	else if (!myList.isEmpty())
+	{
+		cout << "isEmpty() works! the list wasn't empty " << endl;
+	}
+
+	cout << "The size of the list is: " << myList.Size() << endl;
+	*/
+			// Above is the code for personal testing
+
+	
+	LinkList<Part> myTestList;
+	LinkList<Part>* myTestListAd = new LinkList<Part>(myTestList);
+	int menuChoice = 0;
+	bool menuLoop = true;
+	while (menuLoop)
+	{
+		menuChoice = menu();
+
+		if (menuChoice == 1)
+		{
+			addPartChoice(myTestListAd);
+		}
+		else if (menuChoice == 2)
+		{
+			grabPartChoice(myTestListAd);
+		}
+		else if (menuChoice == 3)
+		{
+			checkPartExist(myTestListAd);
+		}
+		else if (menuChoice == 4)
+		{
+			checkListExist(myTestListAd);
+		}
+		else if (menuChoice == 5)
+		{
+			checkListLength(myTestListAd);
+		}
+		else if (menuChoice == 6)
+		{
+			dispFullList(myTestListAd);
+		}
+		else if (menuChoice == 7)
+		{
+			dispNextPart(myTestListAd);
+		}
+		else if (menuChoice == 8)
+		{
+			dispAtLoc(myTestListAd);
+		}
+		else if (menuChoice == 9)
+		{
+			resetNextOpt(myTestListAd);
+		}
+		else if (menuChoice == 10)
+		{
+			menuLoop = false;
+		}
+	}
+
+	delete myTestListAd;
+
+	return 0;
+}
