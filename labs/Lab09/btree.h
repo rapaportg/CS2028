@@ -10,14 +10,14 @@ class BTree
         int         numElements;
 
     public:
-        void        Insert(T val);
-        BTNode<T>   *Find(T val);
-        int         size();
-        BTNode<T>   *GetAllAscending();
-        BTNode<T>   *GetAllDescending();
-        void        EmptyTree();
-        BTNode<T>   *Remove(T val);
-        BTNode<T>   *findParent(T val, BTNode<T> *ptr);
+        void        Insert(T val);                      // TODO: Rebalancing | NEEDS TESTING
+        BTNode<T>   *Find(T val);                       // DONE | NEEDS TESTING
+        int         size();                             // DONE | NEEDS TESTING
+        BTNode<T>   *GetAllAscending();                 // TODO |
+        BTNode<T>   *GetAllDescending();                // TODO |
+        void        EmptyTree();                        // TODO |
+        BTNode<T>   *Remove(T val);                     // TODO |
+        BTNode<T>   *findParent(T val, BTNode<T> *ptr); // TODO |
 
 };
 
@@ -45,7 +45,7 @@ BTNode<T>   *BTree<T>::findParent(T val, BTNode<T> *ptr) // ptr is a copy of roo
 }
 
 template<class T>
-void        BTree<T>::Insert(T val)
+void        BTree<T>::Insert(T val) // Needs rebalancing
 {
     BTNode<T>  *tmp;
     BTNode<T>  *newNode;
@@ -58,8 +58,13 @@ void        BTree<T>::Insert(T val)
     {
         tmp = root;
         tmp = findParent(val, tmp);
-        if (tmp->getVal()->compare(val) == 0)
+        else if (tmp->getVal()->compare(val) > 0)
         {
+            if (tmp->left->getVal()->compare(val) == 0)
+            {
+                tmp->left->addFreq();
+                return;
+            }
             newNode = new BTNode<T>(val);
             newNode->right = tmp->left->right;
             newNode->left = tmp->left->left;
@@ -67,10 +72,15 @@ void        BTree<T>::Insert(T val)
         }
         else
         {
+            if (tmp->right->getVal()->compare(val) == 0)
+            {
+                tmp->right->addFreq();
+                return;
+            }
             newNode = new BTNode<T>(val);
             newNode->right = tmp->right->right;
             newNode->left = tmp->right->left;
-            tmp->rigth = newNode;
+            tmp->right = newNode;
         }
     }
 }
@@ -86,5 +96,7 @@ BTNode<T>   *BTree<T>::Find(T val)
         return ptr->right;
     return nullptr;
 }
+
+template<class T>
 
 #endif
