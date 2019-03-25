@@ -33,11 +33,11 @@ BTNode *BTree<T>::findParent(T val, BTNode *ptr) // ptr is a copy of root
     {
         return nullptr;
     }
-    tmp = findParentNode(val, ptr->left);
+    tmp = findParent(val, ptr->left);
     if (tmp->left->data == val)
         return tmp;
 
-    tmp = findParentNode(val, ptr->right);
+    tmp = findParent(val, ptr->right);
     if (tmp->right->data == val || tmp->left == val)
         return tmp;
 
@@ -55,7 +55,8 @@ void    BTree<T>::Insert(T val)
     }
     else
     {
-
+        tmp = root;
+        tmp = findParent
     }
 }
 
