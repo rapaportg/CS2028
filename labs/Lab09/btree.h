@@ -58,7 +58,7 @@ void        BTree<T>::Insert(T val) // Needs rebalancing
     {
         tmp = root;
         tmp = findParent(val, tmp);
-        else if (tmp->getVal()->compare(val) > 0)
+        if (tmp->getVal()->compare(val) > 0)
         {
             if (tmp->left->getVal()->compare(val) == 0)
             {
@@ -98,5 +98,9 @@ BTNode<T>   *BTree<T>::Find(T val)
 }
 
 template<class T>
+int     BTree<T>::size()
+{
+    return numElements;
+}
 
 #endif
