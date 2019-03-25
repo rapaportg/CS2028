@@ -51,7 +51,7 @@ void        BTree<T>::Insert(T val) // Needs rebalancing
     BTNode<T>  *newNode;
     if (root == nullptr)
     {
-        root = BTNode<T>(val);
+        root = new BTNode<T>(val);
         size++;
     }
     else
@@ -101,6 +101,12 @@ template<class T>
 int     BTree<T>::size()
 {
     return numElements;
+}
+
+template<class T>
+BTNode<T> *BTree<T>::GetAllAscending()
+{
+    BTNode<T>  *array = new BTNode<T>[numElements];
 }
 
 #endif
