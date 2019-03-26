@@ -114,14 +114,17 @@ void        BTree<T>::GetAllAscendingH(BTNode<T> *ptr, BTNode<T> **array)
         *array++ = ptr;
         return;
     }
+
     if (ptr->left == nullptr)
     {
         *array++ = ptr;
         return;
     }
+
     GetAllAscendingH(ptr->left, array);
     GetAllAscendingH(ptr->right, array);
     *array++ = ptr;
+
     return;
 }
 
@@ -142,15 +145,18 @@ void        BTree<T>::GetAllDescendingH(BTNode<T> *ptr, BTNode<T> **array)
         *array++ = ptr;
         return;
     }
+
     if (ptr->left == nullptr || ptr->left == *(array - 1)) // comparing addresses
     {
         *array++ = ptr;
         return;
     }
+
     GetAllDescendingH(ptr->right, array);
     GetAllDescendingH(ptr->left, array);
     *array++ = ptr;
     return;
+
 }
 
 template<class T>
