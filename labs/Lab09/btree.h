@@ -1,6 +1,9 @@
 #ifndef BTREE_H
 #define BTREE_H
 #include "btnode.h"
+#include <iostream>
+
+using namespace std;
 
 template<class T>
 class BTree
@@ -10,18 +13,28 @@ class BTree
         int         numElements;
 
     public:
-        void        Insert(T val);                      // TODO: Rebalancing | NEEDS TESTING
-        BTNode<T>   *Find(T val);                       // DONE | NEEDS TESTING
+        BTree<T>();
+        void        insert(T val);                      // TODO: Rebalancing | NEEDS TESTING
+        BTNode<T>   *find(T val);                       // DONE | NEEDS TESTING
         int         size();                             // DONE | NEEDS TESTING
-        BTNode<T>   *GetAllAscending();                 // TODO |
-        void        GetAllAscendingH(BTNode<T> *ptr, BTNode<T> **array);
-        BTNode<T>   *GetAllDescending();                // TODO |
-        void        GetAllDescendingH(BTNode<T> *ptr, BTNode<T> **array);
-        void        EmptyTree();                        // TODO |
-        BTNode<T>   *Remove(T val);                     // TODO |
+        BTNode<T>   *getAllAscending();                 // TODO |
+        void        getAllAscendingH(BTNode<T> *ptr, BTNode<T> **array);
+        BTNode<T>   *getAllDescending();                // TODO |
+        void        getAllDescendingH(BTNode<T> *ptr, BTNode<T> **array);
+        void        emptyTree();                        // TODO |
+        BTNode<T>   *remove(T val);                     // TODO |
         BTNode<T>   *findParent(T val, BTNode<T> *ptr); // TODO |
+        void        rebalance();
 
 };
+
+#endif
+
+template<class T>
+BTree<T>::BTree()
+{
+    numElements = 0;
+}
 
 template<class T>
 BTNode<T>   *BTree<T>::findParent(T val, BTNode<T> *ptr)
@@ -29,67 +42,84 @@ BTNode<T>   *BTree<T>::findParent(T val, BTNode<T> *ptr)
     BTNode<T> *tmp;
     if (ptr == nullptr)
     {
+        cout << "FP1" << endl;
         return nullptr;
     }
-    if (ptr->getVal()->compare(val) == 0)
+    if (ptr->getVal().compare(val) == 0)
     {
+        cout << "FP2" << endl;
         return nullptr;
     }
 
     tmp = findParent(val, ptr->left);
-    if (tmp->left->getVal()->compare(val) == 0 && tmp != nullptr)
+    cout << "FP3" << endl;
+    if ((tmp->left != nullptr && tmp->left->getVal().compare(val) == 0) && tmp != nullptr)
+    {
+        cout << "FP6" << endl;
         return tmp;
+    }
 
     tmp = findParent(val, ptr->right);
-    if (tmp->right->getVal()->compare(val) == 0 || tmp->left->getVal()->compare(val) == 0)
+    cout << "FP4" << endl;
+    if ((tmp->right != nullptr && tmp->right->getVal().compare(val) == 0) ||(tmp->left != nullptr && tmp->left->getVal().compare(val) == 0))
+    {
+        cout << "FP5" << endl;
         return tmp;
+    }
 
     return ptr;
 }
 
 template<class T>
-void        BTree<T>::Insert(T val) // Needs rebalancing
+void        BTree<T>::insert(T val) // Needs rebalancing
 {
     BTNode<T>  *tmp;
     BTNode<T>  *newNode;
     if (root == nullptr)
     {
+        cout << "insert 1" << endl;
         root = new BTNode<T>(val);
-        size++;
+        numElements++;
     }
     else
     {
         tmp = findParent(val, root);
-        if (tmp->getVal()->compare(val) > 0)
+        if (tmp->getVal().compare(val) > 0)
         {
-            if (tmp->left->getVal()->compare(val) == 0)
+            if (tmp->left->getVal().compare(val) == 0)
             {
+                cout << "insert 2" << endl;
                 tmp->left->addFreq();
                 return;
             }
+            cout << "insert 3" << endl;
             newNode = new BTNode<T>(val);
             newNode->right = tmp->left->right;
             newNode->left = tmp->left->left;
             tmp->left = newNode;
+            numElements++;
         }
         else
         {
-            if (tmp->right->getVal()->compare(val) == 0)
+            if (tmp->right->getVal().compare(val) == 0)
             {
+                cout << "insert 4" << endl;
                 tmp->right->addFreq();
                 return;
             }
+            cout << "insert 5" << endl;
             newNode = new BTNode<T>(val);
             newNode->right = tmp->right->right;
             newNode->left = tmp->right->left;
             tmp->right = newNode;
+            numElements++;
         }
     }
    // rebalance();
 }
 
 template<class T>
-BTNode<T>   *BTree<T>::Find(T val)
+BTNode<T>   *BTree<T>::find(T val)
 {
     BTNode<T>  *ptr = root;
     ptr = findParent(val, ptr);
@@ -107,7 +137,7 @@ int     BTree<T>::size()
 }
 
 template<class T>
-void        BTree<T>::GetAllAscendingH(BTNode<T> *ptr, BTNode<T> **array)
+void        BTree<T>::getAllAscendingH(BTNode<T> *ptr, BTNode<T> **array)
 {
     if (ptr->right == nullptr)
     {
@@ -121,24 +151,23 @@ void        BTree<T>::GetAllAscendingH(BTNode<T> *ptr, BTNode<T> **array)
         return;
     }
 
-    GetAllAscendingH(ptr->left, array);
-    GetAllAscendingH(ptr->right, array);
+    getAllAscendingH(ptr->left, array);
+    getAllAscendingH(ptr->right, array);
     *array++ = ptr;
 
     return;
 }
 
 template<class T>
-BTNode<T>   *BTree<T>::GetAllAscending()
+BTNode<T>   *BTree<T>::getAllAscending()
 {
-
     BTNode<T>  **array = new BTNode<T>[numElements];
-    GetAllAscendingH(root, array);
+    getAllAscendingH(root, array);
     return array;
 }
 
 template<class T>
-void        BTree<T>::GetAllDescendingH(BTNode<T> *ptr, BTNode<T> **array)
+void        BTree<T>::getAllDescendingH(BTNode<T> *ptr, BTNode<T> **array)
 {
     if (ptr->right == nullptr || ptr->right == *(array - 1)) // comparing addresses
     {
@@ -152,20 +181,17 @@ void        BTree<T>::GetAllDescendingH(BTNode<T> *ptr, BTNode<T> **array)
         return;
     }
 
-    GetAllDescendingH(ptr->right, array);
-    GetAllDescendingH(ptr->left, array);
+    getAllDescendingH(ptr->right, array);
+    getAllDescendingH(ptr->left, array);
     *array++ = ptr;
     return;
 
 }
 
 template<class T>
-BTNode<T>   *BTree<T>::GetAllDescending()
+BTNode<T>   *BTree<T>::getAllDescending()
 {
-
     BTNode<T>  **array = new BTNode<T>[numElements];
-    GetAllAscendingH(root, array);
+    getAllAscendingH(root, array);
     return array;
 }
-
-#endif
