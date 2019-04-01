@@ -16,7 +16,7 @@ class BTree
 		BTNode<T>   *root = nullptr;
 
 	public:
-		class	duplicateExeception();
+		class	duplicateExeception{};
 
 		BTree<T>(); // is the constructor
 		void        insert(T val);                      					// Done (without any concern with rebalancing)|
@@ -31,9 +31,12 @@ class BTree
 		void        getAllDescendingH(BTNode<T> *ptr, BTNode<T> **array);	// TODO |
 		void        emptyTree();                        					// TODO |
 		BTNode<T>   *remove(T val);                     					// TODO |
-		BTNode<T>   *findParent(T val, BTNode<T> *ptr); 					// TODO | // I don't think I am using this this method
+		BTNode<T>   *findParent(T val); 					// TODO | // I don't think I am using this this method
 		void        rebalance();											// TODO |
 		BTNode<T>	*getRoot();
+		int			levels(BTNode<T> *parent);
+		void		rotateRight(BTNode *parent, BTNode *child);
+		void		rotateRight(BTNode *parent, BTNode *child);
 
 };
 
@@ -102,12 +105,10 @@ int BTree<T> ::numOfChildren(BTNode<T> * cur) {
 }
 
 template<class T>
-BTNode<T>* BTree<T>::find(T val) {
-	int 		num;
-	BTNode<T>	*ptrToReturn;
-	BTNode<T>	*temp = root;
+BTNode<T> *BTree<T>::findParent(T val)
+{
+	BTNode<T> *temp = root;
 
-	// below code finds node
 	while (temp != nullptr && temp->left->getVal() != val && temp->right->getVal() != val)
 	{
 		if (temp->getVal() < val)
@@ -115,6 +116,14 @@ BTNode<T>* BTree<T>::find(T val) {
 		else
 			temp = temp->left;
 	}
+	return temp;
+
+}
+
+template<class T>
+BTNode<T>* BTree<T>::find(T val) {
+	BTNode<T>	*ptrToReturn;
+	BTNode<T>	*temp = findParent(val);
 
 	if ((temp->left != nullptr) && (temp->left->getVal()) == val)
 	{
@@ -135,5 +144,124 @@ BTNode<T>	*BTree<T>::getRoot()
 {
 	return root;
 }
+
+template<class T>
+BTNode<T>   *BTree<T>::remove(T val)
+{
+	BTNode<T> 	*tmp = findParent(val);
+	BTNode<T> 	*ret;
+	int			num;
+
+	if (!tmp)
+	{
+		return nullptr;
+	}
+
+	if (tmp->right != nullptr && tmp->right->getVal() == val)
+	{
+		num = numOfChildren(tmp->right);
+
+		if (num == 0)
+		{
+			ret = tmp->right;
+			tmp->right = nullptr;
+			return ret;
+		}
+		if (num == 1)
+		{
+			ret = tmp->right;
+			if (tmp->right->right)
+			{
+				tmp->right = ret->right;
+			}
+			else
+			{
+				tmp->right = ret->left;
+			}
+			return ret;
+		}
+		if (num == 2)
+		{
+			/// Will do after rebalance function
+		}
+
+	}
+	if (tmp->left != nullptr && tmp->left->getVal() == val)
+	{
+		num = numOfChildren(tmp->left);
+
+
+	}
+
+}
+
+int BTree<T>::levels (BTNode<T> *parent)
+{
+    int RLevels = 0;
+    int LLevels = 0;
+    if (parent->left != nullptr)
+    {
+        LLevels = 1 + levels(parent->left);
+    }
+    if (parent->right != nullptr)
+    {
+        RLevels = 1 + levels(parent->right);
+    }
+	return (LLevels >= RLevels ? LLevels : RLevels); // return max(LLevels, RLevels)
+}
+
+void BTree<T>::rotateLeft(BTNode *parent, BTNode *child)
+{
+	if (child == root)     // needs checking
+    {
+    	root = child->right;
+        child->right = root->left;
+        root->left = child;
+    }
+	else if (parent->right == child)
+    {
+    	parent->right = child->right;
+        parent->right->left = child;
+        child->right = null;
+    }
+    else
+    {
+        parent->left = child->right;
+        child->right = child->right->left;
+        parent->left->left = child;
+    }
+}
+
+void BTree<T>::rotateRight(BTNode *parent, BTNode *child)  // needs checking
+{
+    if (child == root)
+    {
+        root = child->left;
+        child->left = root->right;
+        root->right = child;
+    }
+    else if (parent->left == child)
+    {
+        parent->left = child->left;
+        child->left = child->left->right;
+        parent->left->right = child;
+    }
+    else
+	{
+    	parent->right = child->left;
+        child->left = child->left->right;
+        parent->right->right = child;
+    }
+}
+
+void	BTree<T>::rebalance(BTNode<T> *parent)
+{
+	int		levelR = 1 + levels(parent->right);
+	int		levelL = 1 + levels(parent->left);
+
+
+}
+
+
 
 #endif
