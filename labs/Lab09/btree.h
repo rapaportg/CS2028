@@ -118,12 +118,14 @@ BTNode<T>* BTree<T>::find(T val) {
 	{
 		return temp->left;
 	}
-	else
+	else if ((temp->right != nullptr) && (temp->right->getVal()) == val)
 	{
 		return temp->right;
 	}
-
-	return nullptr;
+	else
+	{
+		return nullptr;
+	}
 }
 
 template<class T>
