@@ -19,8 +19,6 @@ class BTNode
 
 };
 
-#endif
-
 template<class T>
 BTNode<T>::BTNode(T v)
 {
@@ -47,3 +45,4 @@ int BTNode<T>::getFreq()
 {
     return freq;
 }
+#endif
