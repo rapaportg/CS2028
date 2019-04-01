@@ -8,29 +8,31 @@ using namespace std;
 template<class T>
 class BTree
 {
-private:
-	//BTNode<T>   *root = nullptr; 
-	void		printNodeVal(BTNode<T> *nodePtr);
-	int         numElements;
-	int			numOfChildren(BTNode<T> *cur);
+	private:
+		//BTNode<T>   *root = nullptr;
+		void		printNodeVal(BTNode<T> *nodePtr);
+		int         numElements;
+		int			numOfChildren(BTNode<T> *cur);
+		BTNode<T>   *root = nullptr;
 
-public:
-	BTNode<T>   *root = nullptr;
-	BTree<T>(); // is the constructor
-	void        insert(T val);                      // Done (without any concern with rebalancing)|
-	void		printOrder(BTNode<T> *cur);						// Used for testing. Can be modified for getALLAscending 
-	void		printPreOrder();					// Outputs "queue" to remake the same tree. 
-	void		printPostOrder();					// Outputs "stack" to remake the same tree.
-	BTNode<T>   *find(T val);                       // TODO |
-	int         size();                             // TODO |
-	BTNode<T>   *getAllAscending();                 // TODO |
-	void        getAllAscendingH(BTNode<T> *ptr, BTNode<T> **array); // TODO |
-	BTNode<T>   *getAllDescending();                // TODO |
-	void        getAllDescendingH(BTNode<T> *ptr, BTNode<T> **array); // TODO |
-	void        emptyTree();                        // TODO |
-	BTNode<T>   *remove(T val);                     // TODO |
-	BTNode<T>   *findParent(T val, BTNode<T> *ptr); // TODO | // I don't think I am using this this method
-	void        rebalance();						// TODO |
+	public:
+
+		BTree<T>(); // is the constructor
+		void        insert(T val);                      				// Done (without any concern with rebalancing)|
+		void		printOrder(BTNode<T> *cur);							// Used for testing. Can be modified for getALLAscending
+		void		printPreOrder();									// Outputs "queue" to remake the same tree.
+		void		printPostOrder();									// Outputs "stack" to remake the same tree.
+		BTNode<T>   *find(T val);                      					// TODO |
+		int         size();                             				// TODO |
+		BTNode<T>   *getAllAscending();                 				// TODO |
+		void        getAllAscendingH(BTNode<T> *ptr, BTNode<T> **array);// TODO |
+		BTNode<T>   *getAllDescending();                				// TODO |
+		void        getAllDescendingH(BTNode<T> *ptr, BTNode<T> **array);	// TODO |
+		void        emptyTree();                        				// TODO |
+		BTNode<T>   *remove(T val);                     				// TODO |
+		BTNode<T>   *findParent(T val, BTNode<T> *ptr); 				// TODO | // I don't think I am using this this method
+		void        rebalance();										// TODO |
+		BTNode<T>	*getRoot();
 
 };
 
@@ -41,8 +43,9 @@ BTree<T>::BTree()
 }
 
 template<class T>
-void BTree<T>::insert(T val) { // if dupicate val then added to feq
-	BTNode<T> *ptr;
+void BTree<T>::insert(T val)
+ {                                          // if dupicate val then added to feq
+	BTNode<T>	*ptr;
 	ptr = new BTNode<T>(val); // create a node with val and ptr points at that node
 	if (root == nullptr) {
 		root = ptr;
@@ -57,7 +60,7 @@ void BTree<T>::insert(T val) { // if dupicate val then added to feq
 		else
 			temp = temp->left;
 	}
-	
+
 	if (temp->getVal() == val) {
 		temp->addFreq();
 		return;
@@ -98,44 +101,35 @@ int BTree<T> ::numOfChildren(BTNode<T> * cur) {
 
 template<class T>
 BTNode<T>* BTree<T>::find(T val) {
-	int num;
-	BTNode<T> *ptrToReturn;
-	BTNode<T> *temp = root;
+	int 		num;
+	BTNode<T>	*ptrToReturn;
+	BTNode<T>	*temp = root;
+
 	// below code finds node
-	while (!(temp==nullptr) && !(temp->left->getVal()== val) && !(temp->right->getVal() == val)){
+	while (temp != nullptr && temp->left->getVal() != val && temp->right->getVal() != val)
+	{
 		if (temp->getVal() < val)
 			temp = temp->right;
 		else
 			temp = temp->left;
 	}
-	if (temp == nullptr) {
-		cout << "No element found! FIX LATER \n \n";
-		return nullptr;
-	}
-	if ((temp->left != nullptr) && (temp->left->getVal()) == val) {
-		num = numOfChildren(temp->left);
-		// below code handles removes node with no children
-		if (num == 0) {
-			ptrToReturn = temp->left;
-			delete temp->left;
-			temp->left = nullptr;
-			numElements--;
-			return ptrToReturn;
-		}
 
+	if ((temp->left != nullptr) && (temp->left->getVal()) == val)
+	{
+		return temp->left;
 	}
-	else {
-		num = numOfChildren(temp->right);
-		// below code handles removes node with no children
-		if (num == 0) {
-			ptrToReturn = temp->right;
-			delete temp->right;
-			temp->right = nullptr;
-			numElements--;
-			return ptrToReturn;
-		}
+	else
+	{
+		return temp->right;
 	}
 
+	return nullptr;
+}
+
+template<class T>
+BTNode<T>	*BTree<T>::getRoot()
+{
 	return root;
 }
+
 #endif

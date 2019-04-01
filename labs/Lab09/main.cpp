@@ -1,7 +1,7 @@
 // Lab9attempt2.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
-#include "pch.h"
+//#include "pch.h"
 #include "btnode.h"
 #include "btree.h"
 #include <iostream>
@@ -23,18 +23,16 @@ int main()
 	myTree.insert("the");
 	myTree.insert("lazy");
 	myTree.insert("dog");
-	myTree.printOrder(myTree.root);
+	myTree.printOrder(myTree.getRoot());
 	cout << "After deleting lazy  my order is: \n";
 	ptr = myTree.find("lazy");
-	myTree.printOrder(myTree.root);
+	myTree.printOrder(myTree.getRoot());
 	cout << "After deleting the  my order is: \n";
 	ptr = myTree.find("the");
-	myTree.printOrder(myTree.root);
+	myTree.printOrder(myTree.getRoot());
 
-	/*cout << "\n After deleting dog  my order is: \n";
+	cout << "\n After deleting dog  my order is: \n";
 	ptr = myTree.find("dog");
-	myTree.printOrder(myTree.root);*/
+	myTree.printOrder(myTree.getRoot());
 
 }
-
-
