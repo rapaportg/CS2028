@@ -37,7 +37,7 @@ BTree<T>::BTree()
 }
 
 template<class T>
-BTNode<T>   *BTree<T>::findParent(T val, BTNode<T> *ptr)
+BTNode<T>   *BTree<T>::findParent(T val, BTNode<T> *ptr) // rewrite
 {
     BTNode<T> *tmp;
     if (ptr == nullptr)
