@@ -16,22 +16,23 @@ class BTree
 		BTNode<T>   *root = nullptr;
 
 	public:
+		class	duplicateExeception();
 
 		BTree<T>(); // is the constructor
-		void        insert(T val);                      				// Done (without any concern with rebalancing)|
-		void		printOrder(BTNode<T> *cur);							// Used for testing. Can be modified for getALLAscending
-		void		printPreOrder();									// Outputs "queue" to remake the same tree.
-		void		printPostOrder();									// Outputs "stack" to remake the same tree.
-		BTNode<T>   *find(T val);                      					// TODO |
-		int         size();                             				// TODO |
-		BTNode<T>   *getAllAscending();                 				// TODO |
-		void        getAllAscendingH(BTNode<T> *ptr, BTNode<T> **array);// TODO |
-		BTNode<T>   *getAllDescending();                				// TODO |
+		void        insert(T val);                      					// Done (without any concern with rebalancing)|
+		void		printOrder(BTNode<T> *cur);								// Used for testing. Can be modified for getALLAscending
+		void		printPreOrder();										// Outputs "queue" to remake the same tree.
+		void		printPostOrder();										// Outputs "stack" to remake the same tree.
+		BTNode<T>   *find(T val);                      						// TODO |
+		int         size();                             					// TODO |
+		BTNode<T>   *getAllAscending();                 					// TODO |
+		void        getAllAscendingH(BTNode<T> *ptr, BTNode<T> **array);	// TODO |
+		BTNode<T>   *getAllDescending();                					// TODO |
 		void        getAllDescendingH(BTNode<T> *ptr, BTNode<T> **array);	// TODO |
-		void        emptyTree();                        				// TODO |
-		BTNode<T>   *remove(T val);                     				// TODO |
-		BTNode<T>   *findParent(T val, BTNode<T> *ptr); 				// TODO | // I don't think I am using this this method
-		void        rebalance();										// TODO |
+		void        emptyTree();                        					// TODO |
+		BTNode<T>   *remove(T val);                     					// TODO |
+		BTNode<T>   *findParent(T val, BTNode<T> *ptr); 					// TODO | // I don't think I am using this this method
+		void        rebalance();											// TODO |
 		BTNode<T>	*getRoot();
 
 };
@@ -54,7 +55,7 @@ void BTree<T>::insert(T val)
 	}
 	BTNode<T> *temp = root;
 	// Below loop will take temp to the approiate node.
-	while ( !(temp->getVal()<val && temp->right == nullptr) && !(temp->getVal() > val && temp->left == nullptr) && !(temp->getVal() == val)){
+	while ( !(temp->getVal()<val && temp->right == nullptr) && !(temp->getVal() > val && temp->left == nullptr) && temp->getVal() != val){
 		if (temp->getVal() < val)
 			temp = temp->right;
 		else
@@ -62,14 +63,15 @@ void BTree<T>::insert(T val)
 	}
 
 	if (temp->getVal() == val) {
-		temp->addFreq();
-		return;
+		throw duplicateExeception();
 	}
+
 	if (temp->getVal() < val) {
 		temp->right = ptr;
 		numElements++;
 		return;
 	}
+
 	temp->left = ptr;
 	numElements++;
 }
