@@ -11,9 +11,9 @@ using namespace std;
 
 int main()
 {
-	BTNode<int> test(9);
-	BTNode<string> *ptr;
-	BTree<string> myTree;
+	BTNode<int> *ptr;
+	BTree<int> myTree;
+	/*
 	myTree.insert("jumped");
 	myTree.insert("quick");
 	myTree.insert("brown");
@@ -23,16 +23,16 @@ int main()
 	myTree.insert("the");
 	myTree.insert("lazy");
 	myTree.insert("dog");
+	*/
+	//
+	myTree.insert(5);
+	myTree.insert(3);
+	myTree.insert(4);
+	myTree.insert(2);
+	myTree.insert(1);
 	myTree.printOrder(myTree.getRoot());
-	cout << "After deleting lazy  my order is: \n";
-	ptr = myTree.find("lazy");
-	myTree.printOrder(myTree.getRoot());
-	cout << "After deleting the  my order is: \n";
-	ptr = myTree.find("the");
-	myTree.printOrder(myTree.getRoot());
-
-	cout << "\n After deleting dog  my order is: \n";
-	ptr = myTree.find("dog");
+	myTree.rotateRight(myTree.getRoot()->left, myTree.getRoot()->left->left);
+	cout << endl;
 	myTree.printOrder(myTree.getRoot());
 
 }

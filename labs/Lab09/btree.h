@@ -80,21 +80,39 @@ void BTree<T>::insert(T val)
 }
 
 template<class T>
-void BTree<T> :: printNodeVal(BTNode<T> *nodePtr) {
-	cout << nodePtr->getVal() << "\n";
+void BTree<T> :: printNodeVal(BTNode<T> *nodePtr)
+{
+	if (nodePtr->left && nodePtr->right)
+	{
+		cout << nodePtr->getVal() << '\t' << nodePtr->left->getVal() << '\t' << nodePtr->right->getVal() << "\n";
+	}
+	else if (nodePtr->left && !nodePtr->right)
+	{
+		cout << nodePtr->getVal() << '\t' << nodePtr->left->getVal() << '\t' << "EMPTY" << "\n";
+	}
+	else if (!nodePtr->left && nodePtr->right)
+	{
+		cout << nodePtr->getVal() << '\t' << "EMPTY" << '\t' << nodePtr->right->getVal() << "\n";
+	}
+	else
+	{
+		cout << nodePtr->getVal() << '\t' << "EMPTY" << '\t' << "EMPTY" << "\n";
+	}
+
 }
 
 template<class T>
-void BTree<T> ::printOrder(BTNode<T> *cur) {
-	if (cur != nullptr) {
-		printOrder(cur->left);
+void BTree<T>::printOrder(BTNode<T> *cur) {
+	if (cur != nullptr)
+	{
 		printNodeVal(cur);
+		printOrder(cur->left);
 		printOrder(cur->right);
 	}
 }
 
 template<class T>
-int BTree<T> ::numOfChildren(BTNode<T> * cur) {
+int BTree<T>::numOfChildren(BTNode<T> * cur) {
 	if (cur->left == nullptr && cur->right == nullptr) {
 		return 0;
 	}
@@ -216,46 +234,58 @@ int BTree<T>::levels (BTNode<T> *parent)
 template<class T>
 void BTree<T>::rotateLeft(BTNode<T> *parent, BTNode<T> *child)
 {
-	if (child == root)     // needs checking
+	BTNode<T> *T1;
+	BTNode<T> *T2;
+	BTNode<T> *T3;
+
+	if (child == root)
+	{
+		cout << "Child = root" << endl;
+		return;
+	}
+    else if (parent->right == child)
     {
-    	root = child->right;
-        child->right = root->left;
-        root->left = child;
-    }
-	else if (parent->right == child)
-    {
-    	parent->right = child->right;
-        parent->right->left = child;
-        child->right = nullptr;
+		T1 = parent->left;
+		T2 = child->left;
+		T3 = child->right;
+
+		parent->left = T1;
+		parent->right = T2;
+		child->left = parent;
+		child->right = T3;
     }
     else
-    {
-        parent->left = child->right;
-        child->right = child->right->left;
-        parent->left->left = child;
+	{
+		rotateRight(parent, child);
     }
 }
 
 template<class T>
 void BTree<T>::rotateRight(BTNode<T> *parent, BTNode<T> *child)  // needs checking
 {
-    if (child == root)
-    {
-        root = child->left;
-        child->left = root->right;
-        root->right = child;
-    }
+	BTNode<T> *T1;
+	BTNode<T> *T2;
+	BTNode<T> *T3;
+
+	if (child == root)
+	{
+		cout << "Child = root" << endl;
+		return;
+	}
     else if (parent->left == child)
     {
-        parent->left = child->left;
-        child->left = child->left->right;
-        parent->left->right = child;
+		T1 = child->left;
+		T2 = child->right;
+		T3 = parent->right;
+
+		parent->left = T1;
+		parent->right = child;
+		child->left = T2;
+		child->right = T3;
     }
     else
 	{
-    	parent->right = child->left;
-        child->left = child->left->right;
-        parent->right->right = child;
+		rotateLeft(parent, child);
     }
 }
 
@@ -278,13 +308,6 @@ void	BTree<T>::rebalance(BTNode<T> *parent)
 		else
 			rotateLeft(parent, parent->right);
 	}
-
-
-
-	}
-
-
-
 }
 
 
