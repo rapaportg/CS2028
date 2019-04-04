@@ -29,7 +29,7 @@ class BTree
 		void        getAllAscendingH(BTNode<T> *ptr, BTNode<T> **array);	// TODO |
 		BTNode<T>   *getAllDescending();                					// TODO |
 		void        getAllDescendingH(BTNode<T> *ptr, BTNode<T> **array);	// TODO |
-		void        emptyTree();                        					// TODO |
+		void        emptyTree(BTNode<T>* ptr);                        					// Done
 		BTNode<T>   *remove(T val);                     					// TODO |
 		BTNode<T>   *findParent(T val); 					// TODO | // I don't think I am using this this method
 		void        rebalance(BTNode<T> *parent);							// TODO |
@@ -310,6 +310,18 @@ void	BTree<T>::rebalance(BTNode<T> *parent)
 	}
 }
 
+template<class T>
+void BTree<T>::emptyTree(BTNode<T>* ptr)
+{
+	if (ptr == nullptr)
+	{
+		return;
+	}
+
+	emptyTree(ptr->left);
+	emptyTree(ptr->right);
+	delete ptr;
+}
 
 
 #endif
