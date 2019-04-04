@@ -264,6 +264,25 @@ void	BTree<T>::rebalance(BTNode<T> *parent)
 {
 	int		levelR = 1 + levels(parent->right);
 	int		levelL = 1 + levels(parent->left);
+	int 	difference = levelL - levelR;
+
+	if (difference < -1 || difference > 1)				// Needs to be rebalanced if true
+	{
+		if (parent->left != nullptr)
+		{
+			rebalance(parent->left);
+			rebalance(parent->right);
+		}
+		if (levelL > levelR)
+			rotateRight(parent, parent->left);
+		else
+			rotateLeft(parent, parent->right);
+	}
+
+
+
+	}
+
 
 
 }
