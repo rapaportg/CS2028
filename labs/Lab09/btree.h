@@ -35,8 +35,8 @@ class BTree
 		void        rebalance(BTNode<T> *parent);							// TODO |
 		BTNode<T>	*getRoot();
 		int			levels(BTNode<T> *parent);
-		void		rotateRight(BTNode<T> *parent, BTNode<T> *child);
 		void		rotateLeft(BTNode<T> *parent, BTNode<T> *child);
+		void		rotateRight(BTNode<T> *parent, BTNode<T> *child);
 
 };
 
@@ -232,60 +232,56 @@ int BTree<T>::levels (BTNode<T> *parent)
 }
 
 template<class T>
-void BTree<T>::rotateLeft(BTNode<T> *parent, BTNode<T> *child)
+void BTree<T>::rotateRight(BTNode<T> *parent, BTNode<T> *child)
 {
-	BTNode<T> *T1;
-	BTNode<T> *T2;
-	BTNode<T> *T3;
-
 	if (child == root)
 	{
 		cout << "Child = root" << endl;
 		return;
 	}
+	else if (parent == root)
+    {
+		parent->left = child->right;
+		child->right = parent;
+		root = child;
+    }
     else if (parent->right == child)
     {
-		T1 = parent->left;
-		T2 = child->left;
-		T3 = child->right;
-
-		parent->left = T1;
-		parent->right = T2;
-		child->left = parent;
-		child->right = T3;
-    }
-    else
-	{
-		rotateRight(parent, child);
-    }
-}
-
-template<class T>
-void BTree<T>::rotateRight(BTNode<T> *parent, BTNode<T> *child)  // needs checking
-{
-	BTNode<T> *T1;
-	BTNode<T> *T2;
-	BTNode<T> *T3;
-
-	if (child == root)
-	{
-		cout << "Child = root" << endl;
-		return;
-	}
-    else if (parent->left == child)
-    {
-		T1 = child->left;
-		T2 = child->right;
-		T3 = parent->right;
-
-		parent->left = T1;
-		parent->right = child;
-		child->left = T2;
-		child->right = T3;
+		parent->left = child->right;
+		child->right = parent;
     }
     else
 	{
 		rotateLeft(parent, child);
+    }
+}
+
+template<class T>
+void BTree<T>::rotateLeft(BTNode<T> *parent, BTNode<T> *child)  // needs checking
+{
+	BTNode<T> *T1;
+	BTNode<T> *T2;
+	BTNode<T> *T3;
+
+	if (child == root)
+	{
+		cout << "Child = root" << endl;
+		return;
+	}
+	else if (parent == root)
+    {
+		parent->right = child->left;
+		child->left = parent;
+		root = child;
+    }
+    else if (parent->left == child)
+    {
+		parent->right = child->left;
+		child->left = parent;
+    }
+    else
+	{
+		rotateRight(parent, child);
     }
 }
 
