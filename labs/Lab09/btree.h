@@ -292,15 +292,21 @@ void BTree<T>::rotateLeft(BTNode<T> *parent, BTNode<T> *child)  // needs checkin
 template<class T>
 void	BTree<T>::rebalance(BTNode<T> *parent)
 {
-	int		levelR = 1 + levels(parent->right);
-	int		levelL = 1 + levels(parent->left);
-	int 	difference = levelL - levelR;
+	int		levelR = 0;
+	int		levelL = 0;
+	int 	difference = 0;
+
+	if (parent->right)
+		levelR = 1 + levels(parent->right);
+	if (parent->left)
+		levelL = 1 + levels(parent->left);
+
+	difference = levelL - levelR;
 
 	if (difference < 0)
 		difference = difference * -1;
 
 	cout << "\nLeft Count: " << levelL << "\nRight Count: " << levelR << "\nDifference: " << difference << endl;
-
 
 }
 
