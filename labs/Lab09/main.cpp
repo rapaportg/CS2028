@@ -25,11 +25,28 @@ int main()
 	myTree.insert("dog");
 	*/
 	//
+	/*
+	myTree.insert(5);
+	myTree.insert(4);
 	myTree.insert(3);
+	myTree.insert(7);
 	myTree.insert(2);
 	myTree.insert(1);
-	myTree.printOrder(myTree.getRoot());
-	myTree.rotateRight(myTree.getRoot(), myTree.getRoot()->left);
+	*/
+
+	int tmp;
+	while(true)
+	{
+		cout << "Emter a value\n";
+		cin >> tmp;
+		myTree.insert(tmp);
+	 	myTree.printOrder(myTree.getRoot());
+		//myTree.rebalance(myTree.getRoot());
+	}
+
+
+	//myTree.rotateRight(myTree.getRoot(), myTree.getRoot()->left);
+
 	cout << endl;
 	myTree.printOrder(myTree.getRoot());
 

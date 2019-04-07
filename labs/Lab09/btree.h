@@ -58,7 +58,7 @@ void BTree<T>::insert(T val)
 	}
 	BTNode<T> *temp = root;
 	// Below loop will take temp to the approiate node.
-	while ( !(temp->getVal()<val && temp->right == nullptr) && !(temp->getVal() > val && temp->left == nullptr) && temp->getVal() != val){
+	while ( !(temp->getVal() < val && temp->right == nullptr) && !(temp->getVal() > val && temp->left == nullptr) && temp->getVal() != val){
 		if (temp->getVal() < val)
 			temp = temp->right;
 		else
@@ -69,14 +69,18 @@ void BTree<T>::insert(T val)
 		throw duplicateExeception();
 	}
 
-	if (temp->getVal() < val) {
+	if (temp->getVal() < val)
+	{
 		temp->right = ptr;
 		numElements++;
-		return;
+	}
+	else
+	{
+		temp->left = ptr;
+		numElements++;
 	}
 
-	temp->left = ptr;
-	numElements++;
+	rebalance(root);
 }
 
 template<class T>
@@ -123,11 +127,20 @@ int BTree<T>::numOfChildren(BTNode<T> * cur) {
 }
 
 template<class T>
+BTNode<T> *BTree<T>::findGrandParent(T val)
+{
+	BTNode<T> *temp = root;
+	BTNode<T> *child;
+
+
+}
+
+template<class T>
 BTNode<T> *BTree<T>::findParent(T val)
 {
 	BTNode<T> *temp = root;
 
-	while (temp != nullptr && temp->left->getVal() != val && temp->right->getVal() != val)
+	while (temp != nullptr && (temp->left && temp->left->getVal() != val) &&(temp->right && temp->right->getVal() != val))
 	{
 		if (temp->getVal() < val)
 			temp = temp->right;
@@ -240,20 +253,20 @@ void BTree<T>::rotateRight(BTNode<T> *parent, BTNode<T> *child)
 		return;
 	}
 	else if (parent == root)
-    {
+  {
 		parent->left = child->right;
 		child->right = parent;
 		root = child;
-    }
-    else if (parent->right == child)
-    {
+  }
+  else if (parent->right == child)
+  {
 		parent->left = child->right;
 		child->right = parent;
-    }
-    else
+  }
+  else
 	{
 		rotateLeft(parent, child);
-    }
+  }
 }
 
 template<class T>
@@ -269,20 +282,20 @@ void BTree<T>::rotateLeft(BTNode<T> *parent, BTNode<T> *child)  // needs checkin
 		return;
 	}
 	else if (parent == root)
-    {
+  {
 		parent->right = child->left;
 		child->left = parent;
 		root = child;
-    }
-    else if (parent->left == child)
-    {
+  }
+  else if (parent->left == child)
+  {
 		parent->right = child->left;
 		child->left = parent;
-    }
-    else
+  }
+  else
 	{
 		rotateRight(parent, child);
-    }
+  }
 }
 
 template<class T>
@@ -292,18 +305,12 @@ void	BTree<T>::rebalance(BTNode<T> *parent)
 	int		levelL = 1 + levels(parent->left);
 	int 	difference = levelL - levelR;
 
-	if (difference < -1 || difference > 1)				// Needs to be rebalanced if true
-	{
-		if (parent->left != nullptr)
-		{
-			rebalance(parent->left);
-			rebalance(parent->right);
-		}
-		if (levelL > levelR)
-			rotateRight(parent, parent->left);
-		else
-			rotateLeft(parent, parent->right);
-	}
+	if (difference < 0)
+		difference = difference * -1;
+
+	cout << "\nLeft Count: " << levelL << "\nRight Count: " << levelR << "\nDifference: " << difference << endl;
+
+
 }
 
 template<class T>
