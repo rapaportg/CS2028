@@ -41,7 +41,6 @@ int main()
 		cin >> tmp;
 		myTree.insert(tmp);
 	 	myTree.printOrder(myTree.getRoot());
-		//myTree.rebalance(myTree.getRoot());
 	}
 
 

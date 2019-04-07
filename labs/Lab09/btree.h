@@ -256,7 +256,7 @@ void BTree<T>::rotateRight(BTNode<T> *parent, BTNode<T> *child)
   }
   else
 	{
-		rotateLeft(parent, child);
+		rotateLeft(parent->left, child->right);
   }
 }
 
@@ -285,7 +285,7 @@ void BTree<T>::rotateLeft(BTNode<T> *parent, BTNode<T> *child)  // needs checkin
   }
   else
 	{
-		rotateRight(parent, child);
+		rotateRight(parent->right, child->left);
   }
 }
 
@@ -295,6 +295,15 @@ void	BTree<T>::rebalance(BTNode<T> *parent)
 	int		levelR = 0;
 	int		levelL = 0;
 	int 	difference = 0;
+
+	if (parent->left)
+	{
+		rebalance(parent->left);
+	}
+	if (parent->right)
+	{
+		rebalance(parent->right);
+	}
 
 	if (parent->right)
 		levelR = 1 + levels(parent->right);
@@ -306,8 +315,26 @@ void	BTree<T>::rebalance(BTNode<T> *parent)
 	if (difference < 0)
 		difference = difference * -1;
 
-	cout << "\nLeft Count: " << levelL << "\nRight Count: " << levelR << "\nDifference: " << difference << endl;
+	cout << "Difference: " << difference << endl;
 
+	if (difference - 2 == 0)
+	{
+		if (levelL > levelR)
+		{
+			cout << "Trying to rotate Right" << "\tParent: " << parent->getVal() << "\tChild: " << parent->left->getVal() <<endl;
+			rotateRight(parent, parent->left); // Fix child
+			return;
+		}
+		else
+		{
+			cout << "trying to rotate Left" << "\tParent: " << parent->getVal() << "\tChild: " << parent->right->getVal() << endl;
+			rotateLeft(parent, parent->right); // fix child
+			return;
+		}
+	}
+
+//	cout << "\nLeft Count: " << levelL << "\nRight Count: " << levelR << "\nDifference: " << difference << endl;
+	return;
 }
 
 template<class T>
