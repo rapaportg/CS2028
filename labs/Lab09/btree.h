@@ -126,29 +126,13 @@ int BTree<T>::numOfChildren(BTNode<T> * cur) {
 	return 1;
 }
 
-template<class T>
-BTNode<T> *BTree<T>::findGrandParent(T val)
-{
-	BTNode<T> *temp = root;
-	BTNode<T> *child;
-
-	while (temp != nullptr && (temp->left && temp->left->getVal() != val) &&(temp->right && temp->right->getVal() != val))
-	{
-		if (temp->getVal() < val)
-			temp = temp->right;
-		else
-			temp = temp->left;
-	}
-	return temp;
-
-}
 
 template<class T>
 BTNode<T> *BTree<T>::findParent(T val)
 {
 	BTNode<T> *temp = root;
 
-	while (temp != nullptr && ((temp->left && temp->left->getVal() != val) || (temp->right && temp->right->getVal() != val)))
+	while (temp != nullptr && !((temp->left && temp->left->getVal() == val) || (temp->right && temp->right->getVal() == val)))
 	{
 		if (temp->getVal() > val)
 			temp = temp->right;
@@ -156,7 +140,6 @@ BTNode<T> *BTree<T>::findParent(T val)
 			temp = temp->left;
 	}
 	return temp;
-
 }
 
 template<class T>
