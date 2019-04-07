@@ -132,6 +132,14 @@ BTNode<T> *BTree<T>::findGrandParent(T val)
 	BTNode<T> *temp = root;
 	BTNode<T> *child;
 
+	while (temp != nullptr && (temp->left && temp->left->getVal() != val) &&(temp->right && temp->right->getVal() != val))
+	{
+		if (temp->getVal() < val)
+			temp = temp->right;
+		else
+			temp = temp->left;
+	}
+	return temp;
 
 }
 
@@ -140,9 +148,9 @@ BTNode<T> *BTree<T>::findParent(T val)
 {
 	BTNode<T> *temp = root;
 
-	while (temp != nullptr && (temp->left && temp->left->getVal() != val) &&(temp->right && temp->right->getVal() != val))
+	while (temp != nullptr && ((temp->left && temp->left->getVal() != val) || (temp->right && temp->right->getVal() != val)))
 	{
-		if (temp->getVal() < val)
+		if (temp->getVal() > val)
 			temp = temp->right;
 		else
 			temp = temp->left;
