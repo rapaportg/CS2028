@@ -13,11 +13,27 @@ class BTNode
         BTNode      *right; // larger
 
         BTNode(T v);
+        BTNode();
         void        addFreq();
         T           getVal();
         int         getFreq();
+        BTNode<T>   operator =(BTNode<T> *right);
 
 };
+
+template<class T>
+BTNode<T> BTNode<T>::operator =(BTNode<T> *right)
+{
+    val = right.getVal();
+    freq = right.getFreq();
+}
+template<class T>
+BTNode<T>::BTNode()
+{
+    freq = 0;
+    left = nullptr;
+    right = nullptr;
+}
 
 template<class T>
 BTNode<T>::BTNode(T v)
