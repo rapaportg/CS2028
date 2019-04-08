@@ -13,6 +13,8 @@ class HashNode
         HashNode    *next;
 
         HashNode(const K &key, const V &value);
+        HashNode(const K &key);
+        HashNode();
         K       getKey();
         V       getVal();
         char    getState();
@@ -31,6 +33,22 @@ HashNode<K, V>::HashNode(const K &in_key, const V &in_val)
     state = 'e';
     next = nullptr;
 }
+
+template<typename K, typename V>
+HashNode<K, V>::HashNode(const K &in_key)
+{
+    key = *in_key;
+    state = 'e';
+    next = nullptr;
+}
+
+template<typename K, typename V>
+HashNode<K, V>::HashNode()
+{
+    state = 'e';
+    next = nullptr;
+}
+
 
 template<typename K, typename V>
 K   HashNode<K, V>::getKey()

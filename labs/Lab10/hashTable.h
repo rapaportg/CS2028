@@ -18,7 +18,7 @@ class HashTable
         HashTable();
         ~HashTable();
         void            addItem(V val);
-        HashNpde<K,V>   *removeItem(V val);
+        HashNode<K,V>   *removeItem(V val);
         HashNode<K,V>   getItem(V val);
         int             getLength();
         void            print();
@@ -30,11 +30,12 @@ HashTable<K, V>::HashTable()
 {
     Node<HashNode<K,V>>  *tmp;
 
+    count = 0;
     *table = new LinkList<HashNode<K,V>>();
 
     for (int i = 0; i < TABLE_SIZE; i++)
     {
-        tmp = new Node<HashNode<K,V>>();
+        tmp = new Node<HashNode<K,V>>(i);
         table->addItem(tmp);
     }
 }
