@@ -9,7 +9,6 @@ template<class T>
 class BTree
 {
 private:
-	//BTNode<T>   *root = nullptr;
 	void		printNodeVal(BTNode<T> *nodePtr);
 	int         numElements;
 	int			numOfChildren(BTNode<T> *cur);
@@ -18,30 +17,27 @@ private:
 public:
 	class	duplicateExeception {};
 
-	BTree<T>(); // is the constructor
-	void        insert(T val);                      					// Done (without any concern with rebalancing)|
-	void		printOrder(BTNode<T> *cur);								// Used for testing. Can be modified for getALLAscending
-	void		printPreOrder();										// Outputs "queue" to remake the same tree.
-	void		printPostOrder();										// Outputs "stack" to remake the same tree.
-	BTNode<T>   *find(T val);                      						// TODO |
-	int         size();                             					// TODO |
-	BTNode<T>   **GetAllAscending();                 					// TODO |
-	void        GetAllAscendingH(BTNode<T> *ptr, BTNode<T> **array);	// TODO |
-	BTNode<T>   **GetAllDescending();                					// TODO |
-	void        GetAllDescendingH(BTNode<T> *ptr, BTNode<T> **array);	// TODO |
-	void        emptyTree(BTNode<T>* ptr);                        					// Done
-	BTNode<T>   *remove(T val);                     					// TODO |
-	BTNode<T>   *findParent(T val); 					// TODO | // I don't think I am using this this method
-	void        rebalance(BTNode<T> *parent);							// TODO |
-	BTNode<T>	*getRoot();
-	int			levels(BTNode<T> *parent);
-	void		rotateLeft(BTNode<T> *parent, BTNode<T> *child);
-	void		rotateRight(BTNode<T> *parent, BTNode<T> *child);
+	BTree<T>(); 
+	void        insert(T val);                      					// Done 
+	void		printOrder(BTNode<T> *cur);								// Done
+	void		printPreOrder();										// 
+	void		printPostOrder();										// 
+	BTNode<T>   *find(T val);                      						// Done
+	int         size();                             					// Done
+	BTNode<T>   **GetAllAscending();                 					// Done
+	void        GetAllAscendingH(BTNode<T> *ptr, BTNode<T> **array);	// Done
+	BTNode<T>   **GetAllDescending();                					// Done
+	void        GetAllDescendingH(BTNode<T> *ptr, BTNode<T> **array);	// Done
+	void        emptyTree(BTNode<T>* ptr);                        		// Done
+	BTNode<T>   *remove(T val);                     					// Done
+	BTNode<T>   *findParent(T val); 									// Done
+	void        rebalance(BTNode<T> *parent);							// Done
+	BTNode<T>	*getRoot();												// Done
+	int			levels(BTNode<T> *parent);								// Done
+	void		rotateRight(BTNode<T> *parent, BTNode<T> *child);		// Done
+	void		rotateLeft(BTNode<T> *parent, BTNode<T> *child);		// Done
 	void		searchTree(T val);
-
 };
-
-#endif
 
 template<class T>
 BTree<T>::BTree()
@@ -57,12 +53,13 @@ int	BTree<T>::size()
 
 template<class T>
 void BTree<T>::insert(T val)
-{                                          // if dupicate val then added to feq
+{                                          
 	BTNode<T>	*ptr;
 	ptr = new BTNode<T>(val); // create a node with val and ptr points at that node
 	if (root == nullptr) {
 		root = ptr;
 		numElements++;
+		root->addFreq();
 		return;
 	}
 	BTNode<T> *temp = root;
@@ -78,22 +75,24 @@ void BTree<T>::insert(T val)
 		throw duplicateExeception();
 	}
 
-	if (temp->getVal() < val)
-	{
+	if (temp->getVal() < val) {
 		temp->right = ptr;
 		numElements++;
+		ptr->addFreq();
+		return;
 	}
 	else
 	{
 		temp->left = ptr;
 		numElements++;
+		ptr->addFreq();
+		return;
 	}
-
 	rebalance(root);
 }
 
 template<class T>
-void BTree<T> ::printNodeVal(BTNode<T> *nodePtr)
+void BTree<T>::printNodeVal(BTNode<T> *nodePtr)
 {
 	if (nodePtr->left && nodePtr->right)
 	{
@@ -111,13 +110,12 @@ void BTree<T> ::printNodeVal(BTNode<T> *nodePtr)
 	{
 		cout << nodePtr->getVal() << "\t\t\t" << "EMPTY" << "\t\t\t" << "EMPTY" << "\n";
 	}
-
 }
+
 
 template<class T>
 void BTree<T>::printOrder(BTNode<T> *cur) {
-	if (cur != nullptr)
-	{
+	if (cur != nullptr) {
 		printNodeVal(cur);
 		printOrder(cur->left);
 		printOrder(cur->right);
@@ -140,14 +138,16 @@ BTNode<T> *BTree<T>::findParent(T val)
 {
 	BTNode<T> *temp = root;
 	bool parentFind;
+
 	if (temp != nullptr)
 	{
 		parentFind = true;
 	}
 	else
-	{
+	{	
 		return temp;
 	}
+
 	while (parentFind)
 	{
 		if (temp != nullptr && temp->left == nullptr && temp->right == nullptr)
@@ -213,48 +213,49 @@ BTNode<T> *BTree<T>::findParent(T val)
 
 template<class T>
 BTNode<T>* BTree<T>::find(T val) {
+	
+	BTNode<T>	*temp = findParent(val);
+	BTNode<T>   *RT = getRoot();
+	
+	if (RT == nullptr)
+	{
+		return RT;
+	}
+	else if (RT->getVal() == val)
+	{
+		return RT;
+	}
 
-    BTNode<T> *temp = findParent(val);
-    BTNode<T>   *RT = getRoot();
-
-    if (RT == nullptr)
-    {
-        return RT;
-    }
-    else if (RT->getVal() == val)
-    {
-        return RT;
-    }
-    if (temp == nullptr)
-    {
-        return nullptr;
-    }
-    if ((temp->left != nullptr) && (temp->left->getVal()) == val)
-    {
-        return temp->left;
-    }
-    else if ((temp->right != nullptr) && (temp->right->getVal()) == val)
-    {
-        return temp->right;
-    }
-    else
-    {
-        return nullptr;
-    }
+	if (temp == nullptr)
+	{
+		return nullptr;
+	}
+	if ((temp->left != nullptr) && (temp->left->getVal()) == val)
+	{
+		return temp->left;
+	}
+	else if ((temp->right != nullptr) && (temp->right->getVal()) == val)
+	{
+		return temp->right;
+	}
+	else
+	{
+		return nullptr;
+	}
 }
 
 template<class T>
-BTNode<T>	*BTree<T>::getRoot()
+BTNode<T> *BTree<T>::getRoot()
 {
 	return root;
 }
 
 template<class T>
-BTNode<T>   *BTree<T>::remove(T val)
+BTNode<T> *BTree<T>::remove(T val)
 {
-	BTNode<T> 	*tmp = findParent(val);
-	BTNode<T> 	*ret = nullptr;
-	int			num;
+	BTNode<T> *tmp = findParent(val);
+	BTNode<T> *ret = nullptr;
+	int	num;
 
 	if (!tmp)
 	{
@@ -270,7 +271,6 @@ BTNode<T>   *BTree<T>::remove(T val)
 			ret = tmp->right;
 			tmp->right = nullptr;
 			numElements--;
-
 		}
 		if (num == 1)
 		{
@@ -284,27 +284,24 @@ BTNode<T>   *BTree<T>::remove(T val)
 				tmp->right = ret->left;
 			}
 			numElements--;
-
 		}
 		if (num == 2)
 		{
-			// first we find next greatest
-			BTNode<T>* replacement= tmp->right->right;
-			while (replacement->left) // should terminate loop when replacement-> left is the nullpoint
+			BTNode<T>* replacement = tmp->right->right;
+			while (replacement->left)
 			{
 				replacement = replacement->left;
 			}
-			replacement=remove(replacement->getVal());
+			replacement = remove(replacement->getVal());
 			ret = tmp->right;
 			replacement->right = ret->right;
 			replacement->left = ret->left;
 			tmp->right = replacement;
-
 		}
 		rebalance(root);
 		return ret;
-
 	}
+
 	if (tmp->left != nullptr && tmp->left->getVal() == val)
 	{
 		num = numOfChildren(tmp->left);
@@ -332,9 +329,8 @@ BTNode<T>   *BTree<T>::remove(T val)
 		}
 		if (num == 2)
 		{
-			// first we find next greatest
 			BTNode<T>* replacement = tmp->left->right;
-			while (replacement->left) // should terminate loop when replacement-> left is the nullpoint
+			while (replacement->left) 
 			{
 				replacement = replacement->left;
 			}
@@ -343,7 +339,6 @@ BTNode<T>   *BTree<T>::remove(T val)
 			replacement->right = ret->right;
 			replacement->left = ret->left;
 			tmp->left = replacement;
-
 		}
 	}
 }
@@ -364,39 +359,10 @@ int BTree<T>::levels(BTNode<T> *parent)
 	return (LLevels >= RLevels ? LLevels : RLevels); // return max(LLevels, RLevels)
 }
 
-template<class T>
-void BTree<T>::rotateRight(BTNode<T> *parent, BTNode<T> *child)
-{
-
-	if (parent == root)
-	{
-		 if (parent->left->left) // line rotation
-		 {
-			 parent->left = child->right;
-			 child->right = parent;
-			 root = child;
-		 }
-	}
-	else
-	{
-		BTNode<T>* grandParent = findParent(parent->getVal());
-		if (grandParent->left == parent)
-		{
-			grandParent->left = child;
-		}
-		else
-		{
-			grandParent->right = child;
-		}
-		parent->left = child->right;
-		child->right = parent;
-	}
-}
 
 template<class T>
-void BTree<T>::rotateLeft(BTNode<T> *parent, BTNode<T> *child)  // needs checking
+void BTree<T>::rotateLeft(BTNode<T> *parent, BTNode<T> *child) 
 {
-
 	if (parent == root)
 	{
 		{
@@ -416,42 +382,81 @@ void BTree<T>::rotateLeft(BTNode<T> *parent, BTNode<T> *child)  // needs checkin
 		{
 			grandParent->left = child;
 		}
-		parent->right = child->left; // Tree 2
+		parent->right = child->left; 
 		child->left = parent;
+	}
+}
+
+template<class T>
+void BTree<T>::rotateRight(BTNode<T> *parent, BTNode<T> *child)
+{
+	if (parent == root)
+	{
+		if (parent->left->left) // line rotation
+		{
+			parent->left = child->right;
+			child->right = parent;
+			root = child;
+		}
+	}
+	else
+	{
+		BTNode<T>* grandParent = findParent(parent->getVal());
+		if (grandParent->left == parent)
+		{
+			grandParent->left = child;
+		}
+		else
+		{
+			grandParent->right = child;
+		}
+		parent->left = child->right;
+		child->right = parent;
 	}
 }
 
 template<class T>
 void	BTree<T>::rebalance(BTNode<T> *parent)
 {
-	int		levelR = 0;
-	int		levelL = 0;
-	int 	difference = 0;
-	if (parent->left)
-		rebalance(parent->left);
-	if (parent->right)
-		rebalance(parent->right);
+	int	levelR = 0;
+	int	levelL = 0;
+	int difference = 0;
 
-	if (parent->right)
-		levelR = 1 + levels(parent->right);
 	if (parent->left)
+	{
+		rebalance(parent->left);
+	}
+	if (parent->right)
+	{
+		rebalance(parent->right);
+	}
+	if (parent->right)
+	{
+		levelR = 1 + levels(parent->right);
+	}
+	if (parent->left)
+	{
 		levelL = 1 + levels(parent->left);
+	}
 
 	difference = levelR - levelL;
 
-
-	if (1 < difference) // using wiki chart
+	if (1 < difference)
 	{
 		levelR = 0;
 		levelL = 0;
 		if (parent->right->right)
+		{
 			levelR = 1 + levels(parent->right->right);
+		}
 		if (parent->right->left)
+		{
 			levelL = 1 + levels(parent->right->left);
+		}
 
 		if (levelL < levelR) // right : right case
 		{
-			rotateLeft(parent,parent->right);
+			rotateLeft(parent, parent->right);
 		}
 		else // right : left case
 		{
@@ -464,9 +469,13 @@ void	BTree<T>::rebalance(BTNode<T> *parent)
 		levelR = 0;
 		levelL = 0;
 		if (parent->left->right)
+		{
 			levelR = 1 + levels(parent->left->right);
+		}
 		if (parent->left->left)
+		{
 			levelL = 1 + levels(parent->left->left);
+		}
 		if (levelR < levelL) // left : left case
 		{
 			rotateRight(parent, parent->left);
@@ -487,89 +496,14 @@ void BTree<T>::emptyTree(BTNode<T>* ptr)
 	{
 		return;
 	}
-
 	emptyTree(ptr->left);
 	emptyTree(ptr->right);
 	delete ptr;
 }
-template<class T>
-void        BTree<T>::GetAllAscendingH(BTNode<T> *ptr, BTNode<T> **array)
-{
-	if (ptr->right == nullptr)
-	{
-		*array = new BTNode<T>();
-		*array = ptr;
-
-		cout << (*array)->getFreq() << '\t' << (*array)->getVal() <<endl;
-		*array++;
-		return;
-	}
-	if (ptr->left == nullptr)
-	{
-		*array = new BTNode<T>();
-		*array = ptr;
-		cout << (*array)->getFreq() << '\t' << (*array)->getVal() << endl;
-		*array++;
-		return;
-	}
-	GetAllAscendingH(ptr->left, array);
-	GetAllAscendingH(ptr->right, array);
-	*array = new BTNode<T>();
-	*array++ = ptr;
-	return;
-}
-
-template<class T>
-BTNode<T>   **BTree<T>::GetAllAscending()
-{
-
-	BTNode<T>  **array = new BTNode<T>*[numElements];
-	GetAllAscendingH(root, array);
-	return array;
-}
-
-template<class T>
-void        BTree<T>::GetAllDescendingH(BTNode<T> *ptr, BTNode<T> **array)
-{
-
-	if (ptr->right == nullptr) // comparing addresses
-	{
-		*array = new BTNode<T>();
-		*array = ptr;
-		cout << (*array)->getFreq() << '\t' << (*array)->getVal() <<endl;
-		*array++;
-		return;
-	}
-
-	if (ptr->left == nullptr) // comparing addresses
-	{
-		*array = new BTNode<T>();
-		*array = ptr;
-		cout << (*array)->getFreq() << '\t' <<(*array)->getVal() <<endl;
-		*array++;
-		return;
-	}
-	GetAllDescendingH(ptr->right, array);
-	GetAllDescendingH(ptr->left, array);
-	*array = new BTNode<T>();
-	*array++ = ptr;
-	return;
-}
-
-template<class T>
-BTNode<T>   **BTree<T>::GetAllDescending()
-{
-
-	BTNode<T>  **array = new BTNode<T>*[numElements];
-	GetAllDescendingH(root, array);
-	return array;
-}
-
 
 template<class T>
 void BTree<T>::searchTree(T val)
 {
-
 	BTNode<string>* ptr = nullptr;
 
 	ptr = find(val);
@@ -584,3 +518,82 @@ void BTree<T>::searchTree(T val)
 	}
 	return;
 }
+
+template<class T>
+void BTree<T>::GetAllAscendingH(BTNode<T> *ptr, BTNode<T> **array)
+{
+	if (ptr == nullptr)
+	{
+		return;
+	}
+	if (ptr->right == nullptr)
+	{
+		*array = new BTNode<T>();
+		*array = ptr;
+		cout << (*array)->getFreq() << '\t' << (*array)->getVal() << endl;
+		*array++;
+	}
+	
+	if (ptr->left == nullptr)
+	{
+		*array = new BTNode<T>();
+		*array = ptr;
+		cout << (*array)->getFreq() << '\t' << (*array)->getVal() << endl;
+		*array++;
+	}
+
+	GetAllAscendingH(ptr->left, array);
+	GetAllAscendingH(ptr->right, array);
+	*array = new BTNode<T>();
+	*array++ = ptr;
+	return;
+}
+
+template<class T>
+BTNode<T> **BTree<T>::GetAllAscending()
+{
+
+	BTNode<T>  **array = new BTNode<T>*[numElements];
+	GetAllAscendingH(root, array);
+	return array;
+}
+
+
+template<class T>
+void BTree<T>::GetAllDescendingH(BTNode<T> *ptr, BTNode<T> **array)
+{
+	if (ptr == nullptr)
+	{
+		return;
+	}
+	if (ptr->right == nullptr) 
+	{
+		*array = new BTNode<T>();
+		*array = ptr;
+		cout << (*array)->getFreq() << '\t' << (*array)->getVal() << endl;
+		*array++;
+	}
+	if (ptr->left == nullptr)
+	{
+		*array = new BTNode<T>();
+		*array = ptr;
+		cout << (*array)->getFreq() << '\t' << (*array)->getVal() << endl;
+		*array++;
+	}
+	GetAllDescendingH(ptr->right, array);
+	GetAllDescendingH(ptr->left, array);
+	*array = new BTNode<T>();
+	*array++ = ptr;
+	return;
+}
+
+template<class T>
+BTNode<T> **BTree<T>::GetAllDescending()
+{
+	BTNode<T>  **array = new BTNode<T>*[numElements];
+	GetAllDescendingH(root, array);
+	return array;
+}
+
+#endif
+
