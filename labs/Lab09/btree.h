@@ -25,10 +25,10 @@ public:
 	void		printPostOrder();										// Outputs "stack" to remake the same tree.
 	BTNode<T>   *find(T val);                      						// TODO |
 	int         size();                             					// TODO |
-	BTNode<T>   *getAllAscending();                 					// TODO |
-	void        getAllAscendingH(BTNode<T> *ptr, BTNode<T> **array);	// TODO |
-	BTNode<T>   *getAllDescending();                					// TODO |
-	void        getAllDescendingH(BTNode<T> *ptr, BTNode<T> **array);	// TODO |
+	BTNode<T>   *GetAllAscending();                 					// TODO |
+	void        GetAllAscendingH(BTNode<T> *ptr, BTNode<T> **array);	// TODO |
+	BTNode<T>   *GetAllDescending();                					// TODO |
+	void        GetAllDescendingH(BTNode<T> *ptr, BTNode<T> **array);	// TODO |
 	void        emptyTree(BTNode<T>* ptr);                        					// Done
 	BTNode<T>   *remove(T val);                     					// TODO |
 	BTNode<T>   *findParent(T val); 					// TODO | // I don't think I am using this this method
@@ -298,10 +298,7 @@ int BTree<T>::levels(BTNode<T> *parent)
 template<class T>
 void BTree<T>::rotateRight(BTNode<T> *parent, BTNode<T> *child)
 {
-	if (!parent->left && !parent->right) // nothing  to do. Handles first inputs
-	{
-		return;
-	}
+
 	if (parent == root)
 	{
 		 if (parent->left->left) // line rotation
@@ -310,13 +307,8 @@ void BTree<T>::rotateRight(BTNode<T> *parent, BTNode<T> *child)
 			 child->right = parent;
 			 root = child;
 		 }
-		 else // zig zag case
-		 {
-			 rotateLeft(child, child->right); //make into line case 
-			 rotateRight(parent, parent->left); // rotate line
-		 }
 	}
-	else if (parent->left == child)
+	else 
 	{
 		BTNode<T>* grandParent = findParent(parent->getVal());
 		if (grandParent->left == parent)
@@ -330,34 +322,21 @@ void BTree<T>::rotateRight(BTNode<T> *parent, BTNode<T> *child)
 		parent->left = child->right;
 		child->right = parent;
 	}
-	else
-	{
-		rotateLeft(parent->right, child->right);
-	}
 }
 
 template<class T>
 void BTree<T>::rotateLeft(BTNode<T> *parent, BTNode<T> *child)  // needs checking
 {
-	if (!parent->left && !parent->right) // nothing  to do. Handles first inputs
-	{
-		return;
-	}
+
 	if (parent == root)
 	{
-		if (parent->right->right) // rotation of a line
 		{
 			parent->right = child->left;
 			child->left = parent;
 			root = child;
 		}
-		else // zig zag case
-		{
-			rotateRight(child, child->left); // makes into straightline
-			rotateLeft(parent, parent->right);// roates line
-		}
 	}
-	else if (parent->right == child)
+	else 
 	{
 		BTNode<T>* grandParent = findParent(parent->getVal());
 		if (grandParent->right == parent)
@@ -371,10 +350,6 @@ void BTree<T>::rotateLeft(BTNode<T> *parent, BTNode<T> *child)  // needs checkin
 		parent->right = child->left; // Tree 2
 		child->left = parent;
 	}
-	else
-	{
-		rotateRight(child, child->left);
-	}
 }
 
 template<class T>
@@ -383,7 +358,6 @@ void	BTree<T>::rebalance(BTNode<T> *parent)
 	int		levelR = 0;
 	int		levelL = 0;
 	int 	difference = 0;
-
 	if (parent->left)
 		rebalance(parent->left);
 	if (parent->right)
@@ -391,31 +365,50 @@ void	BTree<T>::rebalance(BTNode<T> *parent)
 
 	if (parent->right)
 		levelR = 1 + levels(parent->right);
+	cout << "The parent is:" << parent->getVal() << " and levelR is:" << levelR << "\n \n";
 	if (parent->left)
 		levelL = 1 + levels(parent->left);
 
-	difference = levelL - levelR;
+	difference = levelR - levelL;
 
-	if (difference < 0)
-		difference = difference * -1;
-
-	if (difference - 2 == 0)
+	
+	if (1 < difference) // using wiki chart
 	{
-		if (levelL > levelR)
+		levelR = 0;
+		levelL = 0;
+		if (parent->right->right) 
+			levelR = 1 + levels(parent->right->right);
+		if (parent->right->left)
+			levelL = 1 + levels(parent->right->left);
+		
+		if (levelL < levelR) // right : right case
 		{
-			cout << "\n \n I am Rotaing Right  \n \n";
-			rotateRight(parent, parent->left);// // need to figure what call
-			return;
+			rotateLeft(parent,parent->right);
 		}
-		else
+		else // right : left case
 		{
-			//cout << "\n \n I am Rotaing Left \n \n";
-			rotateLeft(parent, parent->right); // need to figure out what call
-			return;
+			rotateRight(parent->right, parent->right->left);
+			rotateLeft(parent, parent->right);			
 		}
 	}
-
-	//	cout << "\nLeft Count: " << levelL << "\nRight Count: " << levelR << "\nDifference: " << difference << endl;
+	else if (difference < -1) // left
+	{
+		levelR = 0;
+		levelL = 0;
+		if (parent->left->right)
+			levelR = 1 + levels(parent->left->right);
+		if (parent->left->left)
+			levelL = 1 + levels(parent->left->left);
+		if (levelR < levelL) // left : left case
+		{
+			rotateRight(parent, parent->left);
+		}
+		else// left right case
+		{
+			rotateLeft(parent->left, parent->left->right);
+			rotateRight(parent, parent->left);
+		}
+	}
 	return;
 }
 
@@ -430,6 +423,61 @@ void BTree<T>::emptyTree(BTNode<T>* ptr)
 	emptyTree(ptr->left);
 	emptyTree(ptr->right);
 	delete ptr;
+}
+template<class T>
+void        BTree<T>::GetAllAscendingH(BTNode<T> *ptr, BTNode<T> **array)
+{
+	if (ptr->right == nullptr)
+	{
+		*array++ = ptr;
+		return;
+	}
+	if (ptr->left == nullptr)
+	{
+		*array++ = ptr;
+		return;
+	}
+	GetAllAscendingH(ptr->left, array);
+	GetAllAscendingH(ptr->right, array);
+	*array++ = ptr;
+	return;
+}
+
+template<class T>
+BTNode<T>   *BTree<T>::GetAllAscending()
+{
+
+	BTNode<T>  **array = new BTNode<T>[numElements];
+	GetAllAscendingH(root, array);
+	return array;
+}
+
+template<class T>
+void        BTree<T>::GetAllDescendingH(BTNode<T> *ptr, BTNode<T> **array)
+{
+	if (ptr->right == nullptr || ptr->right == *(array - 1)) // comparing addresses
+	{
+		*array++ = ptr;
+		return;
+	}
+	if (ptr->left == nullptr || ptr->left == *(array - 1)) // comparing addresses
+	{
+		*array++ = ptr;
+		return;
+	}
+	GetAllDescendingH(ptr->right, array);
+	GetAllDescendingH(ptr->left, array);
+	*array++ = ptr;
+	return;
+}
+
+template<class T>
+BTNode<T>   *BTree<T>::GetAllDescending()
+{
+
+	BTNode<T>  **array = new BTNode<T>[numElements];
+	GetAllAscendingH(root, array);
+	return array;
 }
 
 
