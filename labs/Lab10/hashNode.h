@@ -7,6 +7,7 @@ class HashNode
     private:
         K           key;
         V           value;
+        char        state;
 
     public:
         HashNode    *next;
@@ -14,7 +15,9 @@ class HashNode
         HashNode(const K &key, const V &value);
         K       getKey();
         V       getVal();
+        char    getState();
         void    setVal(V val);
+        void    setState(char s);
 
 };
 
@@ -25,6 +28,7 @@ HashNode<K, V>::HashNode(const K &in_key, const V &in_val)
 {
     key = *in_key;
     value = *in_val;
+    state = 'e';
     next = nullptr;
 }
 
@@ -41,7 +45,19 @@ V   HashNode<K, V>::getVal()
 }
 
 template<typename K, typename V>
-void HashNode<K, V>::setVal(V val)
+char HashNode<K,V>::getState()
+{
+    return state;
+}
+
+template<typename K, typename V>
+void HashNode<K,V>::setVal(V val)
 {
     value = val;
+}
+
+template<typename K, typename V>
+void HashNode<K,V>::setState(char s)
+{
+    state = s;
 }
