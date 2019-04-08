@@ -139,8 +139,4 @@ int main()
 		printOrders(&myTree);
 	}
 
-
-
-
-
 }
