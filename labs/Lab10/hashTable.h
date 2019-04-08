@@ -1,18 +1,18 @@
 #ifndef HASHTABLE1D_H
 #define HASHTABLE1D_H
 #include "hashNode.h"
-#include "hashKey.h"
+#include "linkList.h"
 
-#define TABLE_SIZE 500
+#define TABLE_SIZE 100
 
-template<typename K, typename V, class Key = HashKey<K>>
-class HashTable1
+template<typename K, typename V>
+class HashTable
 {
     private:
-        HashNode<K, V>  **table;
-        Key             hashFunction;
+        LinkList<HashNode<K,V>>        *table;
+        K                              hashFunction;
     public:
-        HashTable1();
+        HashTable();
         void            insert(V val);
         int             find();
         int             remove(V val);
@@ -20,8 +20,16 @@ class HashTable1
 };
 #endif
 
-template<typename K, typename V, class Key>
-HashTable1<K, V, Key>::HashTable1()
+template<typename K, typename V>
+HashTable<K, V>::HashTable()
 {
-    table = new HashNode<K, V>*[TABLE_SIZE]();
+    Node<HashNode<K,V>>  *tmp;
+
+    *table = new LinkList<HashNode<K,V>>();
+
+    for (int i = 0; i < TABLE_SIZE; i++)
+    {
+        tmp = new Node<HashNode<K,V>>();
+        table->addItem(tmp);
+    }
 }

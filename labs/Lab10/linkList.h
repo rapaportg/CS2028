@@ -245,17 +245,4 @@ void LinkList<T>::Reset()
 	next_count = 0;
 }
 
-template<class T>
-void LinkList<T>::displayList() {
-	Node<T> *temp = head;
-	if (length == 0) {
-		"The list is empty. \n";
-	}
-	for (int i = 0; i < length; i++) {
-		temp->getItem()->displayProd();
-		cout << "\n";
-		temp = temp->getNext();
-	}
-}
-
 #endif
