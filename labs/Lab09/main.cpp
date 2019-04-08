@@ -1,7 +1,8 @@
 // Lab9attempt2.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
-//#include "pch.h"
+//#include "pch.h"		// Kurt's precompiled header
+#include "stdafx.h"		// Lando's precompiled header
 #include "btnode.h"
 #include "btree.h"
 #include <iostream>
@@ -10,56 +11,54 @@
 
 using namespace std;
 
-void	printOrders(BTree<string> **tmp)
+
+void printOrders(BTree<string> **tmp)
 {
 	cout << "Ascending\n";
 	BTNode<string> **arr1 = (*tmp)->GetAllAscending();
 	cout << "\n\nDescending\n";
 	BTNode<string> **arr2 = (*tmp)->GetAllDescending();
-
-
 }
 
 void newWordComp(string word, BTree<string>* aTree)
 {
-    for (unsigned int i = 0; i < word.length(); ++i)
-    {
-        word[i] = tolower(word[i]);         // converts word to lowercase
-    }
-    BTNode<string>* ptr = nullptr;
+	for (unsigned int i = 0; i < word.length(); ++i) 
+	{
+		word[i] = tolower(word[i]);			// converts word to lowercase
+	}
+	BTNode<string>* ptr = nullptr;
+	
+	ptr = aTree->find(word);	
 
-    ptr = aTree->find(word);
-    if (ptr != nullptr)
-    {
-        ptr->addFreq();
-        //cout << "Word's freq updated" << endl;        // comment for testing
-    }
-    else
-    {
-        aTree->insert(word);
-        //cout << "New word added to the tree!" << endl;    // comment for testing
-    }
-    return;
+	if (ptr != nullptr)
+	{
+		ptr->addFreq();
+	}
+	else
+	{
+		aTree->insert(word);
+	}
+	return;
 }
 
-string  getFileName() // DONE
+string getFileName() 
 {
-    string input;
-    bool check;
+	string input;
+	bool check;
 
-    do
-    {
-        cout << "Enter the name of the file: " << endl;
-        cin >> input;
-        ifstream f(input.c_str());
-        check = f.good();
-        if (check == false)
-        {
-            cout << "Error... File does not exist" << endl << endl;
-        }
+	do
+	{
+		cout << "Enter the name of the file: " << endl;
+		cin >> input;
+		ifstream f(input.c_str());
+		check = f.good();
+		if (check == false)
+		{
+			cout << "Error... File does not exist" << endl << endl;
+		}
 
-    }while(!check);
-    return input;
+	} while (!check);
+	return input;
 }
 
 BTree<string>* toTreeFromFile()
@@ -70,7 +69,7 @@ BTree<string>* toTreeFromFile()
 	string fileName;
 
 	fileName = getFileName();
-	ifstream inputFile;
+	ifstream inputFile;	
 	inputFile.open(fileName.c_str());
 
 	while (!inputFile.good())
@@ -85,7 +84,7 @@ BTree<string>* toTreeFromFile()
 
 		while (chr == '\n' || chr == ' ')
 		{
-			chr = inputFile.get();
+			chr = inputFile.get();			
 			continue;
 		}
 		while (chr != ' ' && chr != '\n' && !inputFile.eof())
@@ -109,7 +108,6 @@ BTree<string>* toTreeFromFile()
 				}
 			}
 		}
-		//cout << word << endl;
 		newWordComp(word, newTree);
 		word.clear();
 	}
@@ -117,26 +115,42 @@ BTree<string>* toTreeFromFile()
 	return newTree;
 }
 
+
+
 int main()
 {
+
 	BTree<string> 	*myTree;
 	BTNode<string> 	**tmp;
-	string			input;
+	char 			input;
+	string			searchBuffer;
 
 	myTree = toTreeFromFile();
-	//myTree->printOrder(myTree->getRoot());
+	// myTree->printOrder(myTree->getRoot());
 
-
-	cout << "Enter the word you are looking for: " << endl;
+	cout << "Would you like to search for a word? Enter y for yes, anything else for no. " << endl;
 	cin >> input;
-	myTree->searchTree(input);
+
+	while (input == 'y')
+	{
+		cout << "What word would you like to search for? (All lower-case) " << endl;
+		cin >> searchBuffer;
+		myTree->searchTree(searchBuffer);
+		cout << "Would you like to search again? Enter y for yes, anything else for no. " << endl;
+		cin >> input;
+	}
 
 	cout << "\nWould you like to see the tree in ascending and desending order (Y/N): \n";
 	cin >> input;
 
-	if (input == "Y" || input == "y")
+	if (input == 'Y' || input == 'y')
 	{
 		printOrders(&myTree);
 	}
 
+<<<<<<< HEAD
+=======
+	return 0;
+>>>>>>> 58ced758a4f9e61c3751a469f00cab950c5585fe
 }
+
