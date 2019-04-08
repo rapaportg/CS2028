@@ -5,17 +5,22 @@
 
 #define TABLE_SIZE 100
 
-template<typename K, typename V>
+template<typename K, typename V> //K is int in this lab
 class HashTable
 {
     private:
-        LinkList<HashNode<K,V>>        *table;
-        K                              hashFunction;
+        LinkList<HashNode<K,V>>     *table;
+        K                           hashFn;
+        K                           hash(string key);
+        int                         count;
+
     public:
         HashTable();
-        void            insert(V val);
-        int             find();
-        int             remove(V val);
+        ~HashTable();
+        void            addItem(V val);
+        HashNpde<K,V>   *removeItem(V val);
+        HashNode<K,V>   getItem(V val);
+        int             getLength();
         void            print();
 };
 #endif
