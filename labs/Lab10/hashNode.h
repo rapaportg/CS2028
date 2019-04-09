@@ -22,8 +22,8 @@ public:
 	bool				operator <(HashNode<K, V> &right);
 	void				operator =(HashNode<K, V> *right);
 
-	HashNode(const K &key, const V &value);
-	HashNode(const K &key);
+	HashNode(const K key, const V value);
+	HashNode(const K key);
 	HashNode();
 
 };
@@ -32,18 +32,18 @@ public:
 
 
 	template<typename K, typename V>
-	HashNode<K, V>::HashNode(const K &in_key, const V &in_val)
+	HashNode<K, V>::HashNode(const K in_key, const V in_val)
 	{
-		key = *in_key;
-		value = *in_val;
+		key = in_key;
+		value = in_val;
 		state = 'e';
 		next = nullptr;
 	}
 
 	template<typename K, typename V>
-	HashNode<K, V>::HashNode(const K &in_key)
+	HashNode<K, V>::HashNode(const K in_key)
 	{
-		key = *in_key;
+		key = in_key;
 		state = 'e';
 		next = nullptr;
 	}
@@ -105,7 +105,7 @@ bool HashNode<K,V>::operator <(HashNode<K, V> &right)
 }
 
 template<typename K, typename V>
-void HashNode<K, V>::operator =(HashNode<K, V> *right) 
+void HashNode<K, V>::operator =(HashNode<K, V> *right)
 {
 	key = right->getKey();
 	value = right->getVal();

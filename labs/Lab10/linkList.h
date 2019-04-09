@@ -111,7 +111,7 @@ Node<T> *LinkList<T>::findParent(Node<T> *itemToAdd)
 	Node<T> 	*ptr;
 	T 			temp;
 
-	*ptr = head;
+	ptr = head;
 	temp = *(itemToAdd->getItem());
 
 	while (ptr->getNext() != nullptr)
