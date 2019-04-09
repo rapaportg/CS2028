@@ -9,19 +9,19 @@
 template<typename K, typename V> //K is int in this lab
 class HashTable
 {
-private:
-	LinkList<HashNode<K, V>>    *table;
-	K                           hash(V val);
-	int                         count;
+	private:
+		LinkList<HashNode<K, V>>    *table;
+		K                           hash(V val);
+		int                         count;
 
-public:
-	HashTable();
-	~HashTable();
-	void            			addItem(V val);
-	HashNode<K, V>   			*removeItem(V val);
-	HashNode<K, V>   			*getItem(V val);
-	int             			getLength();
-	void            			print();
+	public:
+		HashTable();
+		~HashTable();
+		void            			addItem(V val);
+		HashNode<K, V>   			*removeItem(V val);
+		HashNode<K, V>   			*getItem(V val);
+		int             			getLength();
+		void            			print();
 };
 #endif
 
@@ -148,7 +148,7 @@ HashNode<K, V> *HashTable<K,V>::getItem(V val)
 			{
 				if (temp->getItem()->getVal() == val)
 				{
-					return table->setAt(hashVal);
+					return temp->getItem();
 				}
 				else
 				{
