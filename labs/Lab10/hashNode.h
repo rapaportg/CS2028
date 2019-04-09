@@ -18,8 +18,8 @@ class HashNode
         void        setVal(V val);
         void        setState(char s);
 
-        HashNode(const K &key, const V &value);
-        HashNode(const K &key);
+        HashNode(K key, V value);
+        HashNode(K key);
         HashNode();
 
 };
@@ -27,7 +27,7 @@ class HashNode
 #endif
 
 template<typename K, typename V>
-HashNode<K, V>::HashNode(const K &in_key, const V &in_val)
+HashNode<K, V>::HashNode(K in_key, V in_val)
 {
     key   = *in_key;
     value = *in_val;
@@ -36,9 +36,9 @@ HashNode<K, V>::HashNode(const K &in_key, const V &in_val)
 }
 
 template<typename K, typename V>
-HashNode<K, V>::HashNode(const K &in_key)
+HashNode<K, V>::HashNode(K in_key)
 {
-    key   = *in_key;
+    key   = in_key;
     state = 'e';
     next  = nullptr;
 }

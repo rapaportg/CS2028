@@ -1,40 +1,45 @@
+
 #ifndef HASHTABLE1D_H
 #define HASHTABLE1D_H
+#include <string>
 #include "hashNode.h"
 #include "linkList.h"
 
 #define TABLE_SIZE 100
 
-template<typename K, typename V> //K is int in this lab
+template<typename K, class V> //K is int in this lab
 class HashTable
 {
-private:
-	LinkList<HashNode<K, V>>    *table;
-	K                           hash(V val);
-	int                         count;
+	private:
+		LinkList<HashNode<K, V>>    *table;
+		K                           hash(V val);
+		int                         count;
 
-public:
-	HashTable();
-	~HashTable();
-	void            			addItem(V val);
-	HashNode<K, V>   			*removeItem(V val);
-	HashNode<K, V>   			*getItem(V val);
-	int             			getLength();
-	void            			print();
+	public:
+		HashTable();
+		~HashTable();
+		void            			addItem(V val);
+		HashNode<K, V>   			*removeItem(V val);
+		HashNode<K, V>   			*getItem(V val);
+		int             			getLength();
+		void            			print();
 };
 #endif
 
-template<typename K, typename V>
+template<typename K, class V>
 HashTable<K, V>::HashTable()
 {
 	Node<HashNode<K, V>>  		*tmp;
+	HashNode<K,V>				*tmp2;
 
 	count = 0;
-	*table = new LinkList<HashNode<K, V>>();
+	table = new LinkList<HashNode<K, V>>();
 
 	for (int i = 0; i < TABLE_SIZE; i++)
 	{
-		tmp = new Node<HashNode<K, V>>(i);
+		tmp = new Node<HashNode<K, V>>;
+		tmp2 = new HashNode<K,V>(i);
+		tmp->setItem(tmp2);
 		table->addItem(tmp);
 	}
 }
@@ -57,8 +62,8 @@ K HashTable< K, V>::hash(V val)
 template<typename K, typename V>
 void HashTable<K, V>::addItem(V val)
 {
-	bool						flag = true;
-	Node<HashNode<K, V>>			*temp;
+	bool						flag=true;
+	Node<HashNode<K,V>>			*temp;
 
 	K hashVal = hash(val);
 
@@ -67,7 +72,7 @@ void HashTable<K, V>::addItem(V val)
 
 	while (flag)
 	{
-		temp = table->seeAt(hashVal);
+		temp=table->seeAt(hashVal);
 		if (temp->getItem()->getState() != 'f') // the cell is empty
 		{
 			temp->getItem()->setVal(val);
@@ -77,7 +82,7 @@ void HashTable<K, V>::addItem(V val)
 		}
 		else
 		{
-			hashVal = (hashVal + 1) % TABLE_SIZE; // linear probing
+			hashVal++; // linear probing
 		}
 	}
 }
@@ -111,7 +116,7 @@ HashNode<K, V> *HashTable<K, V>::removeItem(V val)
 				}
 				else
 				{
-					hashVal = (hashVal + 1) % TABLE_SIZE; // linear probing
+					hashVal++; // linear probing
 				}
 			}
 			else //This means we have an empty cell
@@ -121,14 +126,14 @@ HashNode<K, V> *HashTable<K, V>::removeItem(V val)
 		}
 		else
 		{
-			hashVal = (hashVal + 1) % TABLE_SIZE; // linear probing
+			hashVal++; // acounting for linear probing
 		}
 		counter++; // we have to do linear probing
 	}
 }
 
 template<typename K, typename V>
-HashNode<K, V> *HashTable<K, V>::getItem(V val)
+HashNode<K, V> *HashTable<K,V>::getItem(V val)
 {
 	int							counter;
 	Node<HashNode<K, V>>		*temp;
@@ -151,7 +156,7 @@ HashNode<K, V> *HashTable<K, V>::getItem(V val)
 				}
 				else
 				{
-					hashVal = (hashVal + 1) % TABLE_SIZE; // linear probing
+					hashVal++; // linear probing
 				}
 			}
 			else //This means we have an empty cell
@@ -161,38 +166,9 @@ HashNode<K, V> *HashTable<K, V>::getItem(V val)
 		}
 		else
 		{
-			hashVal = (hashVal + 1) % TABLE_SIZE; // linear probing
+			hashVal++; // acounting for linear probing
 		}
 	}
 
 	return nullptr;
-}
-
-template<typename K, typename V>
-int HashTable<K, V>::getLength() 
-{
-	return count;
-}
-
-template<typename K, typename V>
-HashTable<K, V>::~HashTable()
-{
-	table->~LinkList();
-}
-
-template<typename K, typename V>
-void HashTable<K,V>::print()
-{
-	HashNode<K,V>	*temp;
-
-
-	for (int i = 0; i < TABLE_SIZE; i++) 
-	{
-		temp = table->seeAt(i);
-		if (temp->getState() != 'f')
-			cout << "EMPTY\t|\t";
-		else
-			cout << temp->getVal() << "\t|\t";
-	}
-	cout << "\n";
 }
