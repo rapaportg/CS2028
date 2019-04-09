@@ -17,18 +17,19 @@ private:
 public:
 	HashTable();
 	~HashTable();
-	void            addItem(V val);
-	HashNode<K, V>   *removeItem(V val);
-	HashNode<K, V>   getItem(V val);
-	int             getLength();
-	void            print();
+	void            			addItem(V val);
+	HashNode<K, V>   			*removeItem(V val);
+	HashNode<K, V>   			getItem(V val);
+	int             			getLength();
+	void            			print();
 };
 #endif
 
 template<typename K, typename V>
 HashTable<K, V>::HashTable()
 {
-	Node<HashNode<K, V>>  *tmp;
+	Node<HashNode<K, V>>  		*tmp;
+
 	count = 0;
 	*table = new LinkList<HashNode<K, V>>();
 
@@ -40,12 +41,15 @@ HashTable<K, V>::HashTable()
 }
 
 template<typename K, typename V>
-K HashTable< K, V>::hash(V val) 
+K HashTable< K, V>::hash(V val)
 {
-	int					ret;
-	int					length = val.length();
+	int							ret;
+	int							length;
 
-	for (int i = 0; i < length; i++) {
+	length = val.length();
+
+	for (int i = 0; i < length; i++)
+	{
 		ret += val[i];
 	}
 	return ret % TABLE_SIZE;
@@ -56,47 +60,50 @@ void HashTable<K, V>::addItem(V val)
 {
 	bool						flag=true;
 	Node<HashNode<K,V>>			*temp;
-	
+
 	K hashVal = hash(val);
 
-	if (count > 99) {
+	if (count > 99)
 		return; // Table Is Full Do we have to let the user known??????????
-	}
+
 	while (flag)
 	{
 		temp=table->seeAt(hashVal);
-		if (temp->getItem()->getState() != 'f') { // the cell is empty
+		if (temp->getItem()->getState() != 'f') // the cell is empty
+		{
 			temp->getItem()->setVal(val);
 			temp->getItem()->setState('f');
 			count++;
 			flag = false;
 		}
-		else{
+		else
+		{
 			hashVal++; // linear probing
 		}
 	}
 }
 
 template<typename K, typename V>
-HashNode<K, V>* HashTable<K, V>::removeItem(V val) 
+HashNode<K, V>* HashTable<K, V>::removeItem(V val)
 {
-	int								counter = 0;
-	Node<HashNode<K, V>>			*temp;
+	int							counter = 0;
+	Node<HashNode<K, V>>		*temp;
 
 	K hashVal = hash(val);
 
 	while (true)
 	{
-		if (counter > 99) {// full table but no value
+		if (counter > 99) // full table but no value
 			return nullptr;
-		}
+
 		temp = table->seeAt(hashVal);
 
 		if (temp->getItem()->getState != 'd') // Is either full or emtpy , not deleted (if it is deleted we know to got to the next node)
 		{
 			if (temp->getItem()->getState() == 'f')
 			{
-				if (temp->getItem()->getVal() == val) {
+				if (temp->getItem()->getVal() == val)
+				{
 					temp->getItem()->setState('d');
 					count--; // the number of element in table decreased by one
 					return temp->getItem();// TO DO!!!!!!!!!!!!
@@ -110,7 +117,6 @@ HashNode<K, V>* HashTable<K, V>::removeItem(V val)
 			{
 				return nullptr;
 			}
-
 		}
 		else
 		{

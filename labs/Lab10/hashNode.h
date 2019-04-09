@@ -12,14 +12,15 @@ class HashNode
     public:
         HashNode    *next;
 
+        K           getKey();
+        V           getVal();
+        char        getState();
+        void        setVal(V val);
+        void        setState(char s);
+
         HashNode(const K &key, const V &value);
         HashNode(const K &key);
         HashNode();
-        K       getKey();
-        V       getVal();
-        char    getState();
-        void    setVal(V val);
-        void    setState(char s);
 
 };
 
@@ -28,25 +29,25 @@ class HashNode
 template<typename K, typename V>
 HashNode<K, V>::HashNode(const K &in_key, const V &in_val)
 {
-    key = *in_key;
+    key   = *in_key;
     value = *in_val;
     state = 'e';
-    next = nullptr;
+    next  = nullptr;
 }
 
 template<typename K, typename V>
 HashNode<K, V>::HashNode(const K &in_key)
 {
-    key = *in_key;
+    key   = *in_key;
     state = 'e';
-    next = nullptr;
+    next  = nullptr;
 }
 
 template<typename K, typename V>
 HashNode<K, V>::HashNode()
 {
     state = 'e';
-    next = nullptr;
+    next  = nullptr;
 }
 
 
