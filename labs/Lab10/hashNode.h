@@ -4,79 +4,112 @@
 template<typename K, typename V>
 class HashNode
 {
-    private:
-        K           key;
-        V           value;
-        char        state;
+private:
+	K					key;
+	V					value;
+	char				state;
 
-    public:
-        HashNode    *next;
+public:
+	HashNode<K,V>		*next;
 
-        K           getKey();
-        V           getVal();
-        char        getState();
-        void        setVal(V val);
-        void        setState(char s);
+	K					getKey();
+	V					getVal();
+	char				getState();
+	void				setVal(V val);
+	void				setState(char s);
+	bool				operator ==(HashNode<K,V> &right);
+	bool				operator >(HashNode<K, V> &right);
+	bool				operator <(HashNode<K, V> &right);
+	void				operator =(HashNode<K, V> *right);
 
-        HashNode(K key, V value);
-        HashNode(K key);
-        HashNode();
+	HashNode(const K &key, const V &value);
+	HashNode(const K &key);
+	HashNode();
 
 };
 
 #endif
 
+
+	template<typename K, typename V>
+	HashNode<K, V>::HashNode(const K &in_key, const V &in_val)
+	{
+		key = *in_key;
+		value = *in_val;
+		state = 'e';
+		next = nullptr;
+	}
+
+	template<typename K, typename V>
+	HashNode<K, V>::HashNode(const K &in_key)
+	{
+		key = *in_key;
+		state = 'e';
+		next = nullptr;
+	}
+
+	template<typename K, typename V>
+	HashNode<K, V>::HashNode()
+	{
+		state = 'e';
+		next = nullptr;
+	}
+
+
+	template<typename K, typename V>
+	K   HashNode<K, V>::getKey()
+	{
+		return key;
+	}
+
+	template<typename K, typename V>
+	V   HashNode<K, V>::getVal()
+	{
+		return value;
+	}
+
+	template<typename K, typename V>
+	char HashNode<K, V>::getState()
+	{
+		return state;
+	}
+
+	template<typename K, typename V>
+	void HashNode<K, V>::setVal(V val)
+	{
+		value = val;
+	}
+
+	template<typename K, typename V>
+	void HashNode<K, V>::setState(char s)
+	{
+		state = s;
+	}
+
 template<typename K, typename V>
-HashNode<K, V>::HashNode(K in_key, V in_val)
+bool HashNode<K,V>::operator ==(HashNode<K, V> &right)
 {
-    key   = *in_key;
-    value = *in_val;
-    state = 'e';
-    next  = nullptr;
+	return (key == right.getKey());
 }
 
 template<typename K, typename V>
-HashNode<K, V>::HashNode(K in_key)
+bool HashNode<K,V>::operator >(HashNode<K, V> &right)
 {
-    key   = in_key;
-    state = 'e';
-    next  = nullptr;
+	return (key > right.getKey());
 }
 
 template<typename K, typename V>
-HashNode<K, V>::HashNode()
+bool HashNode<K,V>::operator <(HashNode<K, V> &right)
 {
-    state = 'e';
-    next  = nullptr;
-}
-
-
-template<typename K, typename V>
-K   HashNode<K, V>::getKey()
-{
-    return key;
+	return (key < right.getKey());
 }
 
 template<typename K, typename V>
-V   HashNode<K, V>::getVal()
+void HashNode<K, V>::operator =(HashNode<K, V> *right) 
 {
-    return value;
-}
+	key = right->getKey();
+	value = right->getVal();
+	state = right->getState();
 
-template<typename K, typename V>
-char HashNode<K,V>::getState()
-{
-    return state;
-}
-
-template<typename K, typename V>
-void HashNode<K,V>::setVal(V val)
-{
-    value = val;
-}
-
-template<typename K, typename V>
-void HashNode<K,V>::setState(char s)
-{
-    state = s;
+	next = right->next;
 }
