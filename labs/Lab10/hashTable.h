@@ -28,13 +28,16 @@ template<typename K, typename V>
 HashTable<K, V>::HashTable()
 {
 	Node<HashNode<K, V>>  		*tmp;
+	HashNode<K,V>				*tmp2;
 
 	count = 0;
 	table = new LinkList<HashNode<K, V>>();
 
 	for (int i = 0; i < TABLE_SIZE; i++)
 	{
-		tmp = new Node<HashNode<K, V>>;
+		tmp = new Node<HashNode<K, V>>();
+		tmp2 = new HashNode<K,V>();
+		tmp->setItem(tmp2);
 		table->addItem(tmp);
 	}
 }
@@ -49,7 +52,7 @@ K HashTable< K, V>::hash(V val)
 
 	for (int i = 0; i < length; i++)
 	{
-		ret += val[i];
+		ret += val[i] - 101;
 	}
 	return ret % TABLE_SIZE;
 }
@@ -99,7 +102,7 @@ HashNode<K, V> *HashTable<K, V>::removeItem(V val)
 
 		temp = table->seeAt(hashVal);
 
-		if (temp->getItem()->getState != 'd') // Is either full or emtpy , not deleted (if it is deleted we know to got to the next node)
+		if (temp->getItem()->getState() != 'd') // Is either full or emtpy , not deleted (if it is deleted we know to got to the next node)
 		{
 			if (temp->getItem()->getState() == 'f')
 			{
@@ -169,7 +172,7 @@ HashNode<K, V> *HashTable<K, V>::getItem(V val)
 }
 
 template<typename K, typename V>
-int HashTable<K, V>::getLength() 
+int HashTable<K, V>::getLength()
 {
 	return count;
 }
@@ -185,10 +188,12 @@ void HashTable<K,V>::print()
 {
 	HashNode<K,V>	*temp;
 
+	temp = table->seeAt(0)->getItem();
+	cout << temp->getVal();
 
-	for (int i = 0; i < TABLE_SIZE; i++) 
+	for (int i = 0; i < TABLE_SIZE; i++)
 	{
-		temp = table->seeAt(i);
+		temp = table->seeAt(i)->getItem();
 		if (temp->getState() != 'f')
 			cout << "EMPTY\t|\t";
 		else

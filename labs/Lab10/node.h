@@ -29,6 +29,20 @@ class Node
 #endif
 
 template<class T>
+Node<T>::Node()
+{
+	item = nullptr;
+	next = nullptr;
+}
+
+template<class T>
+Node<T>::Node(T *data)
+{
+	item = data;
+	next = nullptr;
+}
+
+template<class T>
 T* Node<T>::getItem()
 {
 	return item;
@@ -38,13 +52,6 @@ template<class T>
 Node<T>* Node<T>::getNext()
 {
 	return next;
-}
-
-template<class T>
-Node<T>::Node(T *data)
-{
-	item = data;
-	next = nullptr;
 }
 
 template<class T>

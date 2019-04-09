@@ -22,7 +22,8 @@ class LinkList
 	public:
 
 	// ---------Execeptions----------
-		class NoListException {};
+		class 			NoListException {};
+		class 			OutOfBoundException {};
 
 	// ---Constructors/Destructors---
 		LinkList();
@@ -265,12 +266,12 @@ Node<T>* LinkList<T>::seeAt(int location)						// item that we are looking for
 	sz = Size();
 
 	if (isEmpty() == 1)
-		throw "There is no next because there is no list!";
+		throw NoListException();
 
-	if (location > sz || location <= 0)
-		throw "Your location is out of the list's bounds!";
+	if (location > sz || location < 0)
+		throw OutOfBoundException();
 
-	for (int i = 1; i < location; i++)
+	for (int i = 0; i < location; i++)
 	{
 		tmp1 = tmp2;
 		tmp2 = tmp2->getNext();
