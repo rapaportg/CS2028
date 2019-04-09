@@ -19,7 +19,7 @@ public:
 	~HashTable();
 	void            			addItem(V val);
 	HashNode<K, V>   			*removeItem(V val);
-	HashNode<K, V>   			getItem(V val);
+	HashNode<K, V>   			*getItem(V val);
 	int             			getLength();
 	void            			print();
 };
@@ -84,12 +84,14 @@ void HashTable<K, V>::addItem(V val)
 }
 
 template<typename K, typename V>
-HashNode<K, V>* HashTable<K, V>::removeItem(V val)
+HashNode<K, V> *HashTable<K, V>::removeItem(V val)
 {
-	int							counter = 0;
+	int							counter;
 	Node<HashNode<K, V>>		*temp;
+	K 							hashVal;
 
-	K hashVal = hash(val);
+	counter = 0;
+	hashVal = hash(val);
 
 	while (true)
 	{
@@ -124,4 +126,45 @@ HashNode<K, V>* HashTable<K, V>::removeItem(V val)
 		}
 		counter++; // we have to do linear probing
 	}
+}
+
+template<typename K, typename V>
+HashNode<K, V> *HashTable<K,V>::getItem(V val)
+{
+	int							counter;
+	Node<HashNode<K, V>>		*temp;
+	K 							hashVal;
+
+	counter = 0;
+	hashVal = hash(val);
+
+	for (int counter = 0; counter < TABLE_SIZE; counter++)
+	{
+		temp = table->seeAt(hashVal);
+
+		if (temp->getItem()->getState != 'd') // Is either full or emtpy , not deleted (if it is deleted we know to got to the next node)
+		{
+			if (temp->getItem()->getState() == 'f')
+			{
+				if (temp->getItem()->getVal() == val)
+				{
+					return table->setAt(hashVal);
+				}
+				else
+				{
+					hashVal++; // linear probing
+				}
+			}
+			else //This means we have an empty cell
+			{
+				return nullptr;
+			}
+		}
+		else
+		{
+			hashVal++; // acounting for linear probing
+		}
+	}
+
+	return nullptr;
 }
