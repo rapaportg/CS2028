@@ -26,6 +26,7 @@ class LinkList
 
 	// ---Constructors/Destructors---
 		LinkList();
+		~LinkList();
 
 	// ------------Methods-----------
 		void 			addItem(Node<T> *itemToAdd);
@@ -38,6 +39,7 @@ class LinkList
 		Node<T>* 		seeAt(int location);
 		void 			Reset();
 		void 			displayList();
+		void			deleteFront();
 
 };
 
@@ -48,6 +50,28 @@ LinkList<T>::LinkList()
 	next 		= nullptr;
 	next_count 	= 0;
 	length 		= 0;
+}
+
+template<class T>
+LinkList<T>::~LinkList()
+{
+	int 	size = length;
+
+	while (length)
+	{
+		deleteFront();
+	}
+}
+
+template<class T>
+void LinkList<T>::deleteFront()
+{
+	Node<T>		*tmp;
+
+	length--;
+	tmp = head;
+	head = next;
+	delete tmp;
 }
 
 template<class T>
