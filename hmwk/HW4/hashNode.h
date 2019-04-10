@@ -12,9 +12,9 @@ class HashNode
         HashNode    *next;
 
         HashNode(const K &key, const V &value);
-        K       getKey();
-        V       getVal();
-        void    setVal(V val);
+        K           getKey();
+        V           getVal();
+        void        setVal(V val);
 
 };
 
