@@ -6,9 +6,9 @@ using namespace std;
 
 int main()
 {
-    HashTable<int,string>   *table;
+    HashTable<string>   *table;
 
-    table = new HashTable<int,string>();
+    table = new HashTable<string>();
     table->addItem("a");
     table->addItem("b");
     table->addItem("c");

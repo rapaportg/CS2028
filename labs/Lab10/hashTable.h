@@ -5,45 +5,45 @@
 
 #define TABLE_SIZE 100
 
-template<typename K, typename V> //K is int in this lab
+template<typename V> //K is int in this lab
 class HashTable
 {
 private:
-	LinkList<HashNode<K, V>>    *table;
-	K                           hash(V val);
+	LinkList<HashNode<V>>    *table;		// its a link list because we reused code from the homework
+	int                         hash(V val);
 	int                         count;
 
 public:
 	HashTable();
 	~HashTable();
 	void            			addItem(V val);
-	HashNode<K, V>   			*removeItem(V val);
-	HashNode<K, V>   			*getItem(V val);
+	HashNode<V>   				*removeItem(V val);
+	HashNode<V>   				*getItem(V val);
 	int             			getLength();
 	void            			print();
 };
 #endif
 
-template<typename K, typename V>
-HashTable<K, V>::HashTable()
+template<typename V>
+HashTable<V>::HashTable()
 {
-	Node<HashNode<K, V>>  		*tmp;
-	HashNode<K,V>				*tmp2;
+	Node<HashNode<V>>  		*tmp;
+	HashNode<V>				*tmp2;
 
 	count = 0;
-	table = new LinkList<HashNode<K, V>>();
+	table = new LinkList<HashNode<V>>();
 
 	for (int i = 0; i < TABLE_SIZE; i++)
 	{
-		tmp = new Node<HashNode<K, V>>();
-		tmp2 = new HashNode<K,V>();
+		tmp = new Node<HashNode<V>>();
+		tmp2 = new HashNode<V>();
 		tmp->setItem(tmp2);
 		table->addItem(tmp);
 	}
 }
 
-template<typename K, typename V>
-K HashTable< K, V>::hash(V val)
+template<typename V>
+int HashTable<V>::hash(V val)
 {
 	int							ret;
 	int							length;
@@ -57,13 +57,13 @@ K HashTable< K, V>::hash(V val)
 	return ret % TABLE_SIZE;
 }
 
-template<typename K, typename V>
-void HashTable<K, V>::addItem(V val)
+template<typename V>
+void HashTable<V>::addItem(V val)
 {
 	bool						flag = true;
-	Node<HashNode<K, V>>			*temp;
+	Node<HashNode<V>>			*temp;
 
-	K hashVal = hash(val);
+	int hashVal = hash(val);
 
 	if (count > 99)
 		return; // Table Is Full Do we have to let the user known??????????
@@ -85,12 +85,12 @@ void HashTable<K, V>::addItem(V val)
 	}
 }
 
-template<typename K, typename V>
-HashNode<K, V> *HashTable<K, V>::removeItem(V val)
+template<typename V>
+HashNode<V> *HashTable<V>::removeItem(V val)
 {
 	int							counter;
-	Node<HashNode<K, V>>		*temp;
-	K 							hashVal;
+	Node<HashNode<V>>			*temp;
+	int							hashVal;
 
 	counter = 0;
 	hashVal = hash(val);
@@ -130,12 +130,12 @@ HashNode<K, V> *HashTable<K, V>::removeItem(V val)
 	}
 }
 
-template<typename K, typename V>
-HashNode<K, V> *HashTable<K, V>::getItem(V val)
+template<typename V>
+HashNode<V> *HashTable<V>::getItem(V val)
 {
 	int							counter;
-	Node<HashNode<K, V>>		*temp;
-	K 							hashVal;
+	Node<HashNode<V>>			*temp;
+	int 						hashVal;
 
 	counter = 0;
 	hashVal = hash(val);
@@ -171,22 +171,22 @@ HashNode<K, V> *HashTable<K, V>::getItem(V val)
 	return nullptr;
 }
 
-template<typename K, typename V>
-int HashTable<K, V>::getLength()
+template<typename V>
+int HashTable<V>::getLength()
 {
 	return count;
 }
 
-template<typename K, typename V>
-HashTable<K, V>::~HashTable()
+template<typename V>
+HashTable<V>::~HashTable()
 {
 	table->~LinkList();
 }
 
-template<typename K, typename V>
-void HashTable<K,V>::print()
+template<typename V>
+void HashTable<V>::print()
 {
-	HashNode<K,V>	*temp;
+	HashNode<V>	*temp;
 
 	temp = table->seeAt(0)->getItem();
 	cout << temp->getVal();
