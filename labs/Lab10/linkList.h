@@ -34,15 +34,29 @@ class LinkList
 		Node<T>* 		getListItem(Node<T> *itemToGet);
 		bool 			isInList(Node<T> *itemToCheck);
 		bool 			isEmpty();
-		int 			Size();
+		int 			size();
 		void 			printList();
 		Node<T>* 		seeNext();
 		Node<T>* 		seeAt(int location);
 		void 			Reset();
 		void 			displayList();
 		void			deleteFront();
+		Node<T>			*remove(int index);
 
 };
+
+template<class T>
+Node<T> *LinkList<T>::remove(int index)
+{
+	Node<T>	*tmp;
+	Node<T>	*parent;
+
+	parent = this->seeAt(index - 1);
+	tmp = parent->getNext();
+	parent = tmp->getNext();
+
+	return tmp;
+}
 
 template<class T>
 LinkList<T>::LinkList()
@@ -199,7 +213,7 @@ bool LinkList<T>::isEmpty()
 }
 
 template<class T>
-int LinkList<T>::Size()
+int LinkList<T>::size()
 {
 	return length;
 }
@@ -230,7 +244,7 @@ Node<T>* LinkList<T>::seeNext()
 	int 		sz;
 	Node<T> 	*tmp1;
 
-	sz = Size();
+	sz = size();
 	tmp1 = head;
 
 	if (isEmpty() == 1)
@@ -263,7 +277,7 @@ Node<T>* LinkList<T>::seeAt(int location)						// item that we are looking for
 
 	tmp1 = head;
 	tmp2 = head->getNext();
-	sz = Size();
+	sz = size();
 
 	if (isEmpty() == 1)
 		throw NoListException();

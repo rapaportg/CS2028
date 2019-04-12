@@ -9,7 +9,7 @@ template<typename V> //K is int in this lab
 class HashTable
 {
 private:
-	LinkList<HashNode<V>>    *table;		// its a link list because we reused code from the homework
+	LinkList<HashNode<V>>    	*table;
 	int                         hash(V val);
 	int                         count;
 
