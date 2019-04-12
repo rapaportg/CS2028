@@ -10,7 +10,6 @@ class HashTable
 {
     private:
         HashNode<int>   *table;
-        int             len;
         int             maxSize;
         int             hash(int in);
 
@@ -23,10 +22,15 @@ class HashTable
         int     remove(int in); // Status | Testing | TD
         void    print();	    // Status | Testing | TD
         void    reset();
+        int     getMaxSize();
 
 };
 #endif
 
+int HashTable::getMaxSize()
+{
+    return maxSize;
+}
 
 int HashTable::hash(int in)
 {
@@ -78,7 +82,7 @@ int HashTable::find(int in)
             return ret;
         }
     }
-    return maxSize + 1;  // if ret is equal to maxSize + 1, then it is not in list
+    return maxSize + 2;  // if ret is equal to maxSize + 1, then the input is not in list
 }
 
 int HashTable::remove(int in)
