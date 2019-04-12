@@ -1,3 +1,4 @@
+/*
 #include "hashTable.h"
 
 using namespace std;
@@ -92,3 +93,4 @@ void HashTable::print()
         }
     }
 }
+*/
