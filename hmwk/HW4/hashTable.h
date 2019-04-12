@@ -73,16 +73,16 @@ int HashTable::find(int in)
 
     for (ret = 0; ret < maxSize; ret++)
     {
-        if (table[key].getVal() == in)
-        {
-            key = (key + 1) % maxSize;
-        }
-        else
+        if (table[key].getState() == 'f' && table[key].getVal() == in)
         {
             return ret;
         }
+        else
+        {
+            key = (key + 1) % maxSize;
+        }
     }
-    return maxSize + 2;  // if ret is equal to maxSize + 1, then the input is not in list
+    return maxSize + 1;  // if ret is equal to maxSize + 1, then the input is not in list
 }
 
 int HashTable::remove(int in)
