@@ -11,17 +11,18 @@ class HashTable
     private:
         HashNode<int>   *table;
         int             len;
-        int             maxSize = 500;
+        int             maxSize;
         int             hash(int in);
 
     public:
-        HashTable();
+        HashTable(int size);
         //~HashTable(); // still need to do
 
         int     insert(int in); // Status | Testing | IP
         int     find(int in);	// Status | Testing | TD
         int     remove(int in); // Status | Testing | TD
         void    print();	    // Status | Testing | TD
+        void    reset();
 
 };
 #endif
@@ -32,8 +33,9 @@ int HashTable::hash(int in)
     return in % maxSize;
 }
 
-HashTable::HashTable()
+HashTable::HashTable(int size)
 {
+    maxSize = size;
     table = new HashNode<int>[maxSize];
 }
 
@@ -76,7 +78,7 @@ int HashTable::find(int in)
             return ret;
         }
     }
-    return ret;  // if ret is equal to maxSize, then it is not in list
+    return maxSize + 1;  // if ret is equal to maxSize + 1, then it is not in list
 }
 
 int HashTable::remove(int in)
@@ -96,7 +98,7 @@ int HashTable::remove(int in)
             key = (key + 1) % maxSize;
         }
     }
-    return i; // if i is equal maxSize, then it is not in the table
+    return maxSize + 1; // if ret is equal maxSize + 1, then it is not in the table
 }
 
 void HashTable::print()
@@ -115,5 +117,13 @@ void HashTable::print()
         {
             cout << "EMPTY | ";
         }
+    }
+}
+
+void HashTable::reset()
+{
+    for (int i = 0; i < maxSize; i++)
+    {
+        table[i].setState('e');
     }
 }
