@@ -1,11 +1,11 @@
 #include <iostream>
-#include "hashTable1D.h"
+#include "hashTable.h"
 
 using namespace std;
 
-void INSERT_TEST(HashTable1D *test)
+void INSERT_TEST()
 {
-   //HashTable1D *test = new HashTable1D();
+    HashTable *test = new HashTable();
     int         tmp;
 
     for (int i = 0; i < 50; i++)
@@ -24,8 +24,6 @@ void INSERT_TEST(HashTable1D *test)
 
 int main()
 {
-    HashTable1D *test = new HashTable1D();
-
-    INSERT_TEST(test);
+    INSERT_TEST();
     return 0;
 }
