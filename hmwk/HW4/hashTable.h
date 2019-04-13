@@ -17,12 +17,12 @@ class HashTable
         HashTable(int size);
         //~HashTable(); // still need to do
 
-        int     insert(int in); // Status | Testing | IP
-        int     find(int in);	// Status | Testing | TD
-        int     remove(int in); // Status | Testing | TD
-        void    print();	    // Status | Testing | TD
-        void    reset();
-        int     getMaxSize();
+        int             insert(int in); // Status | Testing | IP
+        int             find(int in);	// Status | Testing | TD
+        int             remove(int in); // Status | Testing | TD
+        void            print();	    // Status | Testing | TD
+        void            reset();
+        int             getMaxSize();
 
 };
 #endif
@@ -107,12 +107,10 @@ int HashTable::remove(int in)
 
 void HashTable::print()
 {
+    cout << endl <<  "| ";
     for (int i = 0; i < maxSize; i++)
     {
-        if (i % 10 == 0)
-        {
-            cout << "\\n";
-        }
+
         if (table[i].getState() == 'f')
         {
             cout << table[i].getVal() << " | ";
@@ -122,6 +120,7 @@ void HashTable::print()
             cout << "EMPTY | ";
         }
     }
+    cout << endl << endl;
 }
 
 void HashTable::reset()

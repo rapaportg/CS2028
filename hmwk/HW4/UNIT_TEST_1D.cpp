@@ -101,6 +101,7 @@ void    REMOVE_TEST(HashTable *test)
         else
             cout << " \tFAIL\n";
     }
+    cout << endl;
 
 }
 
@@ -110,11 +111,12 @@ void    FIND_TEST(HashTable *test)
     cout << "FIND TEST: 1 (Output of Max Size + 1 means the item is on in the table)\t Hash: x % " << test->getMaxSize() << "\n";
     cout << "------------------------------------------------------------------------------------------------------------------------\n";
     int random[50] = {4, 36, 15, 32, 27, 37, 30, 36, 1, 32, 23, 2, 20, 16, 21, 0, 26, 32, 6, 27, 15, 26, 10, 4, 38, 2, 99, 8, 7, 30, 6, 12, 17, 25, 10, 39, 4, 5, 13, 39};
-    int check[50] = {0, 0, 0, 0, 0, 22, 0, 1, 17, 1, 0, 0, 0, 0, 0, 1, 0, 2, 0, 2, 7, 2, 0, 5, 0, 1, 41, 0, 0, 1, 8, 0, 0, 0, 1, 0, 31, 0, 0, 1, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41};
+    int check[50] = {0, 0, 0, 0, 0, 22, 0, 0, 17, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 41, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
     int tmp = 0;
 
     for (int i = 0; i < test->getMaxSize() + 10; i++)
     {
+
         tmp = test->find(random[i]);
 
         cout << i + 1 << ". \tValue Entered: " << random[i] << " \tSpots Checked: " << tmp << " \tExpected Checked: " << check[i];
@@ -123,6 +125,8 @@ void    FIND_TEST(HashTable *test)
             cout << " \tPASS\n";
         else
             cout << " \tFAIL\n";
+
+        //cout << tmp << ", ";
     }
     cout << endl;
 }
@@ -133,7 +137,8 @@ int     main()
 
     INSERT_TEST(test);
     FIND_TEST(test);
+    test->print();
     REMOVE_TEST(test);
-
+    test->print();
     return 0;
 }
