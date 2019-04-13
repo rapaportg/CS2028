@@ -58,11 +58,11 @@ int HashTable::insert(int in)
         {
             table[key].setState('f');
             table[key].setVal(in);
-            return i;
+            return i+1;
         }
 
     }
-    return i; // if i is equal to maxSize then table is full
+    return i+1; // if i is equal to maxSize + 1 then table is full
 
 }
 
@@ -75,14 +75,14 @@ int HashTable::find(int in)
     {
         if (table[key].getState() == 'f' && table[key].getVal() == in)
         {
-            return ret;
+            return ret + 1;
         }
         else
         {
             key = (key + 1) % maxSize;
         }
     }
-    return maxSize + 1;  // if ret is equal to maxSize + 1, then the input is not in list
+    return maxSize + 2;  // if ret is equal to maxSize + 1, then the input is not in list
 }
 
 int HashTable::remove(int in)
@@ -95,14 +95,14 @@ int HashTable::remove(int in)
         if (table[key].getState() == 'f' && table[key].getVal() == in)
         {
             table[key].setState('d');
-            return i;
+            return i+1;
         }
         else
         {
             key = (key + 1) % maxSize;
         }
     }
-    return maxSize + 1; // if ret is equal maxSize + 1, then it is not in the table
+    return maxSize + 2; // if ret is equal maxSize + 1, then it is not in the table
 }
 
 void HashTable::print()

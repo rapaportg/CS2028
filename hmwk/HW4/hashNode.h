@@ -77,6 +77,7 @@ char HashNode<V>::getState()
 template<typename V>
 void HashNode<V>::setVal(V val)
 {
+	state = 'f';
 	value = val;
 }
 
