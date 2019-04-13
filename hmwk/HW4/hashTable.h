@@ -1,3 +1,4 @@
+#pragma
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
 #include "hashNode.h"
@@ -14,6 +15,7 @@ class HashTable
         int             hash(int in);
 
     public:
+        HashTable();
         HashTable(int size);
         //~HashTable(); // still need to do
 
@@ -26,6 +28,12 @@ class HashTable
 
 };
 #endif
+
+HashTable::HashTable()
+{
+    table = nullptr;
+    maxSize = 0;
+}
 
 int HashTable::getMaxSize()
 {
@@ -107,17 +115,19 @@ int HashTable::remove(int in)
 
 void HashTable::print()
 {
-    cout << endl <<  "| ";
+    cout << endl;
     for (int i = 0; i < maxSize; i++)
     {
+        if (i % 10 == 0)
+            cout << endl << "|\t";
 
         if (table[i].getState() == 'f')
         {
-            cout << table[i].getVal() << " | ";
+            cout << table[i].getVal() << "\t|\t";
         }
         else
         {
-            cout << "EMPTY | ";
+            cout << "EMPTY\t|\t";
         }
     }
     cout << endl << endl;

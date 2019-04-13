@@ -1,12 +1,14 @@
+#pragma
 #ifndef HASHTABLE2D_H
 #define HASHTABLE2D_H
-#include "hashNode.h"
+#include "hashTable.h"
+//#include "hashNode.h"
 #include <iostream>
 
 using namespace std;
 ///size 100 5
 
-class HashTable2D
+class HashTable2D: private HashTable
 {
     private:
         HashNode<int>   **table;
@@ -29,6 +31,7 @@ class HashTable2D
 
 HashTable2D::HashTable2D(int len, int depth)
 {
+    HashTable();
     maxLength = len;
     maxDepth = depth;
     table = new HashNode<int>*[len];
@@ -132,7 +135,7 @@ void HashTable2D::print()
 
         for (int i = 0; i < maxDepth; i++)
         {
-            cout << "=============";
+            cout << "==============";
 
         }
 

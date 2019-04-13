@@ -1,5 +1,7 @@
+#pragma
 #ifndef HASHNODE_H
 #define HASHNODE_H
+
 
 template<typename V>
 class HashNode
