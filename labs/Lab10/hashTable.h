@@ -4,7 +4,7 @@
 #include "linkList.h"
 #include <string>
 
-#define TABLE_SIZE 100
+#define TABLE_SIZE 50
 
 template<typename V>		// For this lab V will be a string
 class HashTable
@@ -24,7 +24,7 @@ class HashTable
         void						print();					// Done
 		int							getLength();				// Done
 		int							getTestCounter();
-
+		void						resetTestCounter();
 };
 #endif
 
@@ -75,9 +75,9 @@ void HashTable<V>::addItem(V val)
 	Node<HashNode<V>>			*temp;
 
 	int hashVal = hash(val);
-
+	
 	if (count > 99)
-		return; // Table Is Full Do we have to let the user known??????????
+		return; // Table Is Full 
 
 	while (flag)
 	{
@@ -122,8 +122,8 @@ HashNode<V> *HashTable<V>::removeItem(V val)
 				if (temp->getItem()->getVal() == val)
 				{
 					temp->getItem()->setState('d');
-					count--; // the number of element in table decreased by one
-					return temp->getItem();// TO DO!!!!!!!!!!!!
+					count--; // the number of elements in table decreased by one
+					return temp->getItem();
 				}
 				else
 				{
@@ -218,3 +218,10 @@ int HashTable<V>::getTestCounter()
 {
 	return testCounter;
 }
+
+template<typename V>
+void HashTable<V>::resetTestCounter()
+{
+	testCounter = 0;
+}
+
