@@ -126,7 +126,10 @@ void    ChainedHashTable<V>::print()
 		cout << "Bucket: " << i << ".\t";
 		for (int j = 0; j < table[i].size(); j++)
 		{
-			cout << "---> " << table[i].seeAt(j)->getItem()->getVal();
+            if (table[i].seeAt(j)->getItem()->getState() != 'f')
+                cout << "---> NULL";
+            else
+			    cout << "---> " << table[i].seeAt(j)->getItem()->getVal();
 		}
 		cout << endl;
 	}
