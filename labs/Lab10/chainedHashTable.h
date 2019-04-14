@@ -2,13 +2,11 @@
 #define CHAINEDHASHTABLE_H
 #include <iostream>
 #include <string>
-//#include "hashNode.h"
 #include "hashTable.h"
 #include "linkList.h"
 
-//#define TABLE_SIZE 10
-
 using namespace std;
+
 
 template<typename V>
 class ChainedHashTable : protected HashTable<V>
@@ -17,7 +15,7 @@ private:
 	LinkList<HashNode<V>>      *table;
 	int                        buckets;
 	int                        hashC(V val);
-	int					    	testCounter2;
+	int					       testCounter2;
 
 public:
 	ChainedHashTable();
@@ -27,7 +25,8 @@ public:
 	HashNode<V>               *getItem(V val);
 	int                       getLength();
 	void                      print();
-	int						getTestCounter2();
+	int						  getTestCounter2();
+	void					  resetTestCounter2();
 };
 
 template<typename V>
@@ -61,8 +60,10 @@ template<typename V>
 void ChainedHashTable<V>::addItem(V val)
 {
 	int index = hashC(val);
+	
 	Node<HashNode<V>> *temp = new Node<HashNode<V>>();
 	HashNode<V>       *lol = new HashNode<V>(val);
+
 	temp->setItem(lol);
 	table[index].addItem(temp);
 	if (table[index].size() == 1)
@@ -94,9 +95,9 @@ HashNode<V>   *ChainedHashTable<V>::getItem(V val)
 
 	for (i = 0; i < table[index].size(); i++)
 	{
+		testCounter2++;
 		if (table[index].seeAt(i)->getItem()->getVal() == val)
 		{
-			testCounter2++;
 			return table[index].seeAt(i)->getItem();
 		}
 	}
@@ -126,10 +127,10 @@ void    ChainedHashTable<V>::print()
 		cout << "Bucket: " << i << ".\t";
 		for (int j = 0; j < table[i].size(); j++)
 		{
-            if (table[i].seeAt(j)->getItem()->getState() != 'f')
-                cout << "---> NULL";
-            else
-			    cout << "---> " << table[i].seeAt(j)->getItem()->getVal();
+			if (table[i].seeAt(j)->getItem()->getState() != 'f')
+				cout << "---> NULL";
+			else
+				cout << "---> " << table[i].seeAt(j)->getItem()->getVal();
 		}
 		cout << endl;
 	}
@@ -140,4 +141,12 @@ int		ChainedHashTable<V>::getTestCounter2()
 {
 	return testCounter2;
 }
+
+template<typename V>
+void	ChainedHashTable<V>::resetTestCounter2()
+{
+	testCounter2 = 0;
+	return;
+}
+
 #endif
