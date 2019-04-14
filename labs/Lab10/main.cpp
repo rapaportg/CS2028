@@ -1,15 +1,14 @@
-// Lab 10.cpp : Defines the entry point for the console application.
-//
-
-//#include "stdafx.h" 
+#include "stdafx.h"
 #include <iostream>
 #include <string>
+#include <ctime>
 //#include "hashTable.h"
 #include "chainedHashTable.h"
+#include "student.h"
 
 using namespace std;
 
-int menuTask3and4()
+int menuTask3and4()					// menu display
 {
 	int userChoice = 0;
 	cout << "Please choose what you would like to do: " << endl << endl;
@@ -33,6 +32,66 @@ int menuTask3and4()
 	return userChoice;
 }
 
+string mNumMaker()				// Generates an 8 digit integer
+{
+	string ret = "";
+	int temp;
+
+	for (int k = 0; k < 8; k++)
+	{
+		temp = rand() % 10;
+		ret += to_string(temp);
+	}
+	return ret;
+}
+
+void makeAndTestArray(HashTable<string> *HT, ChainedHashTable<string> *CHT)
+{												// 
+	int tempNum = 0;
+	const int testSize = 50;
+	bool flag = true;
+	
+	Student *aStud[testSize];
+	Student *ptr;
+
+
+	for (int p = 0; p < testSize; p++)
+	{
+		ptr = new Student;
+
+		ptr->setMNumber(mNumMaker());
+		aStud[p] = ptr;
+		
+		while (flag)
+		{
+			for (int y = 0; y < p; y++)		// verifies unique M-number (it's silly because 1/10^8 is really small)
+			{
+				if (aStud[p]->getMNumber() == aStud[y]->getMNumber())
+					aStud[p]->setMNumber("");
+			}
+			flag = (aStud[p]->getMNumber() == "");
+		}
+
+		HT->addItem(aStud[p]->getMNumber());			// populates the tables
+		CHT->addItem(aStud[p]->getMNumber());
+	}
+
+	for (int j = 0; j < testSize; j++)
+	{
+		HT->getItem(aStud[j]->getMNumber());			// gets the data stored in the tables
+		CHT->getItem(aStud[j]->getMNumber());
+	}
+
+	cout << " - For " << testSize << " items - " << endl;
+	cout << "Linear Probing\t-->\tTotal number of checked indexes: " << HT->getTestCounter() << endl;
+	cout << "Chained Hash\t-->\tTotal number of comparisons: " << CHT->getTestCounter2() << endl;
+	HT->resetTestCounter();
+	CHT->resetTestCounter2();
+	
+	return;
+}
+
+
 int main()
 {
 
@@ -42,6 +101,8 @@ int main()
 	ChainedHashTable<string> *cTable;
 	cTable = new ChainedHashTable<string>();
 
+	srand(time(NULL));
+
 	int n = 0;
 	int userInput = 0;
 	int menuChoice = 0;
@@ -49,13 +110,13 @@ int main()
 	bool menuLoop = true;
 	string strTemp = "";
 	HashNode<string>	 *node;
-
+											// Initial Menu
 	cout << "For a Hash Table with Linear Probing \t\t Enter 1 " << endl;
 	cout << "For a Chained Hash Table \t\t\t Enter 2 " << endl;
 	cout << "To see a test of both and their performances \t Enter 3 " << endl;
 	cout << "Exit \t\t\t\t\t\t Enter 4 " << endl;
 
-	while (1)
+	while (1)			// input checker
 	{
 		if (cin >> n && !(n > 4) && !(n <= 0)) {
 			break;
@@ -67,7 +128,7 @@ int main()
 		}
 	}
 
-	switch (n)
+	switch (n)		// switch cases execute the options chosen by user
 	{
 	case 1: 
 		cout << endl << "You chose a Hash Table with Linear Probing - " << endl;
@@ -124,6 +185,7 @@ int main()
 				menuLoop = false;
 			}
 		}
+
 	case 2: 
 		cout << endl << "You chose a Chained Hash Table - " << endl;
 		while (menuLoop)
@@ -179,12 +241,15 @@ int main()
 				menuLoop = false;
 			}
 		}
+
 	case 3:
-		cout << "Task 5 here" << endl;
-		break;
+		cout << endl << endl << "\t-\tThis is a test between a Hash Table with Linear Probing and a Chained Hash Table\t-\t" << endl;
+		makeAndTestArray(table, cTable);
+		
 	case 4:
 		cout << "Goodbye! " << endl;
 		break;
+
 	default: 
 		cout << "You chose no valid option!" << endl;
 		break;			// this should never happen
