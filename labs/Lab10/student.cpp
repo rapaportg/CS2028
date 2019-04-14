@@ -1,67 +1,43 @@
 //#include "stdafx.h"
 #include "student.h"
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 
+Student::Student(string MNum)
+{
+	MNumber = MNum;
+	name = " ";
+	major = " ";
+}
 
-Student::Student(int MNum, string Name, string Major)
+Student::Student(string MNum, string Name, string Major)
 {
 	MNumber = MNum;
 	name = Name;
-	major = Major
-	//unitOfMeasure = unitOfMeas;
-	//quantityOnHand = 0;
+	major = Major;
+	
 }
-
-/*
-Part::Part(int partNum, string descrip, double p, string unitOfMeas, int quanOnHand)
-{
-	partNumber = partNum;
-	description = descrip;
-	price = p;
-	unitOfMeasure = unitOfMeas;
-	quantityOnHand = quanOnHand;
-}
-*/
 
 string Student::getStudentInfo()
 {
-	return to_string(MNumber) + name;
+	return MNumber + name;
 }
 
 string Student::getMNumber()
 {
-	return "M" + MNumber;
+	/*ostringstream os;
+	os << "M" << MNumber;
+	return os.str();*/
+	return MNumber;
 }
 
-/*
-bool Student::inStock()
+void Student::setMNumber(string mnum)
 {
-	if (quantityOnHand > 0)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	MNumber = "M" + mnum;
+	return;
 }
-*/
-
-/*
-bool Part::available(int date)				// Edits here!
-{
-	if (Part::inStock())
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
-*/
 
 bool Student::operator > (const Student &right)
 {
@@ -131,13 +107,13 @@ string Student::middleMaker(int size) {
 }
 
 void Student::displayStudents() {
-	string mnum = phrases[0] + "M" + to_string(MNumber);
+	string mnum = phrases[0] + "M" + MNumber;
 	string name_ = phrases[1] + name;
 	string major_ = phrases[2] + major;
 	string top, bottom, middle = "";
 	string rightBor = "=  ";
 	string leftBor = "  =";
-	int len = longestString("M" + to_string(MNumber), name, major);
+	int len = longestString("M" + MNumber, name, major, "");
 	for (int i = 0; i < len + 6; i++) {
 		top += "=";
 	}
