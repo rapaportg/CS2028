@@ -45,7 +45,7 @@ template<typename V>
 HashNode<V>::HashNode(V in_val)
 {
 	value = in_val;
-	state = 'e';
+	state = 'f';
 	next = nullptr;
 }
 
