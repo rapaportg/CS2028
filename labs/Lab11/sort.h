@@ -1,6 +1,7 @@
 #ifndef SORT_H
 #define SORT_H
 #include <iostream>
+#include <iterator>
 
 using namespace std;
 
@@ -8,18 +9,20 @@ template <class T>
 class Sort
 {
     private:
-        T       *data; // needs to be an array
+        T      *data; // needs to be an array
         int     length;
         void    swap(int x, int y); // swaps x and y in array
         void    mergeSort(int l, int r);
         T       *merge(int l, int mid, int r);
+        int     part(int lo, int hi);
+        void    quickSort(int hi, int lo);
 
     public:
         //Sort();
-        Sort(T *inData);
+        Sort(T *inData, int size);
         void    bubbleSort();       // DONE
         void    insertionSort();    // DONE
-        void    mergeSort();
+        void    mergeSort();        // DONE
         void    quickSort();
         void    heapSort();
         void    countingSort();
@@ -34,10 +37,10 @@ class Sort
 #endif
 
 template<class T>
-Sort<T>::Sort(T *inData)
+Sort<T>::Sort(T *inData, int size)
 {
     data = inData;
-    length = sizeof(inData) + 1;
+    length = size;
 }
 
 template<class T>
@@ -191,4 +194,41 @@ T      *Sort<T>::merge(int l, int mid, int r)
         j++;
         k++;
     }
+}
+
+template<class T>
+int     Sort<T>::part(int lo, int hi)
+{
+    int pivot = data[hi];
+    int i = lo - 1;
+
+    for (int j = lo; j <= hi - 1; j++)
+    {
+        if (data[j] <= pivot)
+        {
+            i++;
+            swap(i, j);
+        }
+    }
+    swap(i + 1, hi);
+    return i + 1;
+}
+
+template<class T>
+void    Sort<T>::quickSort(int lo, int hi)
+{
+    if (lo < hi)
+    {
+        int partIndex;
+
+        partIndex = part(lo, hi);
+        quickSort(lo, partIndex - 1);
+        quickSort(partIndex + 1, hi);
+    }
+}
+
+template<class T>
+void    Sort<T>::quickSort()
+{
+    quickSort(0, length);
 }
