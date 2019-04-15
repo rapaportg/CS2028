@@ -12,7 +12,8 @@ int main()
     cout << tmp->getLength() << endl;
     tmp->print();
     //tmp->bubbleSort();
-    tmp->insertionSort();
+    //tmp->insertionSort();
+    tmp->mergeSort();
     tmp->print();
     return 0;
 }
