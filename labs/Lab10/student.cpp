@@ -17,7 +17,7 @@ Student::Student(string MNum, string Name, string Major)
 	MNumber = MNum;
 	name = Name;
 	major = Major;
-	
+
 }
 
 string Student::getStudentInfo()

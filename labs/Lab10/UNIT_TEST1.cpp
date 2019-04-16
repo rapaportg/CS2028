@@ -13,7 +13,7 @@ int main()
     table->addItem("b");
     table->addItem("c");
     table->addItem("d");
-    table->addItem("eeeeeeeeeeee");
+    table->addItem("eeeeeeee");
     table->addItem("f");
     table->addItem("g");
 

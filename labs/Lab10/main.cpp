@@ -1,8 +1,9 @@
-#include "stdafx.h"
+//#include "stdafx.h"
 #include <iostream>
 #include <string>
 #include <ctime>
 //#include "hashTable.h"
+#include <limits>
 #include "chainedHashTable.h"
 #include "student.h"
 
@@ -46,22 +47,22 @@ string mNumMaker()				// Generates an 8 digit integer
 }
 
 void makeAndTestArray(HashTable<string> *HT, ChainedHashTable<string> *CHT)
-{												// 
+{												//
 	int tempNum = 0;
 	const int testSize = 50;
 	bool flag = true;
-	
+
 	Student *aStud[testSize];
 	Student *ptr;
 
 
 	for (int p = 0; p < testSize; p++)
 	{
-		ptr = new Student;
+		ptr = new Student(mNumMaker());
 
-		ptr->setMNumber(mNumMaker());
+		//ptr->setMNumber(mNumMaker());
 		aStud[p] = ptr;
-		
+
 		while (flag)
 		{
 			for (int y = 0; y < p; y++)		// verifies unique M-number (it's silly because 1/10^8 is really small)
@@ -87,7 +88,7 @@ void makeAndTestArray(HashTable<string> *HT, ChainedHashTable<string> *CHT)
 	cout << "Chained Hash\t-->\tTotal number of comparisons: " << CHT->getTestCounter2() << endl;
 	HT->resetTestCounter();
 	CHT->resetTestCounter2();
-	
+
 	return;
 }
 
@@ -130,7 +131,7 @@ int main()
 
 	switch (n)		// switch cases execute the options chosen by user
 	{
-	case 1: 
+	case 1:
 		cout << endl << "You chose a Hash Table with Linear Probing - " << endl;
 		while (menuLoop)
 		{
@@ -186,7 +187,7 @@ int main()
 			}
 		}
 
-	case 2: 
+	case 2:
 		cout << endl << "You chose a Chained Hash Table - " << endl;
 		while (menuLoop)
 		{
@@ -245,16 +246,16 @@ int main()
 	case 3:
 		cout << endl << endl << "\t-\tThis is a test between a Hash Table with Linear Probing and a Chained Hash Table\t-\t" << endl;
 		makeAndTestArray(table, cTable);
-		
+
 	case 4:
 		cout << "Goodbye! " << endl;
 		break;
 
-	default: 
+	default:
 		cout << "You chose no valid option!" << endl;
 		break;			// this should never happen
 	}
 
-	
+
 	return 0;
 }

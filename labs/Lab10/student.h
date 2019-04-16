@@ -21,11 +21,13 @@ class Student
 
 	public:
 
+		Student(string mnum);
 		Student(int mnum, string name, string maj);
 		//Part(int partNumber, string description, double price, string unitOfMeasure, int quantityOnHand);
 		void 	displayStudents();
 		string 	getStudentInfo();
 		string 	getMNumber();
+		void	setMNumber(string tmp);
 		//bool 	inStock();
 		//bool 	available(int date);
 		bool 	operator > (const Student &right);

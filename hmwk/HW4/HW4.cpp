@@ -51,16 +51,19 @@ int main()
 
     }
 
-    cout << "Add Running Total-\t1D: "<<sum_add_1D << "\t 2D: " << sum_add_2D << endl;
-    cout << "Remove Running Total-\t1D: " << sum_remove_1D << "\t 2D: " << sum_remove_2D << endl;
-    /*
     for (int i = 0; i < 100; i++)
     {
-        cout << i << ".\t" << results_1D[i] << '\t' << results_2D[i] << endl;
+        if (i % 9 == 0)
+        {
+            results_1D[i] = table1->remove(input[i]);
+            results_2D[i] = table2->remove(input[i]);
+            sum_remove_1D += results_1D[i];
+            sum_remove_2D += results_2D[i];
+        }
     }
-    */
-    //table1->print();
-    //table2->print();
+
+    cout << "Add Running Total-\t1D: "<<sum_add_1D << "\t 2D: " << sum_add_2D << endl;
+    cout << "Remove Running Total-\t1D: " << sum_remove_1D << "\t 2D: " << sum_remove_2D << endl;
 
 
 

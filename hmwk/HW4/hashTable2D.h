@@ -18,7 +18,7 @@ class HashTable2D: private HashTable
 
     public:
         HashTable2D(int len, int depth);
-        //~HashTable2D();
+        ~HashTable2D();
 
         int             insert(int in);
         int             find(int in);
@@ -28,6 +28,17 @@ class HashTable2D: private HashTable
         int             getMaxDepth();
 };
 #endif
+
+HashTable2D::~HashTable2D()
+{
+    for(int i = 0; i < maxLength; i++)
+    {
+        for(int j = 0; j < maxDepth; j++)
+        {
+            delete [] table;
+        }
+    }
+}
 
 HashTable2D::HashTable2D(int len, int depth)
 {
@@ -60,7 +71,8 @@ int HashTable2D::insert(int in)
         }
 
     }while (i < maxDepth);
-    // throw FullBucketException();
+
+    //throw FullBucketException();
     return i + 1; // if returned value is equal to maxDepth + 1, the bucket is full.
 }
 
