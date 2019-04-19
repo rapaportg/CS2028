@@ -2,6 +2,7 @@
 #define SORT_H
 #include <iostream>
 #include <iterator>
+#include <cmath>
 
 using namespace std;
 
@@ -23,9 +24,9 @@ class Sort
         void    bubbleSort();       // DONE
         void    insertionSort();    // DONE
         void    mergeSort();        // DONE
-        void    quickSort();
+        void    quickSort();        // DONE
         void    heapSort();
-        void    countingSort();
+        void    countingSort();     // WORKING
         void    radixSort();
         void    print();
         void    setData(T *inData);
@@ -131,7 +132,7 @@ void    Sort<T>::mergeSort(int left, int right)
 {
     if (left < right)
     {
-        int mid = left + (right - left) / 2;
+        int mid = left + (right - left) / 2;#include <cmath>
         mergeSort(left, mid);
         mergeSort(mid + 1, right);
 
@@ -231,4 +232,38 @@ template<class T>
 void    Sort<T>::quickSort()
 {
     quickSort(0, length);
+}
+
+template<class T>
+void    Sort<T>::countingSort()
+{
+    T   index[length] = {0};
+    T   ret[length] = {0};
+
+    for (int i = 0; i < length; i++)
+    {
+        index[data[i]]++;
+    }
+
+    for (int i = 1; i < length; i++)
+    {
+        index[i] = index[i] + index[i - 1];
+    }
+
+    for (int i = 0; i < length; i++)
+    {
+        index[data[i]]--;
+        ret[index[data[i]]] = data[i];
+    }
+    for (int i = 0; i < length; i++)
+    {
+        data[i] = ret[i];
+    }
+}
+
+template<class T>
+void    Sort<T>::radixSort()
+{
+
+
 }
