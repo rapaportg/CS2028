@@ -2,7 +2,8 @@
 #define SORT_H
 #include <iostream>
 #include <iterator>
-#include <cmath>
+#include <string>
+
 
 using namespace std;
 
@@ -27,10 +28,11 @@ class Sort
         void    quickSort();        // DONE
         void    heapSort();
         void    countingSort();     // WORKING
+        void    countingSort(T *arr, int len);
         void    radixSort();
         void    print();
         void    setData(T *inData);
-        T       getData();
+        T       *getData();
         int     getLength();
 
 };
@@ -48,6 +50,12 @@ template<class T>
 void    Sort<T>::setData(T *arr)
 {
     data = arr;
+}
+
+template<class T>
+T   *Sort<T>::getData()
+{
+    return data;
 }
 
 template<class T>
@@ -132,7 +140,7 @@ void    Sort<T>::mergeSort(int left, int right)
 {
     if (left < right)
     {
-        int mid = left + (right - left) / 2;#include <cmath>
+        int mid = left + (right - left) / 2;
         mergeSort(left, mid);
         mergeSort(mid + 1, right);
 
@@ -149,11 +157,11 @@ void    Sort<T>::mergeSort()
 template<class T>
 T      *Sort<T>::merge(int l, int mid, int r)
 {
-    int i, j, k;
-    int L = mid - l + 1;
-    int R = r - mid;
-    int left[L];
-    int right[R];
+    int     i, j, k;
+    int     L = mid - l + 1;
+    int     R = r - mid;
+    int     left[L];
+    int     right[R];
 
     for (i = 0; i < L; i++)
     {
@@ -200,8 +208,8 @@ T      *Sort<T>::merge(int l, int mid, int r)
 template<class T>
 int     Sort<T>::part(int lo, int hi)
 {
-    int pivot = data[hi];
-    int i = lo - 1;
+    int     pivot = data[hi];
+    int     i = lo - 1;
 
     for (int j = lo; j <= hi - 1; j++)
     {
@@ -244,12 +252,10 @@ void    Sort<T>::countingSort()
     {
         index[data[i]]++;
     }
-
     for (int i = 1; i < length; i++)
     {
         index[i] = index[i] + index[i - 1];
     }
-
     for (int i = 0; i < length; i++)
     {
         index[data[i]]--;
@@ -262,8 +268,58 @@ void    Sort<T>::countingSort()
 }
 
 template<class T>
+void    Sort<T>::countingSort(T *arr, int len)
+{
+    T   index[len] = {0};
+    T   ret[len] = {0};
+
+    for (int i = 0; i < len; i++)
+    {
+        index[arr[i]]++;
+    }
+    for (int i = 1; i < len; i++)
+    {
+        index[i] = index[i] + index[i - 1];
+    }
+    for (int i = 0; i < len; i++)
+    {
+        index[arr[i]]--;
+        ret[index[arr[i]]] = arr[i];
+    }
+    for (int i = 0; i < len; i++)
+    {
+        arr[i] = ret[i];
+    }
+}
+
+template<class T>
 void    Sort<T>::radixSort()
 {
+    int     digits = data[0].size();
+    T       ret[length];
 
-
+    while (--digits >= 0)
+    {
+        int     index[10] = {0};
+        for (int i = 0; i < length; i++)
+        {
+            const char *str = data[i].c_str();
+            index[str[digits] - 48]++;
+        }
+        for (int i = 1; i < 10; i++)
+        {
+            index[i] = index[i] + index[i - 1];
+        }
+        for (int i = length - 1; i >= 0; i--)
+        {
+            const char *str = data[i].c_str();
+            index[str[digits] - 48]--;
+            ret[index[str[digits] - 48]] = data[i];
+        }
+        for (int i = 0; i < length; i++)
+        {
+            data[i] = ret[i];
+        }
+        //this->print();
+    }
 }

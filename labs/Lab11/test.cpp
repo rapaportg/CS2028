@@ -8,9 +8,11 @@ using namespace std;
 
 int main()
 {
-    int size = 200;
-    int arr[size];
+    int size = 10;
+    string  arrRadix[] = {"12304", "34204", "01203", "54203","64603", "00001", "66605",
+                    "86704", "47605", "45607"};
 
+    int     arr[size];
 
     srand(time(0));
 
@@ -22,6 +24,9 @@ int main()
     Sort<int> *tmp;
     tmp = new Sort<int>(arr, size);
 
+    Sort<string> *tmpRadix;
+    tmpRadix = new Sort<string>(arrRadix, 10);
+
     cout << tmp->getLength() << endl;
     tmp->print();
     cout << endl;
@@ -30,6 +35,9 @@ int main()
     //tmp->mergeSort();
     //tmp->quickSort();
     tmp->countingSort();
+    //tmpRadix->print();
+    //tmpRadix->radixSort();
+    //tmpRadix->print();
     tmp->print();
     return 0;
 }
