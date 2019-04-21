@@ -18,10 +18,18 @@ class LinkList
 		void	addItem(T *item);
 		void	removeItem(T *item);
 		bool 	hasItem(T *item);
+		int		size();
 		Node<T>	*seeAt(int index);
 
 };
 #endif
+
+
+template<class T>
+int LinkList<T>::size()
+{
+	return length;
+}
 
 template<class T>
 LinkList<T>::LinkList()
@@ -59,7 +67,7 @@ void LinkList<T>::addItem(T *item)
 	}
 
 	tmp = head;
-	while (tmp != nullptr)
+	while (tmp->getNext() != nullptr)
 	{
 		tmp = tmp->getNext();
 	}

@@ -1,19 +1,25 @@
 #ifndef GRAPH_H
 #define GRAPH_H
-#include "linkList.h"
+#include "vertex.h"
 
 using namespace std;
 
 class Graph
 {
     private:
-        LinkList<Vertex>     *map;
-        int                     vertices;
+        Vertex  **map;      // Will use a hash table of Vertice next time
+        int     vertices;
 
     public:
-        Graph();
+        //Graph();
         Graph(int verts);
-        void    addEdge(int i, int j);
+        ~Graph();
+        bool    addEdge(int i, int j);
+        bool    removeEdge(int i, int j);
+        bool    hasEdge(int i, int j);
+        int     *outEdge(int i);    // returns an array of all the vertices that i connects to. Note the first item in the array is the number of items in the array..
+        int     *inEdge(int i);     // returns an array of all the vertices that connect to i. Note the first item in the arry is the number of items in the array
+        void    print();
 
 
 
