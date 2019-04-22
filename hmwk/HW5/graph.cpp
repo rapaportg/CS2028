@@ -1,6 +1,6 @@
 #include "graph.h"
 #include "vertex.h"
-#include "stack.h"
+//#include "stack.h"
 #include <iostream>
 
 using namespace std;
@@ -106,7 +106,8 @@ void    Graph::DFS_helper(Stack<int> *path, int end)
 
 int     *Graph::DFS(int beg, int end)
 {
-    Stack<int> *test = new Stack<int>(vertices);
-    Vertex *tmp = map[beg - 1];
+    Stack<Vertex> *test = new Stack<Vertex>();
+    test->push_back(*map[beg - 1]);
+    cout << test->back().getVal() << endl;
 
 }

@@ -1,151 +1,87 @@
 #ifndef STACK_H
 #define STACK_H
-#include <string>
+#include "node.h"
 #include <iostream>
 
 template<class T>
 class Stack
 {
     private:
-        int maxSize;
-        int head = 0;
-        T **stack; // will become an array of pointers of maxSize
+        Node<T> *head;
+        Node<T> *cur;
+        int     len;
 
     public:
-        class StackOverFlowException
-        {
-            private:
-                int value;
-            public:
-                StackOverFlowException(int v)
-                {
-                    value = v;
-                }
-                int getValue() const
-                {
-                    return value;
-                }
-        };
-
-        class StackUnderFlowException
-        {
-            private:
-                int value;
-            public:
-                StackUnderFlowException(int v)
-                {
-                    value = v;
-                }
-                int getValue() const
-                {
-                    return value;
-                }
-        };
+        class   StackUnderFlow{};
         Stack();
-        Stack(int);
-        void push(T *ptr);
-        void setMax(int max);
-        T *pop();
-        T *top();
-        T look(int);
-        int length();
-        bool isEmpty();
-        bool isFull();
-        void empty();
-        void deleteStack();
-
-        template <class C>
-        friend void printStack(Stack<C> *stack);
-
+        void    push_back(T item);
+        T       back();
+        void    pop_back();
+        void    print();
 };
+
+#endif
 
 template<class T>
 Stack<T>::Stack()
 {
-    maxSize = 0;
-    head = 0;
+    head = nullptr;
+    cur = nullptr;
+    len = 0;
 }
 
 template<class T>
-Stack<T>::Stack(int max)
+void    Stack<T>::push_back(T item)
 {
-    maxSize = max;
-    head = 0;
-    stack = new T *[max];
-}
+    Node<T> *tmp;
+    tmp = new Node<T>(item);
 
-template<class T>
-void Stack<T>::setMax(int max)
-{
-    maxSize = max;
-    stack = new T*[max];
-}
-template<class T>
-void Stack<T>::push(T *ptr)
-{
-    if (isFull())
-        throw StackOverFlowException(head);
-    *stack[head] = *ptr;
-    head++;
-}
+    len++;
 
-template<class T>
-T *Stack<T>::pop()
-{
-    if (isEmpty())
-        throw StackUnderFlowException(head);
-    head--;
-    return stack[head];
-}
-
-template<class T>
-T *Stack<T>::top()
-{
-    return stack[head];
-}
-
-template<class T>
-int Stack<T>::length()
-{
-    return head;
-}
-
-template<class T>
-bool Stack<T>::isEmpty()
-{
-    return (head == 0);
-}
-
-template<class T>
-bool Stack<T>::isFull()
-{
-    return (head == maxSize);
-}
-
-template<class T>
-void Stack<T>::empty()
-{
-    for (int i = 0; i < maxSize; i++)
+    if (head == nullptr)
     {
-        delete stack[i];
+        head = tmp;
+        cur = head;
+        return;
     }
+    cur->next = tmp;
+    cur = tmp;
+    return;
 }
 
 template<class T>
-void Stack<T>::deleteStack()
+T   Stack<T>::back()
 {
-    empty();
-    delete stack;
+    return cur->getVal();
 }
 
 template<class T>
-T Stack<T>::look(int index)
+void    Stack<T>::pop_back()
 {
-    if (isEmpty())
+    Node<T> *tmp = head;
+    int i = 0;
+
+    if (len == 0)
+        throw StackUnderFlow();
+    while (i++ < len - 2)
     {
-        throw StackUnderFlowException(head);
+        tmp = tmp->next;
     }
-    return *stack[index];
+    cur = tmp;
+    tmp = cur->next;
+    len--;
+    delete tmp;
 }
 
-#endif
+template<class T>
+void    Stack<T>::print()
+{
+    Node<T> *tmp = head;
+    int i = 0;
+    while (i++ < len)
+    {
+        std::cout << tmp->getVal() << "---> ";
+        tmp = tmp->next;
+    }
+    std::cout << std::endl;
+}
