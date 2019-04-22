@@ -1,4 +1,6 @@
 #include "graph.h"
+#include "vertex.h"
+#include "stack.h"
 #include <iostream>
 
 using namespace std;
@@ -26,14 +28,10 @@ bool    Graph::addEdge(int i, int j)
         cout << "Invalid input\n";
         return true;
     }
-    for (int index = 0; index < vertices; index++)
-    {
-        if (map[index]->getVal() == i)
-        {
-            map[index]->addEdge(j);
-            return false;
-        }
-    }
+    map[i - 1]->addEdge(j);
+    map[j - 1]->addEdge(i);
+
+    return false;
 }
 
 bool    Graph::removeEdge(int i, int j)
@@ -43,14 +41,9 @@ bool    Graph::removeEdge(int i, int j)
         cout << "Invalid input\n";
         return true;
     }
-    for (int index = 0; index < vertices; index++)
-    {
-        if (map[index]->getVal() == i)
-        {
-            map[index]->removeEdge(j);
-            return false;
-        }
-    }
+    map[i - 1]->removeEdge(j);
+    map[j - 1]->removeEdge(i);
+    return false;
 }
 
 bool    Graph::hasEdge(int i, int j)
@@ -104,4 +97,16 @@ void    Graph::print()
     {
         map[i]->printVertex();
     }
+}
+
+void    Graph::DFS_helper(Stack<int> *path, int end)
+{
+
+}
+
+int     *Graph::DFS(int beg, int end)
+{
+    Stack<int> *test = new Stack<int>(vertices);
+    Vertex *tmp = map[beg - 1];
+
 }

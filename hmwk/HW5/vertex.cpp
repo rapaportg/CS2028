@@ -107,3 +107,8 @@ int     *Vertex::getOutEdges()
     }
     return ret;
 }
+
+int     Vertex::length()
+{
+    return count;
+}

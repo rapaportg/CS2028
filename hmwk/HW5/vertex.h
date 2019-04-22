@@ -18,8 +18,9 @@ class Vertex
         void    removeEdge(int val);
         bool    hasEdge(int val);
         void    printVertex();
-        void    setVal(int Val);
+        void    setVal(int val);
         int     getVal();
+        int     length();
         int     *getOutEdges();
 };
 

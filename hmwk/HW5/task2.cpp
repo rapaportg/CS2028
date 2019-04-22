@@ -21,7 +21,8 @@ void    printMenu()
     cout << "Press 3 Find an edge in the graph\n";
     cout << "Press 4 Find the out edges of a vertice\n";
     cout << "Press 5 Find the in edges of a vertice\n";
-    cout << "Press 6 to quit\n";
+    cout << "Press 6 to find the DFS path\n";
+    cout << "Press 7 to quit\n";
 
 }
 
@@ -123,7 +124,17 @@ int     main()
             }
             printArray(graph->inEdge(i));
         }
+
         if (selection == 6)
+        {
+            int *x;
+            cout << "Enter the endpoint you want to find the path for (beg to end) 1-" << size << " (i j): ";
+            cin >> i >> j;
+            x = graph->DFS(i,j);
+
+        }
+
+        if (selection == 7)
         {
             return 0;
         }
