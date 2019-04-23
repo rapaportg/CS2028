@@ -23,8 +23,8 @@ class Graph
         void    print();
 
         // Task 3
-        int     *DFS(int beg, int end);
-        void    DFS_helper(Stack<int> *path, int end);
+        void    DFS(int beg, int end);
+        void    DFS_helper(Stack<Vertex> *path, int end);
 
 
 

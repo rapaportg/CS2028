@@ -9,6 +9,7 @@ Vertex::Vertex(int val, int s)
     size = s;
     edges = new int[size];
     count = 0;
+    visited = false;
 }
 
 Vertex::Vertex(int s)
@@ -16,6 +17,7 @@ Vertex::Vertex(int s)
     size = s;
     edges = new int[size];
     count = 0;
+    visited = false;
 }
 
 Vertex::Vertex(){}
@@ -103,7 +105,8 @@ int     *Vertex::getOutEdges()
     int j = 1;
     for (int i = 0; i < count + 1; i++)
     {
-        ret[j++] = edges[i];
+        ret[j] = edges[i];
+        j++;
     }
     return ret;
 }
@@ -111,4 +114,19 @@ int     *Vertex::getOutEdges()
 int     Vertex::length()
 {
     return count;
+}
+
+void    Vertex::markVisited()
+{
+    visited = true;
+}
+
+void    Vertex::resetVisited()
+{
+    visited = false;
+}
+
+bool    Vertex::getVisited()
+{
+    return visited;
 }

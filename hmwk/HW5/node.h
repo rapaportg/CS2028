@@ -6,8 +6,6 @@ class Node
 {
     private:
         T val;
-        bool visited;
-
 
     public:
         Node *next;
@@ -15,8 +13,6 @@ class Node
         Node(T val);
         void    setVal(T v);
         T       getVal();
-        void    markVisited();
-        bool    getVisited();
 
 };
 
@@ -25,7 +21,6 @@ class Node
 template<class T>
 Node<T>::Node()
 {
-    visited = false;
     next = nullptr;
 }
 
@@ -33,7 +28,6 @@ template<class T>
 Node<T>::Node(T v)
 {
     val = v;
-    visited = false;
     next = nullptr;
 }
 
@@ -47,16 +41,4 @@ template<class T>
 T   Node<T>::getVal()
 {
     return val;
-}
-
-template<class T>
-void Node<T>::markVisited()
-{
-    visited = true;
-}
-
-template<class T>
-bool Node<T>::getVisited()
-{
-    return visited;
 }

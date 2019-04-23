@@ -5,10 +5,11 @@
 class Vertex
 {
     private:
-        int  value;
-        int  size;
-        int  count;
-        int  *edges;
+        int     value;
+        int     size;
+        int     count;
+        int     *edges;
+        bool    visited;
 
     public:
         Vertex();
@@ -22,6 +23,9 @@ class Vertex
         int     getVal();
         int     length();
         int     *getOutEdges();
+        void    markVisited();
+        void    resetVisited();
+        bool    getVisited();
 };
 
 #endif

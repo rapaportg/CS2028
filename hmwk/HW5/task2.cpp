@@ -28,20 +28,21 @@ void    printMenu()
 
 int     main()
 {
-    const int size = 10;
+    const int size = 15;
     Graph   *graph = new Graph(size);
     int     selection;
     int     i;
     int     j;
+    bool    x;
 
     while(true)
     {
+        x = true;
         printMenu();
         cin >> selection;
 
         if (selection == 1)
         {
-            bool x = true;
             while (x)
             {
                 cout << "Enter the edge you want to add 1-" << size << " (i j): ";
@@ -51,7 +52,6 @@ int     main()
         }
         if (selection == 2)
         {
-            bool x = true;
             while (x)
             {
                 cout << "Enter the edge you want to remove 1-" << size << " (i j): ";
@@ -62,17 +62,18 @@ int     main()
         if (selection == 3)
         {
             bool    check;
-            bool    valid = true;
 
-            while (valid)
+            x = true;
+
+            while (x)
             {
                 cout << "Enter the edge you want to find 1-" << size << " (i j): ";
                 cin >> i >> j;
-                valid = false;
+                x = false;
                 if (i <= 0 || j <= 0 || i > size || j > size)
                 {
                     cout << "Invalid input!\n";
-                    valid = true;
+                    x = true;
                 }
             }
 
@@ -90,36 +91,34 @@ int     main()
         }
         if (selection == 4)
         {
-            bool    valid = true;
             int     i;
 
-            while (valid)
+            while (x)
             {
                 cout << "Enter the vertex you want to check: ";
                 cin >> i;
 
-                valid = false;
+                x = false;
                 if (i <= 0 || i > size)
                 {
-                    valid = true;
+                    x = true;
                 }
             }
             printArray(graph->outEdge(i));
         }
         if (selection == 5)
         {
-            bool    valid = true;
             int     i;
 
-            while (valid)
+            while (x)
             {
                 cout << "Enter the vertex you want to check: ";
                 cin >> i;
 
-                valid = false;
+                x = false;
                 if (i <= 0 || i > size)
                 {
-                    valid = true;
+                    x = true;
                 }
             }
             printArray(graph->inEdge(i));
@@ -127,10 +126,9 @@ int     main()
 
         if (selection == 6)
         {
-            int *x;
             cout << "Enter the endpoint you want to find the path for (beg to end) 1-" << size << " (i j): ";
             cin >> i >> j;
-            x = graph->DFS(i,j);
+            graph->DFS(i,j);
 
         }
 

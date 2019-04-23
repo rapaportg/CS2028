@@ -70,7 +70,7 @@ void    Stack<T>::pop_back()
     cur = tmp;
     tmp = cur->next;
     len--;
-    delete tmp;
+    tmp->~Node();
 }
 
 template<class T>
@@ -80,7 +80,7 @@ void    Stack<T>::print()
     int i = 0;
     while (i++ < len)
     {
-        std::cout << tmp->getVal() << "---> ";
+        std::cout << tmp->getVal().getVal() << "---> ";
         tmp = tmp->next;
     }
     std::cout << std::endl;

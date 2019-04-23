@@ -66,6 +66,7 @@ int     *Graph::outEdge(int i)
             return map[index]->getOutEdges();
         }
     }
+    return nullptr;
 }
 
 int     *Graph::inEdge(int i)
@@ -99,15 +100,38 @@ void    Graph::print()
     }
 }
 
-void    Graph::DFS_helper(Stack<int> *path, int end)
+void    Graph::DFS_helper(Stack<Vertex> *path, int end)
 {
+    int     *edges = path->back().getOutEdges();
 
+    for (int i = 1; i < edges[0]; i++)
+    {
+        if (!map[edges[i] - 1]->getVisited())
+        {
+            map[edges[i] - 1]->markVisited();
+            path->push_back(*map[edges[i] - 1]);
+            DFS_helper(path, end);
+        }
+    }
+    if (path->back().getVal() == end)
+    {
+        cout << "\n\nPATH: ";
+        path->print();
+    }
+    delete [] edges;
+    path->pop_back();
 }
 
-int     *Graph::DFS(int beg, int end)
+void    Graph::DFS(int beg, int end)
 {
-    Stack<Vertex> *test = new Stack<Vertex>();
-    test->push_back(*map[beg - 1]);
-    cout << test->back().getVal() << endl;
+    for (int i = 0; i < vertices; i++)
+    {
+        map[i]->resetVisited();
+    }
+    Stack<Vertex> *path = new Stack<Vertex>();
+    map[beg - 1]->markVisited();
+    path->push_back(*map[beg - 1]);
 
+    DFS_helper(path, end);
+    path->~Stack();
 }
