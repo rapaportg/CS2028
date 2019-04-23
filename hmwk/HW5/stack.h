@@ -1,5 +1,5 @@
-#ifndef STACK_H
-#define STACK_H
+#ifndef __STACK_H
+#define __STACK_H
 #include "node.h"
 #include <iostream>
 

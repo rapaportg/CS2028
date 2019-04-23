@@ -1,5 +1,7 @@
-#ifndef NODE_H
-#define NODE_H
+#ifndef __NODE_H
+#define __NODE_H
+
+#pragma once
 
 template<class T>
 class Node

@@ -1,9 +1,4 @@
 #include "graph.h"
-#include "vertex.h"
-//#include "stack.h"
-#include <iostream>
-
-using namespace std;
 
 Graph::Graph(int vert)
 {
@@ -25,7 +20,7 @@ bool    Graph::addEdge(int i, int j)
 {
     if (i == 0 || j == 0 || i > vertices || j > vertices)
     {
-        cout << "Invalid input\n";
+        std::cout << "Invalid input\n";
         return true;
     }
     map[i - 1]->addEdge(j);
@@ -38,7 +33,7 @@ bool    Graph::removeEdge(int i, int j)
 {
     if (i <= 0 || j <= 0 || i > vertices || j > vertices)
     {
-        cout << "Invalid input\n";
+        std::cout << "Invalid input\n";
         return true;
     }
     map[i - 1]->removeEdge(j);
@@ -93,14 +88,24 @@ int     *Graph::inEdge(int i)
 
 void    Graph::print()
 {
-    cout << endl;
+    std::cout << "\n" << std::endl;
     for (int i = 0; i < vertices; i++)
     {
         map[i]->printVertex();
     }
 }
 
-void    Graph::DFS_helper(Stack<Vertex> *path, int end)
+bool    Graph::allVisited()
+{
+    for (int i = 0; i < vertices; i++)
+    {
+        if (map[i]->getVisited() == false)
+            return false;
+    }
+    return true;
+}
+
+void    Graph::FP_helper(Stack<Vertex> *path, int end)
 {
     int     *edges = path->back().getOutEdges();
 
@@ -110,19 +115,19 @@ void    Graph::DFS_helper(Stack<Vertex> *path, int end)
         {
             map[edges[i] - 1]->markVisited();
             path->push_back(*map[edges[i] - 1]);
-            DFS_helper(path, end);
+            FP_helper(path, end);
         }
     }
+
     if (path->back().getVal() == end)
     {
-        cout << "\n\nPATH: ";
+        std::cout << "\n\nPATH: ";
         path->print();
     }
-    delete [] edges;
-    path->pop_back();
+
 }
 
-void    Graph::DFS(int beg, int end)
+void    Graph::findPath(int beg, int end)
 {
     for (int i = 0; i < vertices; i++)
     {
@@ -132,6 +137,71 @@ void    Graph::DFS(int beg, int end)
     map[beg - 1]->markVisited();
     path->push_back(*map[beg - 1]);
 
-    DFS_helper(path, end);
+    FP_helper(path, end);
     path->~Stack();
+}
+
+
+void   Graph::DF_helper(Stack<Vertex> *path)
+{
+    int     *edges = path->back().getOutEdges();
+
+    for (int i = 1; i < edges[0]; i++)
+    {
+        if (!map[edges[i] - 1]->getVisited())
+        {
+            map[edges[i] - 1]->markVisited();
+            cout << map[edges[i] - 1]->getVal() << "--> ";
+            path->push_back(*map[edges[i] - 1]);
+            DF_helper(path);
+        }
+    }
+    delete [] edges;
+    path->pop_back();
+}
+
+
+void   Graph::depthFirstSearch()
+{
+    Stack<Vertex> *path = new Stack<Vertex>();
+
+    for (int i = 0; i < vertices; i++)
+    {
+        map[i]->resetVisited();
+    }
+    std::cout << map[0]->getVal() << "--> ";
+    map[0]->markVisited();
+    path->push_back(*map[0]);
+    DF_helper(path);
+
+}
+
+void    Graph::breathFirstSearch()
+{
+    Queue<Vertex> *path = new Queue<Vertex>();
+    int *edges;
+
+    for (int i = 0; i < vertices; i++)
+    {
+        map[i]->resetVisited();
+    }
+    std::cout << map[0]->getVal() << "--> ";
+    map[0]->markVisited();
+    path->enqueue(*map[0]);
+
+    edges = path->peekFront().getOutEdges();
+    while (!allVisited())
+    {
+        int x = path->dequeue().getVal() - 1;
+        edges = map[x]->getOutEdges();
+        for (int i = 1; i < edges[0]; i++)
+        {
+            if (!map[edges[i] - 1]->getVisited())
+            {
+                std::cout << edges[i] << "--> ";
+                map[edges[i] - 1]->markVisited();
+                path->enqueue(*map[edges[i] - 1]);
+            }
+        }
+    }
 }

@@ -21,14 +21,16 @@ void    printMenu()
     cout << "Press 3 Find an edge in the graph\n";
     cout << "Press 4 Find the out edges of a vertice\n";
     cout << "Press 5 Find the in edges of a vertice\n";
-    cout << "Press 6 to find the DFS path\n";
-    cout << "Press 7 to quit\n";
+    cout << "Press 6 to find a path between i and j\n";
+    cout << "Press 7 to find the DFS path\n";
+    cout << "Press 8 to find the BFS path\n";
+    cout << "Press 9 to quit\n";
 
 }
 
 int     main()
 {
-    const int size = 15;
+    const int size = 5;
     Graph   *graph = new Graph(size);
     int     selection;
     int     i;
@@ -91,9 +93,6 @@ int     main()
         }
         if (selection == 4)
         {
-            int     i;
-
-            while (x)
             {
                 cout << "Enter the vertex you want to check: ";
                 cin >> i;
@@ -128,11 +127,21 @@ int     main()
         {
             cout << "Enter the endpoint you want to find the path for (beg to end) 1-" << size << " (i j): ";
             cin >> i >> j;
-            graph->DFS(i,j);
+            graph->findPath(i,j);
 
         }
 
         if (selection == 7)
+        {
+            graph->depthFirstSearch();
+        }
+
+        if (selection == 8)
+        {
+            graph->breathFirstSearch();
+        }
+
+        if (selection == 9)
         {
             return 0;
         }
