@@ -1,0 +1,466 @@
+==3830== Memcheck, a memory error detector
+==3830== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==3830== Using Valgrind-3.15.0-608cb11914-20190413 and LibVEX; rerun with -h for copyright info
+==3830== Command: ./a.out 10
+==3830== Parent PID: 1919
+==3830== 
+--3830-- 
+--3830-- Valgrind options:
+--3830--    -v
+--3830--    --leak-check=yes
+--3830--    --track-origins=yes
+--3830--    --show-reachable=yes
+--3830--    --track-origins=yes
+--3830--    --log-file=log.txt
+--3830--    -s
+--3830-- Contents of /proc/version:
+--3830--   Linux version 4.15.0-47-generic (buildd@lgw01-amd64-001) (gcc version 7.3.0 (Ubuntu 7.3.0-16ubuntu3)) #50-Ubuntu SMP Wed Mar 13 10:44:52 UTC 2019
+--3830-- 
+--3830-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-ssse3-avx-avx2-bmi-f16c-rdrand
+--3830-- Page sizes: currently 4096, max supported 4096
+--3830-- Valgrind library directory: /snap/valgrind/46/usr/lib/valgrind
+--3830-- Reading syms from /home/gabe/Documents/CS2028/hmwk/HW5/a.out
+--3830-- Reading syms from /lib/x86_64-linux-gnu/ld-2.27.so
+--3830--   Considering /lib/x86_64-linux-gnu/ld-2.27.so ..
+--3830--   .. CRC mismatch (computed 1b7c895e wanted 2943108a)
+--3830--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.27.so ..
+--3830--   .. CRC is valid
+--3830-- Reading syms from /snap/valgrind/46/usr/lib/valgrind/memcheck-amd64-linux
+--3830--    object doesn't have a dynamic symbol table
+--3830-- Warning: inlined fn name without absori
+--3830-- is shown as UnknownInlinedFun
+--3830-- Scheduler: using generic scheduler lock implementation.
+--3830-- Reading suppressions file: /snap/valgrind/46/usr/lib/valgrind/default.supp
+==3830== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-3830-by-gabe-on-???
+==3830== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-3830-by-gabe-on-???
+==3830== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-3830-by-gabe-on-???
+==3830== 
+==3830== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==3830== don't want to do, unless you know exactly what you're doing,
+==3830== or are doing some strange experiment):
+==3830==   /snap/valgrind/46/usr/lib/valgrind/../../bin/vgdb --pid=3830 ...command...
+==3830== 
+==3830== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==3830==   /path/to/gdb ./a.out
+==3830== and then give GDB the following command
+==3830==   target remote | /snap/valgrind/46/usr/lib/valgrind/../../bin/vgdb --pid=3830
+==3830== --pid is optional if only one valgrind process is running
+==3830== 
+--3830-- REDIR: 0x401f2f0 (ld-linux-x86-64.so.2:strlen) redirected to 0x581b855e (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--3830-- REDIR: 0x401f0d0 (ld-linux-x86-64.so.2:index) redirected to 0x581b8578 (vgPlain_amd64_linux_REDIR_FOR_index)
+--3830-- Reading syms from /snap/valgrind/46/usr/lib/valgrind/vgpreload_core-amd64-linux.so
+--3830-- Reading syms from /snap/valgrind/46/usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so
+==3830== WARNING: new redirection conflicts with existing -- ignoring it
+--3830--     old: 0x0401f2f0 (strlen              ) R-> (0000.0) 0x581b855e vgPlain_amd64_linux_REDIR_FOR_strlen
+--3830--     new: 0x0401f2f0 (strlen              ) R-> (2007.0) 0x04c33100 strlen
+--3830-- REDIR: 0x401d360 (ld-linux-x86-64.so.2:strcmp) redirected to 0x4c341b0 (strcmp)
+--3830-- REDIR: 0x401f830 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4c37af0 (mempcpy)
+--3830-- Reading syms from /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25
+--3830--    object doesn't have a symbol table
+--3830-- Reading syms from /lib/x86_64-linux-gnu/libgcc_s.so.1
+--3830--    object doesn't have a symbol table
+--3830-- Reading syms from /lib/x86_64-linux-gnu/libc-2.27.so
+--3830--   Considering /lib/x86_64-linux-gnu/libc-2.27.so ..
+--3830--   .. CRC mismatch (computed b1c74187 wanted 042cc048)
+--3830--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.27.so ..
+--3830--   .. CRC is valid
+--3830-- Reading syms from /lib/x86_64-linux-gnu/libm-2.27.so
+--3830--   Considering /lib/x86_64-linux-gnu/libm-2.27.so ..
+--3830--   .. CRC mismatch (computed 7feae033 wanted b29b2508)
+--3830--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libm-2.27.so ..
+--3830--   .. CRC is valid
+--3830-- REDIR: 0x547cc70 (libc.so.6:memmove) redirected to 0x4a2a770 (_vgnU_ifunc_wrapper)
+--3830-- REDIR: 0x547bd40 (libc.so.6:strncpy) redirected to 0x4a2a770 (_vgnU_ifunc_wrapper)
+--3830-- REDIR: 0x547cf50 (libc.so.6:strcasecmp) redirected to 0x4a2a770 (_vgnU_ifunc_wrapper)
+--3830-- REDIR: 0x547b790 (libc.so.6:strcat) redirected to 0x4a2a770 (_vgnU_ifunc_wrapper)
+--3830-- REDIR: 0x547bd70 (libc.so.6:rindex) redirected to 0x4a2a770 (_vgnU_ifunc_wrapper)
+--3830-- REDIR: 0x547e7c0 (libc.so.6:rawmemchr) redirected to 0x4a2a770 (_vgnU_ifunc_wrapper)
+--3830-- REDIR: 0x549b410 (libc.so.6:wmemchr) redirected to 0x4a2a770 (_vgnU_ifunc_wrapper)
+--3830-- REDIR: 0x547cde0 (libc.so.6:mempcpy) redirected to 0x4a2a770 (_vgnU_ifunc_wrapper)
+--3830-- REDIR: 0x547cc10 (libc.so.6:bcmp) redirected to 0x4a2a770 (_vgnU_ifunc_wrapper)
+--3830-- REDIR: 0x547bd00 (libc.so.6:strncmp) redirected to 0x4a2a770 (_vgnU_ifunc_wrapper)
+--3830-- REDIR: 0x547b800 (libc.so.6:strcmp) redirected to 0x4a2a770 (_vgnU_ifunc_wrapper)
+--3830-- REDIR: 0x547cd40 (libc.so.6:memset) redirected to 0x4a2a770 (_vgnU_ifunc_wrapper)
+--3830-- REDIR: 0x549a0f0 (libc.so.6:wcschr) redirected to 0x4a2a770 (_vgnU_ifunc_wrapper)
+--3830-- REDIR: 0x547bca0 (libc.so.6:strnlen) redirected to 0x4a2a770 (_vgnU_ifunc_wrapper)
+--3830-- REDIR: 0x547b870 (libc.so.6:strcspn) redirected to 0x4a2a770 (_vgnU_ifunc_wrapper)
+--3830-- REDIR: 0x547cfa0 (libc.so.6:strncasecmp) redirected to 0x4a2a770 (_vgnU_ifunc_wrapper)
+--3830-- REDIR: 0x547b840 (libc.so.6:strcpy) redirected to 0x4a2a770 (_vgnU_ifunc_wrapper)
+--3830-- REDIR: 0x547d0e0 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x4a2a770 (_vgnU_ifunc_wrapper)
+--3830-- REDIR: 0x549c6c0 (libc.so.6:wcsnlen) redirected to 0x4a2a770 (_vgnU_ifunc_wrapper)
+--3830-- REDIR: 0x547bda0 (libc.so.6:strpbrk) redirected to 0x4a2a770 (_vgnU_ifunc_wrapper)
+--3830-- REDIR: 0x547b7c0 (libc.so.6:index) redirected to 0x4a2a770 (_vgnU_ifunc_wrapper)
+--3830-- REDIR: 0x547bc70 (libc.so.6:strlen) redirected to 0x4a2a770 (_vgnU_ifunc_wrapper)
+--3830-- REDIR: 0x54866c0 (libc.so.6:memrchr) redirected to 0x4a2a770 (_vgnU_ifunc_wrapper)
+--3830-- REDIR: 0x547cff0 (libc.so.6:strcasecmp_l) redirected to 0x4a2a770 (_vgnU_ifunc_wrapper)
+--3830-- REDIR: 0x547cbe0 (libc.so.6:memchr) redirected to 0x4a2a770 (_vgnU_ifunc_wrapper)
+--3830-- REDIR: 0x549aeb0 (libc.so.6:wcslen) redirected to 0x4a2a770 (_vgnU_ifunc_wrapper)
+--3830-- REDIR: 0x547c050 (libc.so.6:strspn) redirected to 0x4a2a770 (_vgnU_ifunc_wrapper)
+--3830-- REDIR: 0x547cf20 (libc.so.6:stpncpy) redirected to 0x4a2a770 (_vgnU_ifunc_wrapper)
+--3830-- REDIR: 0x547cef0 (libc.so.6:stpcpy) redirected to 0x4a2a770 (_vgnU_ifunc_wrapper)
+--3830-- REDIR: 0x547e7f0 (libc.so.6:strchrnul) redirected to 0x4a2a770 (_vgnU_ifunc_wrapper)
+--3830-- REDIR: 0x547d040 (libc.so.6:strncasecmp_l) redirected to 0x4a2a770 (_vgnU_ifunc_wrapper)
+--3830-- REDIR: 0x556c3c0 (libc.so.6:__strrchr_avx2) redirected to 0x4c32a80 (rindex)
+--3830-- REDIR: 0x5475070 (libc.so.6:malloc) redirected to 0x4c2fe0f (malloc)
+--3830-- REDIR: 0x556c590 (libc.so.6:__strlen_avx2) redirected to 0x4c33040 (strlen)
+--3830-- REDIR: 0x5568ba0 (libc.so.6:__memcmp_avx2_movbe) redirected to 0x4c36370 (bcmp)
+--3830-- REDIR: 0x5547d60 (libc.so.6:__strcmp_ssse3) redirected to 0x4c34070 (strcmp)
+--3830-- REDIR: 0x4ed0190 (libstdc++.so.6:operator new(unsigned long)) redirected to 0x4c3042f (operator new(unsigned long))
+--3830-- REDIR: 0x4ed0240 (libstdc++.so.6:operator new[](unsigned long)) redirected to 0x4c30ad4 (operator new[](unsigned long))
+--3830-- REDIR: 0x556cab0 (libc.so.6:__mempcpy_avx_unaligned_erms) redirected to 0x4c37730 (mempcpy)
+--3830-- REDIR: 0x556cad0 (libc.so.6:__memcpy_avx_unaligned_erms) redirected to 0x4c36bb0 (memmove)
+==3830== Conditional jump or move depends on uninitialised value(s)
+==3830==    at 0x10A264: Vertex::addEdge(int) (vertex.cpp:34)
+==3830==    by 0x10A7EB: Graph::addEdge(int, int) (graph.cpp:26)
+==3830==    by 0x109943: main (task2.cpp:150)
+==3830==  Uninitialised value was created by a heap allocation
+==3830==    at 0x4C30B5B: operator new[](unsigned long) (vg_replace_malloc.c:433)
+==3830==    by 0x10A16B: Vertex::Vertex(int, int) (vertex.cpp:10)
+==3830==    by 0x10A707: Graph::Graph(int) (graph.cpp:10)
+==3830==    by 0x109331: main (task2.cpp:48)
+==3830== 
+==3830== Conditional jump or move depends on uninitialised value(s)
+==3830==    at 0x10A2D5: Vertex::addEdge(int) (vertex.cpp:39)
+==3830==    by 0x10A7EB: Graph::addEdge(int, int) (graph.cpp:26)
+==3830==    by 0x109943: main (task2.cpp:150)
+==3830==  Uninitialised value was created by a heap allocation
+==3830==    at 0x4C30B5B: operator new[](unsigned long) (vg_replace_malloc.c:433)
+==3830==    by 0x10A16B: Vertex::Vertex(int, int) (vertex.cpp:10)
+==3830==    by 0x10A707: Graph::Graph(int) (graph.cpp:10)
+==3830==    by 0x109331: main (task2.cpp:48)
+==3830== 
+==3830== Conditional jump or move depends on uninitialised value(s)
+==3830==    at 0x10A4B3: Vertex::printVertex() (vertex.cpp:84)
+==3830==    by 0x10AAFB: Graph::print() (graph.cpp:91)
+==3830==    by 0x109954: main (task2.cpp:152)
+==3830==  Uninitialised value was created by a heap allocation
+==3830==    at 0x4C30B5B: operator new[](unsigned long) (vg_replace_malloc.c:433)
+==3830==    by 0x10A16B: Vertex::Vertex(int, int) (vertex.cpp:10)
+==3830==    by 0x10A707: Graph::Graph(int) (graph.cpp:10)
+==3830==    by 0x109331: main (task2.cpp:48)
+==3830== 
+==3830== Invalid write of size 4
+==3830==    at 0x10A5CD: Vertex::getOutEdges() (vertex.cpp:113)
+==3830==    by 0x10AB9D: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:107)
+==3830==    by 0x10ADF8: Graph::depthFirstSearch() (graph.cpp:135)
+==3830==    by 0x10997D: main (task2.cpp:158)
+==3830==  Address 0x5b7fed8 is 0 bytes after a block of size 8 alloc'd
+==3830==    at 0x4C30B5B: operator new[](unsigned long) (vg_replace_malloc.c:433)
+==3830==    by 0x10A568: Vertex::getOutEdges() (vertex.cpp:108)
+==3830==    by 0x10AB9D: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:107)
+==3830==    by 0x10ADF8: Graph::depthFirstSearch() (graph.cpp:135)
+==3830==    by 0x10997D: main (task2.cpp:158)
+==3830== 
+==3830== Invalid write of size 4
+==3830==    at 0x10A5CD: Vertex::getOutEdges() (vertex.cpp:113)
+==3830==    by 0x10AB9D: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:107)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ADF8: Graph::depthFirstSearch() (graph.cpp:135)
+==3830==    by 0x10997D: main (task2.cpp:158)
+==3830==  Address 0x5b7ff9c is 0 bytes after a block of size 12 alloc'd
+==3830==    at 0x4C30B5B: operator new[](unsigned long) (vg_replace_malloc.c:433)
+==3830==    by 0x10A568: Vertex::getOutEdges() (vertex.cpp:108)
+==3830==    by 0x10AB9D: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:107)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ADF8: Graph::depthFirstSearch() (graph.cpp:135)
+==3830==    by 0x10997D: main (task2.cpp:158)
+==3830== 
+==3830== Invalid write of size 4
+==3830==    at 0x10A5CD: Vertex::getOutEdges() (vertex.cpp:113)
+==3830==    by 0x10AB9D: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:107)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ADF8: Graph::depthFirstSearch() (graph.cpp:135)
+==3830==    by 0x10997D: main (task2.cpp:158)
+==3830==  Address 0x5b80058 is 0 bytes after a block of size 8 alloc'd
+==3830==    at 0x4C30B5B: operator new[](unsigned long) (vg_replace_malloc.c:433)
+==3830==    by 0x10A568: Vertex::getOutEdges() (vertex.cpp:108)
+==3830==    by 0x10AB9D: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:107)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ADF8: Graph::depthFirstSearch() (graph.cpp:135)
+==3830==    by 0x10997D: main (task2.cpp:158)
+==3830== 
+--3830-- REDIR: 0x4ece310 (libstdc++.so.6:operator delete[](void*)) redirected to 0x4c31a2b (operator delete[](void*))
+==3830== Invalid write of size 4
+==3830==    at 0x10A5CD: Vertex::getOutEdges() (vertex.cpp:113)
+==3830==    by 0x10AE3D: Graph::BFS_helper(Queue<Vertex>*) (graph.cpp:142)
+==3830==    by 0x10B0A2: Graph::breathFirstSearch() (graph.cpp:171)
+==3830==    by 0x109997: main (task2.cpp:163)
+==3830==  Address 0x5b80478 is 0 bytes after a block of size 8 alloc'd
+==3830==    at 0x4C30B5B: operator new[](unsigned long) (vg_replace_malloc.c:433)
+==3830==    by 0x10A568: Vertex::getOutEdges() (vertex.cpp:108)
+==3830==    by 0x10AE3D: Graph::BFS_helper(Queue<Vertex>*) (graph.cpp:142)
+==3830==    by 0x10B0A2: Graph::breathFirstSearch() (graph.cpp:171)
+==3830==    by 0x109997: main (task2.cpp:163)
+==3830== 
+--3830-- REDIR: 0x4ece2f0 (libstdc++.so.6:operator delete(void*, unsigned long)) redirected to 0x4c3157b (operator delete(void*, unsigned long))
+==3830== Invalid write of size 4
+==3830==    at 0x10A5CD: Vertex::getOutEdges() (vertex.cpp:113)
+==3830==    by 0x10AE9E: Graph::BFS_helper(Queue<Vertex>*) (graph.cpp:146)
+==3830==    by 0x10B0A2: Graph::breathFirstSearch() (graph.cpp:171)
+==3830==    by 0x109997: main (task2.cpp:163)
+==3830==  Address 0x5b804c8 is 0 bytes after a block of size 8 alloc'd
+==3830==    at 0x4C30B5B: operator new[](unsigned long) (vg_replace_malloc.c:433)
+==3830==    by 0x10A568: Vertex::getOutEdges() (vertex.cpp:108)
+==3830==    by 0x10AE9E: Graph::BFS_helper(Queue<Vertex>*) (graph.cpp:146)
+==3830==    by 0x10B0A2: Graph::breathFirstSearch() (graph.cpp:171)
+==3830==    by 0x109997: main (task2.cpp:163)
+==3830== 
+--3830-- REDIR: 0x5475950 (libc.so.6:free) redirected to 0x4c30f09 (free)
+==3830== 
+==3830== HEAP SUMMARY:
+==3830==     in use at exit: 1,772 bytes in 60 blocks
+==3830==   total heap usage: 95 allocs, 35 frees, 77,364 bytes allocated
+==3830== 
+==3830== Searching for pointers to 60 not-freed blocks
+==3830== Checked 111,904 bytes
+==3830== 
+==3830== 20 bytes in 2 blocks are definitely lost in loss record 1 of 17
+==3830==    at 0x4C30B5B: operator new[](unsigned long) (vg_replace_malloc.c:433)
+==3830==    by 0x10A568: Vertex::getOutEdges() (vertex.cpp:108)
+==3830==    by 0x10AE3D: Graph::BFS_helper(Queue<Vertex>*) (graph.cpp:142)
+==3830==    by 0x10B0A2: Graph::breathFirstSearch() (graph.cpp:171)
+==3830==    by 0x109997: main (task2.cpp:163)
+==3830== 
+==3830== 40 bytes in 1 blocks are indirectly lost in loss record 2 of 17
+==3830==    at 0x4C304B6: operator new(unsigned long) (vg_replace_malloc.c:344)
+==3830==    by 0x10B19F: Stack<Vertex>::push_back(Vertex) (stack.h:37)
+==3830==    by 0x10ACCA: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:115)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ADF8: Graph::depthFirstSearch() (graph.cpp:135)
+==3830==    by 0x10997D: main (task2.cpp:158)
+==3830== 
+==3830== 40 bytes in 1 blocks are indirectly lost in loss record 3 of 17
+==3830==    at 0x4C304B6: operator new(unsigned long) (vg_replace_malloc.c:344)
+==3830==    by 0x10B19F: Stack<Vertex>::push_back(Vertex) (stack.h:37)
+==3830==    by 0x10ACCA: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:115)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ADF8: Graph::depthFirstSearch() (graph.cpp:135)
+==3830==    by 0x10997D: main (task2.cpp:158)
+==3830== 
+==3830== 40 bytes in 1 blocks are definitely lost in loss record 4 of 17
+==3830==    at 0x4C304B6: operator new(unsigned long) (vg_replace_malloc.c:344)
+==3830==    by 0x10B19F: Stack<Vertex>::push_back(Vertex) (stack.h:37)
+==3830==    by 0x10ACCA: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:115)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ADF8: Graph::depthFirstSearch() (graph.cpp:135)
+==3830==    by 0x10997D: main (task2.cpp:158)
+==3830== 
+==3830== 48 bytes in 2 blocks are definitely lost in loss record 5 of 17
+==3830==    at 0x4C304B6: operator new(unsigned long) (vg_replace_malloc.c:344)
+==3830==    by 0x10AFE2: Graph::breathFirstSearch() (graph.cpp:161)
+==3830==    by 0x109997: main (task2.cpp:163)
+==3830== 
+==3830== 80 bytes in 1 blocks are indirectly lost in loss record 6 of 17
+==3830==    at 0x4C30B5B: operator new[](unsigned long) (vg_replace_malloc.c:433)
+==3830==    by 0x10A6C5: Graph::Graph(int) (graph.cpp:6)
+==3830==    by 0x109331: main (task2.cpp:48)
+==3830== 
+==3830== 80 bytes in 2 blocks are indirectly lost in loss record 7 of 17
+==3830==    at 0x4C304B6: operator new(unsigned long) (vg_replace_malloc.c:344)
+==3830==    by 0x10B19F: Stack<Vertex>::push_back(Vertex) (stack.h:37)
+==3830==    by 0x10ADE1: Graph::depthFirstSearch() (graph.cpp:134)
+==3830==    by 0x10997D: main (task2.cpp:158)
+==3830== 
+==3830== 80 bytes in 2 blocks are indirectly lost in loss record 8 of 17
+==3830==    at 0x4C304B6: operator new(unsigned long) (vg_replace_malloc.c:344)
+==3830==    by 0x10B19F: Stack<Vertex>::push_back(Vertex) (stack.h:37)
+==3830==    by 0x10ACCA: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:115)
+==3830==    by 0x10ADF8: Graph::depthFirstSearch() (graph.cpp:135)
+==3830==    by 0x10997D: main (task2.cpp:158)
+==3830== 
+==3830== 80 bytes in 2 blocks are indirectly lost in loss record 9 of 17
+==3830==    at 0x4C304B6: operator new(unsigned long) (vg_replace_malloc.c:344)
+==3830==    by 0x10B19F: Stack<Vertex>::push_back(Vertex) (stack.h:37)
+==3830==    by 0x10ACCA: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:115)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ADF8: Graph::depthFirstSearch() (graph.cpp:135)
+==3830==    by 0x10997D: main (task2.cpp:158)
+==3830== 
+==3830== 80 bytes in 2 blocks are indirectly lost in loss record 10 of 17
+==3830==    at 0x4C304B6: operator new(unsigned long) (vg_replace_malloc.c:344)
+==3830==    by 0x10B19F: Stack<Vertex>::push_back(Vertex) (stack.h:37)
+==3830==    by 0x10ACCA: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:115)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ADF8: Graph::depthFirstSearch() (graph.cpp:135)
+==3830==    by 0x10997D: main (task2.cpp:158)
+==3830== 
+==3830== 120 bytes in 3 blocks are indirectly lost in loss record 11 of 17
+==3830==    at 0x4C304B6: operator new(unsigned long) (vg_replace_malloc.c:344)
+==3830==    by 0x10B19F: Stack<Vertex>::push_back(Vertex) (stack.h:37)
+==3830==    by 0x10ACCA: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:115)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ADF8: Graph::depthFirstSearch() (graph.cpp:135)
+==3830==    by 0x10997D: main (task2.cpp:158)
+==3830== 
+==3830== 200 bytes in 16 blocks are definitely lost in loss record 12 of 17
+==3830==    at 0x4C30B5B: operator new[](unsigned long) (vg_replace_malloc.c:433)
+==3830==    by 0x10A568: Vertex::getOutEdges() (vertex.cpp:108)
+==3830==    by 0x10AE9E: Graph::BFS_helper(Queue<Vertex>*) (graph.cpp:146)
+==3830==    by 0x10B0A2: Graph::breathFirstSearch() (graph.cpp:171)
+==3830==    by 0x109997: main (task2.cpp:163)
+==3830== 
+==3830== 280 (80 direct, 200 indirect) bytes in 2 blocks are definitely lost in loss record 13 of 17
+==3830==    at 0x4C304B6: operator new(unsigned long) (vg_replace_malloc.c:344)
+==3830==    by 0x10B19F: Stack<Vertex>::push_back(Vertex) (stack.h:37)
+==3830==    by 0x10ACCA: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:115)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ADF8: Graph::depthFirstSearch() (graph.cpp:135)
+==3830==    by 0x10997D: main (task2.cpp:158)
+==3830== 
+==3830== 320 bytes in 10 blocks are indirectly lost in loss record 14 of 17
+==3830==    at 0x4C304B6: operator new(unsigned long) (vg_replace_malloc.c:344)
+==3830==    by 0x10A6EF: Graph::Graph(int) (graph.cpp:10)
+==3830==    by 0x109331: main (task2.cpp:48)
+==3830== 
+==3830== 368 (48 direct, 320 indirect) bytes in 2 blocks are definitely lost in loss record 15 of 17
+==3830==    at 0x4C304B6: operator new(unsigned long) (vg_replace_malloc.c:344)
+==3830==    by 0x10AD38: Graph::depthFirstSearch() (graph.cpp:126)
+==3830==    by 0x10997D: main (task2.cpp:158)
+==3830== 
+==3830== 400 bytes in 10 blocks are indirectly lost in loss record 16 of 17
+==3830==    at 0x4C30B5B: operator new[](unsigned long) (vg_replace_malloc.c:433)
+==3830==    by 0x10A16B: Vertex::Vertex(int, int) (vertex.cpp:10)
+==3830==    by 0x10A707: Graph::Graph(int) (graph.cpp:10)
+==3830==    by 0x109331: main (task2.cpp:48)
+==3830== 
+==3830== 816 (16 direct, 800 indirect) bytes in 1 blocks are definitely lost in loss record 17 of 17
+==3830==    at 0x4C304B6: operator new(unsigned long) (vg_replace_malloc.c:344)
+==3830==    by 0x10931E: main (task2.cpp:48)
+==3830== 
+==3830== LEAK SUMMARY:
+==3830==    definitely lost: 452 bytes in 26 blocks
+==3830==    indirectly lost: 1,320 bytes in 34 blocks
+==3830==      possibly lost: 0 bytes in 0 blocks
+==3830==    still reachable: 0 bytes in 0 blocks
+==3830==         suppressed: 0 bytes in 0 blocks
+==3830== 
+==3830== ERROR SUMMARY: 119 errors from 15 contexts (suppressed: 0 from 0)
+==3830== 
+==3830== 2 errors in context 1 of 15:
+==3830== Invalid write of size 4
+==3830==    at 0x10A5CD: Vertex::getOutEdges() (vertex.cpp:113)
+==3830==    by 0x10AE3D: Graph::BFS_helper(Queue<Vertex>*) (graph.cpp:142)
+==3830==    by 0x10B0A2: Graph::breathFirstSearch() (graph.cpp:171)
+==3830==    by 0x109997: main (task2.cpp:163)
+==3830==  Address 0x5b80478 is 0 bytes after a block of size 8 alloc'd
+==3830==    at 0x4C30B5B: operator new[](unsigned long) (vg_replace_malloc.c:433)
+==3830==    by 0x10A568: Vertex::getOutEdges() (vertex.cpp:108)
+==3830==    by 0x10AE3D: Graph::BFS_helper(Queue<Vertex>*) (graph.cpp:142)
+==3830==    by 0x10B0A2: Graph::breathFirstSearch() (graph.cpp:171)
+==3830==    by 0x109997: main (task2.cpp:163)
+==3830== 
+==3830== 
+==3830== 2 errors in context 2 of 15:
+==3830== Invalid write of size 4
+==3830==    at 0x10A5CD: Vertex::getOutEdges() (vertex.cpp:113)
+==3830==    by 0x10AB9D: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:107)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ADF8: Graph::depthFirstSearch() (graph.cpp:135)
+==3830==    by 0x10997D: main (task2.cpp:158)
+==3830==  Address 0x5b7ff9c is 0 bytes after a block of size 12 alloc'd
+==3830==    at 0x4C30B5B: operator new[](unsigned long) (vg_replace_malloc.c:433)
+==3830==    by 0x10A568: Vertex::getOutEdges() (vertex.cpp:108)
+==3830==    by 0x10AB9D: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:107)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ADF8: Graph::depthFirstSearch() (graph.cpp:135)
+==3830==    by 0x10997D: main (task2.cpp:158)
+==3830== 
+==3830== 
+==3830== 2 errors in context 3 of 15:
+==3830== Invalid write of size 4
+==3830==    at 0x10A5CD: Vertex::getOutEdges() (vertex.cpp:113)
+==3830==    by 0x10AB9D: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:107)
+==3830==    by 0x10ADF8: Graph::depthFirstSearch() (graph.cpp:135)
+==3830==    by 0x10997D: main (task2.cpp:158)
+==3830==  Address 0x5b7fed8 is 0 bytes after a block of size 8 alloc'd
+==3830==    at 0x4C30B5B: operator new[](unsigned long) (vg_replace_malloc.c:433)
+==3830==    by 0x10A568: Vertex::getOutEdges() (vertex.cpp:108)
+==3830==    by 0x10AB9D: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:107)
+==3830==    by 0x10ADF8: Graph::depthFirstSearch() (graph.cpp:135)
+==3830==    by 0x10997D: main (task2.cpp:158)
+==3830== 
+==3830== 
+==3830== 12 errors in context 4 of 15:
+==3830== Invalid write of size 4
+==3830==    at 0x10A5CD: Vertex::getOutEdges() (vertex.cpp:113)
+==3830==    by 0x10AB9D: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:107)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ADF8: Graph::depthFirstSearch() (graph.cpp:135)
+==3830==    by 0x10997D: main (task2.cpp:158)
+==3830==  Address 0x5b80058 is 0 bytes after a block of size 8 alloc'd
+==3830==    at 0x4C30B5B: operator new[](unsigned long) (vg_replace_malloc.c:433)
+==3830==    by 0x10A568: Vertex::getOutEdges() (vertex.cpp:108)
+==3830==    by 0x10AB9D: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:107)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ACE1: Graph::DF_helper(Stack<Vertex>*) (graph.cpp:116)
+==3830==    by 0x10ADF8: Graph::depthFirstSearch() (graph.cpp:135)
+==3830==    by 0x10997D: main (task2.cpp:158)
+==3830== 
+==3830== 
+==3830== 16 errors in context 5 of 15:
+==3830== Invalid write of size 4
+==3830==    at 0x10A5CD: Vertex::getOutEdges() (vertex.cpp:113)
+==3830==    by 0x10AE9E: Graph::BFS_helper(Queue<Vertex>*) (graph.cpp:146)
+==3830==    by 0x10B0A2: Graph::breathFirstSearch() (graph.cpp:171)
+==3830==    by 0x109997: main (task2.cpp:163)
+==3830==  Address 0x5b804c8 is 0 bytes after a block of size 8 alloc'd
+==3830==    at 0x4C30B5B: operator new[](unsigned long) (vg_replace_malloc.c:433)
+==3830==    by 0x10A568: Vertex::getOutEdges() (vertex.cpp:108)
+==3830==    by 0x10AE9E: Graph::BFS_helper(Queue<Vertex>*) (graph.cpp:146)
+==3830==    by 0x10B0A2: Graph::breathFirstSearch() (graph.cpp:171)
+==3830==    by 0x109997: main (task2.cpp:163)
+==3830== 
+==3830== 
+==3830== 20 errors in context 6 of 15:
+==3830== Conditional jump or move depends on uninitialised value(s)
+==3830==    at 0x10A4B3: Vertex::printVertex() (vertex.cpp:84)
+==3830==    by 0x10AAFB: Graph::print() (graph.cpp:91)
+==3830==    by 0x109954: main (task2.cpp:152)
+==3830==  Uninitialised value was created by a heap allocation
+==3830==    at 0x4C30B5B: operator new[](unsigned long) (vg_replace_malloc.c:433)
+==3830==    by 0x10A16B: Vertex::Vertex(int, int) (vertex.cpp:10)
+==3830==    by 0x10A707: Graph::Graph(int) (graph.cpp:10)
+==3830==    by 0x109331: main (task2.cpp:48)
+==3830== 
+==3830== 
+==3830== 29 errors in context 7 of 15:
+==3830== Conditional jump or move depends on uninitialised value(s)
+==3830==    at 0x10A2D5: Vertex::addEdge(int) (vertex.cpp:39)
+==3830==    by 0x10A7EB: Graph::addEdge(int, int) (graph.cpp:26)
+==3830==    by 0x109943: main (task2.cpp:150)
+==3830==  Uninitialised value was created by a heap allocation
+==3830==    at 0x4C30B5B: operator new[](unsigned long) (vg_replace_malloc.c:433)
+==3830==    by 0x10A16B: Vertex::Vertex(int, int) (vertex.cpp:10)
+==3830==    by 0x10A707: Graph::Graph(int) (graph.cpp:10)
+==3830==    by 0x109331: main (task2.cpp:48)
+==3830== 
+==3830== 
+==3830== 29 errors in context 8 of 15:
+==3830== Conditional jump or move depends on uninitialised value(s)
+==3830==    at 0x10A264: Vertex::addEdge(int) (vertex.cpp:34)
+==3830==    by 0x10A7EB: Graph::addEdge(int, int) (graph.cpp:26)
+==3830==    by 0x109943: main (task2.cpp:150)
+==3830==  Uninitialised value was created by a heap allocation
+==3830==    at 0x4C30B5B: operator new[](unsigned long) (vg_replace_malloc.c:433)
+==3830==    by 0x10A16B: Vertex::Vertex(int, int) (vertex.cpp:10)
+==3830==    by 0x10A707: Graph::Graph(int) (graph.cpp:10)
+==3830==    by 0x109331: main (task2.cpp:48)
+==3830== 
+==3830== ERROR SUMMARY: 119 errors from 15 contexts (suppressed: 0 from 0)

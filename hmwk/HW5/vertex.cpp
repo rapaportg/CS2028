@@ -24,6 +24,11 @@ Vertex::Vertex(){}
 
 void    Vertex::addEdge(int val)
 {
+    if (val >= size)
+    {
+        cout << "ERROR invalid input\n";
+        return;
+    }
     for (int i = 0; i < size; i++)
     {
         if (edges[i] == val)
@@ -43,7 +48,7 @@ void    Vertex::addEdge(int val)
 
 void    Vertex::removeEdge(int val)
 {
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < size; i++)       // Will Refactor this shifting the array everytime is ineffiecent
     {
         if (edges[i] == val)
         {
@@ -98,10 +103,10 @@ int     Vertex::getVal()
     return value;
 }
 
-int     *Vertex::getOutEdges()
+int     *Vertex::getOutEdges()          // Will Refactor to return a points to the edges array or to replace edges array with a link list
 {
-    int *ret = new int[count + 1];
-    ret[0] = count + 1;
+    int *ret = new int[count + 1];      // The extra index it to store the size of the array in ret[0] so i will know how large the array is when i process it
+    ret[0] = count + 1;                 // could throw a NULL on the end to do the same thing
     int j = 1;
     for (int i = 0; i < count + 1; i++)
     {

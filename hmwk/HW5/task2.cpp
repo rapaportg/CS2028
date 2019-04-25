@@ -1,4 +1,5 @@
 #include <iostream>
+#include <random>
 #include "graph.h"
 
 using namespace std;
@@ -21,21 +22,31 @@ void    printMenu()
     cout << "Press 3 Find an edge in the graph\n";
     cout << "Press 4 Find the out edges of a vertice\n";
     cout << "Press 5 Find the in edges of a vertice\n";
-    cout << "Press 6 to find a path between i and j\n";
+    cout << "Press 6 to auto fill with size * 2 elements\n";
     cout << "Press 7 to find the DFS path\n";
     cout << "Press 8 to find the BFS path\n";
     cout << "Press 9 to quit\n";
 
 }
 
-int     main()
+int     main(int ac, char **argv)
 {
-    const int size = 10;
-    Graph   *graph = new Graph(size);
+    int     size = atoi(argv[1]);
+    Graph   *graph;
     int     selection;
     int     i;
     int     j;
     bool    x;
+
+/*
+    if (ac == 1)
+        size = atoi(argv[1]);
+    else
+        size = 10;
+*/
+
+    graph = new Graph(size);
+
 
     while(true)
     {
@@ -51,6 +62,7 @@ int     main()
                 cin >> i >> j;
                 x = graph->addEdge(i,j);
             }
+            //graph->print();
         }
         if (selection == 2)
         {
@@ -60,6 +72,7 @@ int     main()
                 cin >> i >> j;
                 x = graph->removeEdge(i,j);
             }
+            //graph->print();
         }
         if (selection == 3)
         {
@@ -125,9 +138,18 @@ int     main()
 
         if (selection == 6)
         {
-            cout << "Enter the endpoint you want to find the path for (beg to end) 1-" << size << " (i j): ";
-            cin >> i >> j;
-            graph->findPath(i,j);
+            random_device rd;
+            int x = size * 2;
+
+            mt19937 gen(rd());
+            uniform_int_distribution<> dis(1,size);
+            while(x--)
+            {
+                i = dis(gen);
+                j = dis(gen);
+                graph->addEdge(i,j);
+            }
+            //graph->print();
 
         }
 
@@ -146,7 +168,12 @@ int     main()
             return 0;
         }
 
-        graph->print();
+        if (selection == 10)
+        {
+            graph->print();
+        }
+
+
         cout << endl;
     }
 }
