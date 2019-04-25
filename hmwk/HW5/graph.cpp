@@ -46,7 +46,6 @@ bool    Graph::hasEdge(int i, int j)
         if (map[index]->getVal() == i)
             return map[index]->hasEdge(j);
     }
-    //cout << i << " Not in graph\n";
     return false;
 }
 
@@ -103,43 +102,6 @@ bool    Graph::allVisited()
     return true;
 }
 
-void    Graph::FP_helper(Stack<Vertex> *path, int end)
-{
-    int     *edges = path->back().getOutEdges();
-
-    for (int i = 1; i < edges[0]; i++)
-    {
-        if (!map[edges[i] - 1]->getVisited())
-        {
-            map[edges[i] - 1]->markVisited();
-            path->push_back(*map[edges[i] - 1]);
-            FP_helper(path, end);
-        }
-    }
-
-    if (path->back().getVal() == end)
-    {
-        std::cout << "\n\nPATH: ";
-        path->print();
-    }
-
-}
-
-void    Graph::findPath(int beg, int end)
-{
-    for (int i = 0; i < vertices; i++)
-    {
-        map[i]->resetVisited();
-    }
-    Stack<Vertex> *path = new Stack<Vertex>();
-    map[beg - 1]->markVisited();
-    path->push_back(*map[beg - 1]);
-
-    FP_helper(path, end);
-    path->~Stack();
-}
-
-
 void   Graph::DF_helper(Stack<Vertex> *path)
 {
     int     *edges = path->back().getOutEdges();
@@ -178,7 +140,7 @@ void   Graph::depthFirstSearch()
 void    Graph::BFS_helper(Queue<Vertex> *path)
 {
     int *edges = path->peekFront().getOutEdges();
-    while (!allVisited())
+    while (path->length() > 0)
     {
         int x = path->dequeue().getVal() - 1;
         edges = map[x]->getOutEdges();
@@ -191,10 +153,7 @@ void    Graph::BFS_helper(Queue<Vertex> *path)
                 path->enqueue(*map[edges[i] - 1]);
             }
         }
-
     }
-    //path->~Queue();
-    //BFS_helper(path);
 }
 
 void    Graph::breathFirstSearch()

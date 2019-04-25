@@ -25,13 +25,8 @@ class Graph
         void    print();
         bool    allVisited();
 
-        // Task 3 NOT
-        void    findPath(int beg, int end);                      // Uses Stacks
-        void    FP_helper(Stack<Vertex> *path, int end);
-
-
         // Task 3
-        void    depthFirstSearch();
+        void    depthFirstSearch();                       // uses Stacks
         void    DF_helper(Stack<Vertex> *path);
 
 
