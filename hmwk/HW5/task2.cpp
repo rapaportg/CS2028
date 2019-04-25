@@ -30,7 +30,7 @@ void    printMenu()
 
 int     main()
 {
-    const int size = 5;
+    const int size = 10;
     Graph   *graph = new Graph(size);
     int     selection;
     int     i;

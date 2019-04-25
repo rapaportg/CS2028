@@ -24,7 +24,6 @@ bool    Graph::addEdge(int i, int j)
         return true;
     }
     map[i - 1]->addEdge(j);
-    map[j - 1]->addEdge(i);
 
     return false;
 }
@@ -37,7 +36,6 @@ bool    Graph::removeEdge(int i, int j)
         return true;
     }
     map[i - 1]->removeEdge(j);
-    map[j - 1]->removeEdge(i);
     return false;
 }
 
@@ -176,20 +174,10 @@ void   Graph::depthFirstSearch()
 
 }
 
-void    Graph::breathFirstSearch()
+
+void    Graph::BFS_helper(Queue<Vertex> *path)
 {
-    Queue<Vertex> *path = new Queue<Vertex>();
-    int *edges;
-
-    for (int i = 0; i < vertices; i++)
-    {
-        map[i]->resetVisited();
-    }
-    std::cout << map[0]->getVal() << "--> ";
-    map[0]->markVisited();
-    path->enqueue(*map[0]);
-
-    edges = path->peekFront().getOutEdges();
+    int *edges = path->peekFront().getOutEdges();
     while (!allVisited())
     {
         int x = path->dequeue().getVal() - 1;
@@ -203,5 +191,24 @@ void    Graph::breathFirstSearch()
                 path->enqueue(*map[edges[i] - 1]);
             }
         }
+
     }
+    //path->~Queue();
+    //BFS_helper(path);
+}
+
+void    Graph::breathFirstSearch()
+{
+    Queue<Vertex> *path = new Queue<Vertex>();
+
+    for (int i = 0; i < vertices; i++)
+    {
+        map[i]->resetVisited();
+    }
+    std::cout << map[0]->getVal() << "--> ";
+    map[0]->markVisited();
+
+    path->enqueue(*map[0]);
+    BFS_helper(path);
+
 }

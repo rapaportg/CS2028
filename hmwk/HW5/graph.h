@@ -37,6 +37,10 @@ class Graph
 
         // Task 4
         void    breathFirstSearch();                      // Uses Queues
+        void    BFS_helper(Queue<Vertex> *path);
+
+
+
 
 };
 
