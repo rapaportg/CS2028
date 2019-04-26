@@ -116,7 +116,9 @@ void   Graph::DF_helper(Stack<Vertex> *path)
             DF_helper(path);
         }
     }
+   // cout << "BEFORE DELETE EDGES\n";
     delete [] edges;
+    //cout << "BEFORE POP BACK\n";
     path->pop_back();
 }
 

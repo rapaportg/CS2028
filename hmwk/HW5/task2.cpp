@@ -133,7 +133,9 @@ int     main(int ac, char **argv)
                     x = true;
                 }
             }
-            printArray(graph->inEdge(i));
+            int *tmp = graph->inEdge(i);
+            printArray(tmp);
+            delete tmp;
         }
 
         if (selection == 6)

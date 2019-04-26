@@ -108,7 +108,7 @@ int     *Vertex::getOutEdges()          // Will Refactor to return a points to t
     int *ret = new int[count + 1];      // The extra index it to store the size of the array in ret[0] so i will know how large the array is when i process it
     ret[0] = count + 1;                 // could throw a NULL on the end to do the same thing
     int j = 1;
-    for (int i = 0; i < count + 1; i++)
+    for (int i = 0; i < count; i++)
     {
         ret[j] = edges[i];
         j++;
